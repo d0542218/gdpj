@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SheetMusic</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../static/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="../static/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../static/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
+
+    <link rel="stylesheet" href="../static/bs-stepper/dist/css/bs-stepper.min.css">
+    
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="../static/dist/css/jquery-fab-button.css" rel="stylesheet">
+    
+    <!--googleIcons-->
+    <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link rel="stylesheet" type="text/css" href="../static/dist/css/pitureUpload.css">
+
+</head>
+
+
+<body class="hold-transition skin-blue sidebar-mini">
+    <!-- Site wrapper -->
+    <script>
+        var stepper1 = null;
+    </script>
+    <div class="wrapper">
+
+        <header class="main-header">
+            <!-- Logo -->
+
+            <!-- Header Navbar: style can be found in header.less -->
+            <nav class="navbar navbar-static-top">
+                <!-- Sidebar toggle button-->
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                <div class="navbar-custom-menu">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="index.html" class="btn btn-primary"></a>
+                            <a href="registration/login.html" class="btn btn-outline-primary">
+                            </a>
+                            <a href="registration/registration.html" class="btn btn-primary">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+
+        <!-- =============================================== -->
+
+        <!-- Left side column. contains the sidebar -->
+        <aside class="main-sidebar">
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu" data-widget="tree">
+                    <!-- <li class="header">導航列</li> -->
+<!--                      <li>
+                        <a href="{% url "index"  %} "><img src="dist/img/manage.svgwidth="16" height="16"> <span>管理使用者</span></a>
+                    </li> -->
+
+                    <li>
+                        <a href="index.html"><img src="../static/dist/img/home.svg"> <span>轉換樂譜</span></a>
+                    </li>
+                    <li>
+                        <a href="history.html" class="aria-disabled=" true "><img src="../static/dist/img/history.svg"> <span>歷史紀錄</span></a>
+                    </li>
+                    <li>
+                        <a href="history.html"><img src="../static/dist/img/profile.svg"> <span>個人資料</span></a>
+                    </li>
+                </ul>
+            </section>
+            <!-- /.sidebar -->
+
+        </aside>
+
+        <!-- =============================================== -->
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <h3>Linear stepper</h3>
+
+
+                        <div id="stepper1" class="bs-stepper linear ">
+
+                            <div class="bs-stepper-header col-lg-10" role="tablist" style="margin:0 auto;">
+
+                                <div class="step active" data-target="#test-l-1">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-l-1" aria-selected="true">
+                                                    <span class="bs-stepper-circle">1</span>
+                                                    <span class="bs-stepper-label">Step1</span>
+                                                </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-2">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-l-2" aria-selected="false" disabled="disabled">
+                                                    <span class="bs-stepper-circle">2</span>
+                                                    <span class="bs-stepper-label">Step2</span>
+                                                </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-3">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger3" aria-controls="test-l-3" aria-selected="false" disabled="disabled">
+                                                    <span class="bs-stepper-circle">3</span>
+                                                    <span class="bs-stepper-label">Step3</span>
+                                                </button>
+                                </div>
+                                <div class="bs-stepper-line"></div>
+                                <div class="step" data-target="#test-l-4">
+                                    <button type="button" class="step-trigger" role="tab" id="stepper1trigger4" aria-controls="test-l-4" aria-selected="false" disabled="disabled">
+                                                    <span class="bs-stepper-circle">4</span>
+                                                    <span class="bs-stepper-label">Step4</span>
+                                                </button>
+                                </div>
+
+
+                            </div>
+                            <div class="bs-stepper-content">
+                                <form onsubmit="return false" action="" method="GET">
+                                    <div id="test-l-1" role="tabpanel" class="bs-stepper-pane active" aria-labelledby="stepper1trigger1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">
+                                                        
+                                                        <img src="../static/dist/img/upload.svg">
+                                                        
+                                                        <div id="up_progres"></div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row justify-content-around">
+                                            <div>
+                                                <a href="#" class="" id="step-1-next" onclick="stepper1.next()"><img src="../static/dist/img/next.svg"></a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
+                                        <!-- Floating Action Button like Google Material -->
+                                        <div class="fixed-action-btn vertical" style="top: 25%; right: 5%;">
+                                            <a class="btn-floating btn-large" id="hi">
+                                                <i class="large material-icons">menu</i>
+                                            </a>
+                                            <ul>
+                                                <li>
+                                                    <a class="btn-floating bg-indigo">
+                                                        <i class="material-icons">add</i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn-floating bg-indigo">
+                                                        <i class="material-icons">clear</i>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn-floating bg-indigo">
+                                                        <i class="material-icons">help</i>>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="form-group row justify-content-center" style="margin:0 auto;">
+                                            <img src="../static/dist/img/Image 1.svg">
+                                        </div>
+                                        <br><br>
+                                        <div class="row justify-content-around">
+                                            <a href="#" class="" onclick="stepper1.previous()"><img src="../static/dist/img/Back.svg"></a>
+                                            <a href="#" class="" id="step-2-next" onclick="stepper1.next()"><img src="../static/dist/img/next.svg"></a>
+                                        </div>
+
+                                    </div>
+                                    <div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center" aria-labelledby="stepper1trigger3">
+                                        <div class="form-group row justify-content-center" style="margin:0 auto;">
+                                            <img src="../static/dist/img/Image 1.svg">
+                                        </div>
+                                        <br><br>
+                                        <div class="row justify-content-around">
+
+                                            <a href="#" class="" onclick="stepper1.previous()"><img src="../static/dist/img/Back.svg"></a>
+                                            <a href="#" class="" id="step-3-next" onclick="stepper1.next()"><img src="../static/dist/img/next.svg"></a>
+                                        </div>
+                                    </div>
+                                    <div id="test-l-4" role="tabpanel" class="bs-stepper-pane text-center" aria-labelledby="stepper1trigger4">
+                                        <div class="row justify-content-center">
+                                            <a href="#" class="" onclick="stepper1.previous()"><img src="../static/dist/img/Back.svg"></a>
+                                            <a href="#" class=""><img src="../static/dist/img/finish.svg"></a>
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+
+    </div>
+    <!-- ./wrapper -->
+    <script src="../static/jquery/dist/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="../static/dist/js/jquery-fab-button.js"></script>
+    <script>
+       
+    </script>
+    <!-- bsstepper -->
+    <script src="../static/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../static/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="../static/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="../static/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../static/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../static/dist/js/demo.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            stepper1 = new Stepper($('.bs-stepper')[0])
+            $('.sidebar-menu').tree()
+            $('body').bootstrapMaterialDesign();
+            $('.fixed-action-btn').click(function(){
+                console.log("i am in")
+            })
+        })
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block content %}
+    <form action="/history/" method="post" enctype="multipart/form-data">
+        <table>
+             {% csrf_token %}
+            <label for="sheetMusicName">sheet Music Name:</label>
+            <input type="text" name="sheetMusicName"><br><br>
+            <label for="sheetMusicPicture">sheet Music Picture:</label><br>
+            <input type="file" name="sheetMusicPicture"><br><br>
+            <input type="submit" value="submit">
+        </table>
+        <p>Username: {{ user }}</p>
+        <p>First name: {{ user.first_name }}</p>
+        <p>Last name: {{ user.last_name }}</p>
+        {% for i in history%}
+        <img src="{{ i.sheetMusicPicture.url }}">
+        <p>sheetMusicName: {{ i.sheetMusicName }}</p>
+        <p>create_time: {{ i.create_time }}</p>
+        {% endfor %}
+    </form>
+    {% endblock %}
+</head>
+<body>
+
+</body>
+</html>
