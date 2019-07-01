@@ -35,7 +35,8 @@
     "bootstrap-daterangepicker": "^2.1.25",
     "bootstrap-slider": "^9.8.0",
     "bootstrap-timepicker": "^0.5.2",
-    "bs-stepper": "^1.5.0",
+    "bower": "^1.8.8",
+    "bs-stepper": "^1.6.1",
     "chart.js": "1.0.*",
     "ckeditor": "^4.7.0",
     "datatables.net": "^1.10.15",
@@ -58,6 +59,7 @@
     "pace": "0.0.4",
     "raphael": "^2.2.7",
     "select2": "^4.0.3",
-    "slimscroll": "^0.9.1"
+    "slimscroll": "^0.9.1",
+    "yarn": "^1.16.0"
   }
 }
