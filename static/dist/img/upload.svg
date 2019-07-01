@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="188" height="122.606" viewBox="0 0 188 122.606">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_558" data-name="Rectangle 558" width="118" height="70.606" transform="translate(60 70)" fill="#c5c5c5" stroke="#707070" stroke-width="1"/>
+    </clipPath>
+  </defs>
+  <g id="Group_6" data-name="Group 6" transform="translate(-576 -314.394)">
+    <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(551 244.393)" clip-path="url(#clip-path)">
+      <g id="images-interface-symbol" transform="translate(78.653 70)">
+        <path id="Path_359" data-name="Path 359" d="M75.65,67.273v50.433H15.13V67.273H75.65m5.043-5.043H10.087v60.52H80.693V62.23Zm-60.52,45.389H70.607L60.52,77.36,45.39,97.533,35.3,87.446ZM25.217,77.36A5.043,5.043,0,1,0,30.26,82.4,5.04,5.04,0,0,0,25.217,77.36ZM0,52.143v60.52H5.044V57.186H70.607V52.143Z" transform="translate(0 -52.143)" fill="#c5c5c5"/>
+      </g>
+    </g>
+    <text id="Upload_Images" data-name="Upload Images" transform="translate(670 429)" fill="#c5c5c5" font-size="30" font-family="SourceSansPro-Regular, Source Sans Pro"><tspan x="-93.645" y="0">Upload Images</tspan></text>
+  </g>
+</svg>
