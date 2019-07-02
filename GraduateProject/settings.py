@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "Account",
     "History",
     "Convert",
+    "EsNoteScore"
 ]
 
 REST_FRAMEWORK = {
