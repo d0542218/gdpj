@@ -153,3 +153,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'GraduateProject/media')
 
 # BOWER_COMPONENTS_ROOT = '/PROJECT_ROOT/bower_components/'
+
+

@@ -17,6 +17,6 @@ class esNote_score_model(models.Model):
 
 class esNote_score_pic_model(models.Model):
     esNote_score_noteID = models.AutoField(primary_key=True)
-    esNote_score_pic = models.ImageField(max_length=100,default="Images/noimg.png")
+    esNote_score_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     score_picModifyTime = models.DateTimeField(auto_now=True)
     esNote_score = models.ForeignKey(esNote_score_model, on_delete=models.CASCADE)
