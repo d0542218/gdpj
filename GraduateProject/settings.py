@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "Home",
     "Account",
     "History",
-    "Convert",
     "EsNoteScore"
 ]
 
