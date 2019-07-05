@@ -21,26 +21,26 @@
     <link rel="stylesheet" href="../static/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
+       <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
 
-    <link rel="stylesheet" href="../static/node_modules/bs-stepper/dist/css/bs-stepper.min.css">
-    
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link href="../static/dist/css/jquery-fab-button.css" rel="stylesheet">
-    
-    <!--googleIcons-->
-    <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
-
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-    <link rel="stylesheet" type="text/css" href="../static/dist/css/pitureUpload.css">
-
-</head>
+       <link rel="stylesheet" href="../static/node_modules/bs-stepper/dist/css/bs-stepper.min.css">
 
 
-<body class="hold-transition skin-blue sidebar-mini">
+       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+       <link href="../static/dist/css/jquery-fab-button.css" rel="stylesheet">
+
+       <!--googleIcons-->
+       <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
+
+       <!-- Google Font -->
+       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+       <link rel="stylesheet" type="text/css" href="../static/dist/css/pitureUpload.css">
+
+   </head>
+
+
+   <body class="hold-transition skin-blue sidebar-mini">
     <!-- Site wrapper -->
     <script>
         var stepper1 = null;
@@ -125,30 +125,30 @@
 
                                 <div class="step active" data-target="#test-l-1">
                                     <button type="button" class="step-trigger" role="tab" id="stepper1trigger1" aria-controls="test-l-1" aria-selected="true">
-                                                    <span class="bs-stepper-circle">1</span>
-                                                    <span class="bs-stepper-label">Step1</span>
-                                                </button>
+                                        <span class="bs-stepper-circle">1</span>
+                                        <span class="bs-stepper-label">Step1</span>
+                                    </button>
                                 </div>
                                 <div class="bs-stepper-line"></div>
                                 <div class="step" data-target="#test-l-2">
                                     <button type="button" class="step-trigger" role="tab" id="stepper1trigger2" aria-controls="test-l-2" aria-selected="false" disabled="disabled">
-                                                    <span class="bs-stepper-circle">2</span>
-                                                    <span class="bs-stepper-label">Step2</span>
-                                                </button>
+                                        <span class="bs-stepper-circle">2</span>
+                                        <span class="bs-stepper-label">Step2</span>
+                                    </button>
                                 </div>
                                 <div class="bs-stepper-line"></div>
                                 <div class="step" data-target="#test-l-3">
                                     <button type="button" class="step-trigger" role="tab" id="stepper1trigger3" aria-controls="test-l-3" aria-selected="false" disabled="disabled">
-                                                    <span class="bs-stepper-circle">3</span>
-                                                    <span class="bs-stepper-label">Step3</span>
-                                                </button>
+                                        <span class="bs-stepper-circle">3</span>
+                                        <span class="bs-stepper-label">Step3</span>
+                                    </button>
                                 </div>
                                 <div class="bs-stepper-line"></div>
                                 <div class="step" data-target="#test-l-4">
                                     <button type="button" class="step-trigger" role="tab" id="stepper1trigger4" aria-controls="test-l-4" aria-selected="false" disabled="disabled">
-                                                    <span class="bs-stepper-circle">4</span>
-                                                    <span class="bs-stepper-label">Step4</span>
-                                                </button>
+                                        <span class="bs-stepper-circle">4</span>
+                                        <span class="bs-stepper-label">Step4</span>
+                                    </button>
                                 </div>
 
 
@@ -160,12 +160,9 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">
-                                                        
-                                                        <img src="../static/dist/img/upload.svg">
-                                                        
-                                                        <div id="up_progres"></div>
+                                                        <img id="upload_page_IMG" src="../static/dist/img/upload.svg">
                                                     </div>
-
+                                                    <div id="to_upload_img_DIV"></div>
                                                 </div>
                                             </div>
 
@@ -238,42 +235,33 @@
                 </div>
 
                 <!-- /.content -->
+            </div>
+            <!-- /.content-wrapper -->
+
         </div>
-        <!-- /.content-wrapper -->
+        <!-- ./wrapper -->
+        <script src="../static/bower/jquery/dist/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script src="../static/dist/js/jquery-fab-button.js"></script>
+        <script>
 
-    </div>
-    <!-- ./wrapper -->
-    <script src="../static/bower/jquery/dist/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="../static/dist/js/jquery-fab-button.js"></script>
-    <script>
-       
-    </script>
-    <!-- bsstepper -->
-    <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../static/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../static/dist/js/demo.js"></script>
+        </script>
+        <!-- bsstepper -->
+        <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../static/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../static/dist/js/demo.js"></script>
+        <!-- 'I write js for upload' -->
+        <script src="../static/dist/js/upload.js"></script>
+        <!-- 'bs-stepper ready funtion'-->
+        <script src="../static/dist/js/stepperReady.js"></script>
+    </body>
 
-
-    <script>
-        $(document).ready(function() {
-            stepper1 = new Stepper($('.bs-stepper')[0])
-            $('.sidebar-menu').tree()
-            $('body').bootstrapMaterialDesign();
-            $('.fixed-action-btn').click(function(){
-                console.log("i am in")
-            })
-        })
-
-    </script>
-</body>
-
-</html>
+    </html>
