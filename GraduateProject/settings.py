@@ -37,13 +37,23 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # package
+    "rest_framework",
+    "rest_framework.authtoken",
+    'djoser',
     # app
     "Home",
     "Account",
     "History",
     "Convert",
-    # 'djangobower'
+    "EsNoteScore"
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -143,3 +153,5 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'GraduateProject/media')
 
 # BOWER_COMPONENTS_ROOT = '/PROJECT_ROOT/bower_components/'
+
+
