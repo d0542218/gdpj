@@ -38,8 +38,8 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
             $.ajax({
                 type:"POST",
                 url: "/postSheetImg",
-                // data:imgform,
-                dataType: "JSON",
+                data:imgform,
+                dataType: "img",
                 success: function(data) {
                     console.log(data)
                     return data;
