@@ -31,10 +31,12 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
             document.getElementById('to_upload_img_DIV').appendChild(imgx);
         }
         $('#step-1-next').click(function() {
-            alert("是否上傳完畢");
+            // alert("是否上傳完畢");
             var myDate = new Date();
             imgform.append('username','aaa');
             imgform.append('time',myDate.getMonth()+myDate.getDate()+myDate.getHours());
+            var yesUpload = confirm("是否上傳完畢")
+            if (yesUpload == true){
             $.ajax({
                 type:"POST",
                 url: "/postSheetImg",
@@ -47,5 +49,6 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
                 error: function(msg){
                     return null;
                 }
-            })
+            })}else{
+            }
         })
