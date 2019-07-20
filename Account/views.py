@@ -1,7 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, authenticate, login
-
+# from django.views.decorators.csrf import csrf_exempt 
+# @csrf_exempt
 
 # Create your views here.
 # _*_coding:utf-8 _*_
