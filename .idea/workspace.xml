@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduateProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,49 +40,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/EsNoteScore/views.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/EsNoteScore/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="19" column="84" selection-start-line="19" selection-start-column="78" selection-end-line="19" selection-end-column="84" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/History/models.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="5" selection-start-line="5" selection-end-line="10" />
-              <folding>
-                <element signature="e#0#28#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/History/views.py">
+        <entry file="file://$PROJECT_DIR$/GraduateProject/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="192">
-              <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+            <state relative-caret-position="359">
+              <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/GraduateProject/urls.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
               <folding>
-                <element signature="e#0#36#0" expanded="true" />
+                <element signature="e#639#671#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -159,10 +133,10 @@
         <option value="$PROJECT_DIR$/History/views.py" />
         <option value="$PROJECT_DIR$/History/admin.py" />
         <option value="$PROJECT_DIR$/History/urls.py" />
-        <option value="$PROJECT_DIR$/GraduateProject/urls.py" />
         <option value="$PROJECT_DIR$/EsNoteScore/views.py" />
-        <option value="$PROJECT_DIR$/GraduateProject/settings.py" />
         <option value="$PROJECT_DIR$/EsNoteScore/models.py" />
+        <option value="$PROJECT_DIR$/GraduateProject/settings.py" />
+        <option value="$PROJECT_DIR$/GraduateProject/urls.py" />
       </list>
     </option>
   </component>
@@ -329,6 +303,7 @@
       <workItem from="1561969209514" duration="16353000" />
       <workItem from="1562295509237" duration="24000" />
       <workItem from="1562295597642" duration="383000" />
+      <workItem from="1563515040110" duration="444000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>
@@ -355,7 +330,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="81370000" />
+    <option name="totallyTimeSpent" value="81814000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -368,22 +343,23 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49925706" visible="true" weight="0.15405117" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49925706" visible="true" weight="0.15565032" />
       <window_info id="Structure" order="1" sideWeight="0.5007429" side_tool="true" weight="0.21108742" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3286334" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49840087" weight="0.28958786" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4978678" visible="true" weight="0.28958786" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32821077" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3275488" />
-      <window_info anchor="bottom" id="Database Changes" order="9" weight="0.3275488" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50159913" side_tool="true" weight="0.26898047" />
-      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.31019524" />
+      <window_info anchor="bottom" id="Database Changes" order="9" sideWeight="0.49946696" weight="0.3275488" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.50053304" side_tool="true" weight="0.3275488" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.30911064" />
       <window_info anchor="bottom" id="Python Console" order="12" weight="0.32930845" />
       <window_info anchor="bottom" id="manage.py@GraduateProject" order="13" weight="0.329718" />
       <window_info anchor="bottom" id="File Transfer" order="14" weight="0.29067245" />
@@ -405,8 +381,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="login logout" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/linuxvenv/lib/python3.6/site-packages/django/views/generic/base.py" />
-    <entry file="file://$PROJECT_DIR$/linuxvenv/lib/python3.6/site-packages/django/core/handlers/base.py" />
     <entry file="file://$PROJECT_DIR$/linuxvenv/lib/python3.6/site-packages/django/contrib/auth/urls.py" />
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -603,20 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/GraduateProject/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="430">
-          <caret line="157" selection-start-line="157" selection-end-line="157" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/GraduateProject/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="16" column="30" lean-forward="true" selection-start-line="16" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
@@ -627,12 +587,22 @@
     <entry file="file://$PROJECT_DIR$/Convert/models.py" />
     <entry file="file://$PROJECT_DIR$/Convert/tests.py" />
     <entry file="file://$PROJECT_DIR$/Convert/views.py" />
-    <entry file="file://$PROJECT_DIR$/EsNoteScore/views.py">
+    <entry file="file://$PROJECT_DIR$/History/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+        <state relative-caret-position="192">
+          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/History/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="5" selection-start-line="5" selection-end-line="10" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -647,23 +617,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/History/models.py">
+    <entry file="file://$PROJECT_DIR$/EsNoteScore/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="5" selection-start-line="5" selection-end-line="10" />
+        <state relative-caret-position="370">
+          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
           <folding>
-            <element signature="e#0#28#0" expanded="true" />
+            <element signature="e#0#35#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/History/views.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/rest_framework/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
+        <state relative-caret-position="209">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/rest_framework/routers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="201">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GraduateProject/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="39" column="46" selection-start-line="39" selection-start-column="46" selection-end-line="39" selection-end-column="46" />
           <folding>
-            <element signature="e#0#36#0" expanded="true" />
+            <element signature="e#639#671#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GraduateProject/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="359">
+          <caret line="60" lean-forward="true" selection-start-line="60" selection-end-line="60" />
         </state>
       </provider>
     </entry>
