@@ -1,5 +1,4 @@
 #static ignore:
-node_modules/
-static/
-!static/dist
+static/node_modules
+static/bower
 venv/
