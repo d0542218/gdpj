@@ -35,7 +35,7 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
             var myDate = new Date();
             imgform.append('username','aaa');
             imgform.append('time',myDate.getMonth()+myDate.getDate()+myDate.getHours());
-            var yesUpload = confirm("是否上傳完畢")
+            var yesUpload = confirm("是否上傳完畢");
             if (yesUpload == true){
             $.ajax({
                 type:"POST",

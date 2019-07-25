@@ -9,6 +9,7 @@ from django.contrib.auth import logout, authenticate, login
 
 
 def register(request):
+    print(request);
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         print("Errors", form.errors)
@@ -24,11 +25,13 @@ def register(request):
 
 
 def LogoutView(request):
+    print(request);
     logout(request)
     return redirect('/index')
 
 
 def AccountView(request):
+    print(request);
     if request.user.is_authenticated:
         return render(request, "profile.html")
     else:
