@@ -5,26 +5,26 @@ function login(){
 	var data ="username :"+username+','+"password:"+pw;
 	alert(data);
 	$.ajax({
-		type:"post",
+		type:"POST",
 		url:"/auth/jwt/create",
 		contentType:"application/json",
 		dataType:"json",
-		data:{
-			"username": "user",
-			"password": "djangopassword"
-		},
+		async: false,
+		data:JSON.stringify({
+			"username": username,
+			"password": pw
+		}),
 		success: function(data){
 			// $("#result").data($data);
-			console.log(data.success); 
+			console.log(data.success);
 			alert("success");
 			window.location.href='../';
 		},
 		error: function(msg){
-			alert("error");
+			alert(msg.responseText);
 			return null;
 		}
 	})
-	alert("登入失敗");
 // JSON.stringify(data),
 
 }
