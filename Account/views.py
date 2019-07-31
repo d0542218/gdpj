@@ -36,4 +36,3 @@ def AccountView(request):
         return render(request, "profile.html")
     else:
         return redirect("index")
-
