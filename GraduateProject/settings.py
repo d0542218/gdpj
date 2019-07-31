@@ -159,3 +159,17 @@ MEDIA_ROOT =os.path.join(BASE_DIR, 'GraduateProject/media')
 # BOWER_COMPONENTS_ROOT = '/PROJECT_ROOT/bower_components/'
 
 
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
