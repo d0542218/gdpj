@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduateProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/django/views/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Lib/site-packages/django/views/debug.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +28,17 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="db [2]" type="feb32156:DbDataSourceImpl" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="db" type="feb32156:DbDataSourceImpl" />
+        <item name="collations" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
     </expand>
     <select />
@@ -47,48 +59,8 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>ind</find>
-      <find>Sign In</find>
-      <find>Login</find>
-      <find>SQL</find>
-      <find>Accou</find>
-      <find>l</find>
-      <find>login</find>
-      <find>Dirs</find>
-      <find>rem</find>
-      <find>next.s</find>
-      <find>all</find>
-      <find>log</find>
-      <find>from</find>
-      <find>AUTH_USER_MODEL</find>
-      <find>/history</find>
-      <find>history</find>
-      <find>if</find>
-      <find>block</find>
-      <find>load</find>
-      <find>form-group has-feedback</find>
-      <find>index</find>
-      <find>html</find>
-      <find>url</find>
-      <find>{</find>
-      <find>轉</find>
-      <find>個</find>
-      <find>med</find>
-      <find>media</find>
-      <find>REST_FRAMEWORK</find>
-      <find>DJOSER</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="735" />
-    <option name="y" value="134" />
-    <option name="width" value="1326" />
-    <option name="height" value="688" />
   </component>
   <component name="ProjectId" id="1OVgxFnd8azTOhRV7ojaimzaWQj" />
   <component name="PropertiesComponent">
@@ -238,7 +210,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
