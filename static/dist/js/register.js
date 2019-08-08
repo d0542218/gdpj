@@ -13,26 +13,30 @@ function register(){
 			url:"/auth/users/create",
 			contentType:"application/json",
 			dataType:"json",
-			data:{
-				"csrfmiddlewaretoken" : token,
+			async: false,
+			data:JSON.stringify({
 				"email" : email,
 				"username" : username,
-				"password1" : pw,
-			},
+				"password" : pw,
+			}),
 			success: function(data){
 				alert("success");
 				$("#result").data($data); 
-				console.log(data.success); 
-				alert(success);
-				alert(data);
+				console.log(data.success);
+				for(x in data){
+					alert(x);
+				}
 				console.log(data);
-				// return data;
 				window.location.href='../';
 			},
 			error: function(msg){
-				alert("error");
-				alert(msg);
-				return null;	
+				alert(msg.responseText);
+				var errorlist = document.createElement('ul');
+				var errorText = document.createElement('li');
+				errorlist.appendChild(errorText);
+				errorText.innerHTML = msg.responseText;
+				document.getElementById("errorText").appendChild(errorlist);
+				// return null;	
 			}
 		})
 		alert("註冊失敗");
