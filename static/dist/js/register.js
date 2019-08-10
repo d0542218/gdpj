@@ -20,25 +20,29 @@ function register(){
 				"password" : pw,
 			}),
 			success: function(data){
-				alert("success");
-				$("#result").data($data); 
-				console.log(data.success);
-				for(x in data){
-					alert(x);
-				}
-				console.log(data);
-				window.location.href='../';
+				sessionStorage.setItem('username',JSON.stringify(username));
+				sessionStorage.setItem('password',JSON.stringify(pw));
+				alert("註冊成功");
+				window.location.href='../account/login';
 			},
 			error: function(msg){
-				alert(msg.responseText);
+				$("#errorText").empty();
+				var usernameError = JSON.parse(msg.responseText).username;
+				var pwError = JSON.parse(msg.responseText).password;
+				if(usernameError&&pwError){
+					var errorMsg = usernameError+pwError;
+				}else if (usernameError){
+					var errorMsg =usernameError;
+				}else if(pwError){
+					var errorMsg =pwError;
+				}
 				var errorlist = document.createElement('ul');
 				var errorText = document.createElement('li');
 				errorlist.appendChild(errorText);
-				errorText.innerHTML = msg.responseText;
+				errorText.innerHTML = errorMsg;
 				document.getElementById("errorText").appendChild(errorlist);
 				// return null;	
 			}
 		})
-		alert("註冊失敗");
 	}
 }

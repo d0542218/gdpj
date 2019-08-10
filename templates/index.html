@@ -20,27 +20,27 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="../static/dist/css/AdminLTE.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-       <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
+     folder instead of downloading all of them to reduce the load. -->
+     <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
 
-       <link rel="stylesheet" href="../static/node_modules/bs-stepper/dist/css/bs-stepper.min.css">
-
-
-       <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-       <link href="../static/dist/css/jquery-fab-button.css" rel="stylesheet">
-
-       <!--googleIcons-->
-       <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
-
-       <!-- Google Font -->
-       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-       <link rel="stylesheet" type="text/css" href="../static/dist/css/pitureUpload.css">
-
-   </head>
+     <link rel="stylesheet" href="../static/node_modules/bs-stepper/dist/css/bs-stepper.min.css">
 
 
-   <body class="hold-transition skin-blue sidebar-mini">
+     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+     <link href="../static/dist/css/jquery-fab-button.css" rel="stylesheet">
+
+     <!--googleIcons-->
+     <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
+
+     <!-- Google Font -->
+     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+     <link rel="stylesheet" type="text/css" href="../static/dist/css/pitureUpload.css">
+
+ </head>
+
+
+ <body class="hold-transition skin-blue sidebar-mini">
     <!-- Site wrapper -->
     <script>
         var stepper1 = null;
@@ -62,7 +62,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="/account/login" class="btn btn-outline-primary">登入
+                            <a class="btn btn-outline-primary" onclick="checkLogin()">登入
                             </a>
                             <a href="/register" class="btn btn-primary">註冊
                             </a>
@@ -242,9 +242,6 @@
         <script src="../static/bower/jquery/dist/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
         <script src="../static/dist/js/jquery-fab-button.js"></script>
-        <script>
-
-        </script>
         <!-- bsstepper -->
         <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
         <!-- Bootstrap 3.3.7 -->
@@ -261,6 +258,22 @@
         <script src="../static/dist/js/upload.js"></script>
         <!-- 'bs-stepper ready funtion'-->
         <script src="../static/dist/js/stepperReady.js"></script>
+        <!-- I write js for change login -->
+        <script src="../static/dist/js/checkLogin.js"></script>
+        <script>
+            $(function(){
+                if(sessionStorage.getItem('access')){
+                    var token = sessionStorage.getItem('access');
+                    var base64Url = token.split('.')[1];
+                    alert(base64Url);
+                    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                    alert(base64);
+                    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join(''));
+                }
+            });
+        </script>
     </body>
 
     </html>
