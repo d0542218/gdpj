@@ -24,8 +24,9 @@ from django.conf.urls.static import static
 from EsNoteScore import views
 
 router = DefaultRouter()
-router.register('esNoteScore', views.EsNoteScoreView)
-router.register('esNoteScorePic',views.EsNoteScorePicView)
+router.register('esNoteScore', views.EsNoteScoreViewSet)
+router.register('user_esNote',views.UserViewSet)
+router.register('esNoteScorePic', views.EsNoteScorePicViewSet)
 
 
 urlpatterns = [
@@ -39,4 +40,5 @@ urlpatterns = [
     path('auth/', include('djoser.urls.authtoken')),
     path('auth/', include('djoser.urls.jwt')),
     path('api/v1/', include(router.urls)),
+    # path('api/v1/esnote',views.EsNoteScoreViewSet.as_view({'get': 'retrieve', 'post': 'create'}),name='esnote')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

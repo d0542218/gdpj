@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/EsNoteScore/permission.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/EsNoteScore/urks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/permission.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/permission.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EsNoteScore/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EsNoteScore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,11 +32,6 @@
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="db" type="feb32156:DbDataSourceImpl" />
-      </path>
-      <path>
-        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="db" type="feb32156:DbDataSourceImpl" />
-        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
       </path>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
@@ -64,6 +62,7 @@
   </component>
   <component name="ProjectId" id="1OVgxFnd8azTOhRV7ojaimzaWQj" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -87,18 +86,18 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\GitHub\gdpj\EsNoteScore" />
-      <recent name="D:\GitHub\GraduateProject\templates\registration" />
-      <recent name="D:\GitHub\GraduateProject\templates" />
-      <recent name="D:\GitHub\GraduateProject\static\test" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\gdpj\EsNoteScore" />
       <recent name="D:\GitHub\gdpj\GraduateProject\media\img" />
       <recent name="$PROJECT_DIR$/static/dist/img/credit" />
       <recent name="$PROJECT_DIR$/static/dist/img" />
       <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\gdpj\EsNoteScore" />
+      <recent name="D:\GitHub\GraduateProject\templates\registration" />
+      <recent name="D:\GitHub\GraduateProject\templates" />
+      <recent name="D:\GitHub\GraduateProject\static\test" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -169,7 +168,9 @@
       <workItem from="1562295597642" duration="383000" />
       <workItem from="1563515040110" duration="444000" />
       <workItem from="1564068423985" duration="664000" />
-      <workItem from="1566299505530" duration="10342000" />
+      <workItem from="1566299505530" duration="11015000" />
+      <workItem from="1566496059613" duration="2739000" />
+      <workItem from="1566649954194" duration="23830000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>

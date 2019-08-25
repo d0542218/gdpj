@@ -13,12 +13,18 @@ class IsOwnerOrAdmin(BasePermission):
         if request.method in ('POST',"GET"):
             if not bool(request.user and request.user.is_authenticated):
                 raise AuthenticationFailed('Unauthorized')
+            else:
+                return True
         return False
 
+    # def has_object_permission(self, request, view, obj):
+    #     if request.method in SAFE_METHODS:
+    #         return True
+    #     if request.method == 'POST':
+    #         if bool(request.user and request.user.is_authenticated or request.user.is_admin):
+    #             raise AuthenticationFailed('Unauthorized')
+    #     return obj.owner == request.user or request.user.is_admin
     def has_object_permission(self, request, view, obj):
-        if request.method in SAFE_METHODS:
+        if request.method in permissions.SAFE_METHODS:
             return True
-        if request.method == 'POST':
-            if bool(request.user and request.user.is_authenticated or request.user.is_admin):
-                raise AuthenticationFailed('Unauthorized')
-        return obj.owner == request.user or request.user.is_admin
+        return obj.owner == request.user
