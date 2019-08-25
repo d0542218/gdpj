@@ -62,7 +62,7 @@
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
                         <li>
-                            <a class="btn btn-outline-primary" onclick="checkLogin()">登入
+                            <a href="/account/login" class="btn btn-outline-primary">登入
                             </a>
                             <a href="/register" class="btn btn-primary">註冊
                             </a>
@@ -87,13 +87,13 @@
                     </li> -->
 
                     <li>
-                        <a href="index.html"><img src="../static/dist/img/home.svg"> <span>轉換樂譜</span></a>
+                        <a href="../templates/blank.html"><img src="../static/dist/img/home.svg"> <span>轉換樂譜</span></a>
                     </li>
                     <li>
-                        <a href="history.html" class="aria-disabled=" true "><img src="../static/dist/img/history.svg"> <span>歷史紀錄</span></a>
+                        <a href="/history" class="aria-disabled="true><img src="../static/dist/img/history.svg" onclick="checkLogin()"> <span>歷史紀錄</span></a>
                     </li>
                     <li>
-                        <a href="history.html"><img src="../static/dist/img/profile.svg"> <span>個人資料</span></a>
+                        <a href="/history"><img src="../static/dist/img/profile.svg"> <span>個人資料</span></a>
                     </li>
                 </ul>
             </section>
@@ -260,20 +260,6 @@
         <script src="../static/dist/js/stepperReady.js"></script>
         <!-- I write js for change login -->
         <script src="../static/dist/js/checkLogin.js"></script>
-        <script>
-            $(function(){
-                if(sessionStorage.getItem('access')){
-                    var token = sessionStorage.getItem('access');
-                    var base64Url = token.split('.')[1];
-                    alert(base64Url);
-                    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                    alert(base64);
-                    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-                    }).join(''));
-                }
-            });
-        </script>
-    </body>
+</body>
 
-    </html>
+</html>

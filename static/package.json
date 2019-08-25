@@ -58,6 +58,7 @@
     "morris.js": "^0.5.0",
     "pace": "0.0.4",
     "raphael": "^2.2.7",
+    "requirejs": "^2.3.6",
     "select2": "^4.0.3",
     "slimscroll": "^0.9.1",
     "yarn": "^1.16.0"

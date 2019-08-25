@@ -18,6 +18,7 @@ function login(){
 				var jwt = JSON.parse(JSON.stringify(data));
 				var refresh = jwt.refresh;
 				var access = jwt.access;
+				sessionStorage.setItem('username',JSON.stringify(username));
 				sessionStorage.setItem('refresh',JSON.stringify(refresh));
 				sessionStorage.setItem('access',JSON.stringify(access));
 				window.location.href='../';
