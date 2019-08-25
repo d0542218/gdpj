@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/EsNoteScore/permission.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Account/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Account/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduateProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/venv/Lib/site-packages/django/views/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Lib/site-packages/django/views/debug.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/urls.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -87,17 +87,18 @@
     </option>
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\gdpj\EsNoteScore" />
+      <recent name="D:\GitHub\GraduateProject\templates\registration" />
+      <recent name="D:\GitHub\GraduateProject\templates" />
+      <recent name="D:\GitHub\GraduateProject\static\test" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\gdpj\EsNoteScore" />
       <recent name="D:\GitHub\gdpj\GraduateProject\media\img" />
       <recent name="$PROJECT_DIR$/static/dist/img/credit" />
       <recent name="$PROJECT_DIR$/static/dist/img" />
       <recent name="$PROJECT_DIR$/templates" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\GitHub\GraduateProject\templates\registration" />
-      <recent name="D:\GitHub\GraduateProject\templates" />
-      <recent name="D:\GitHub\GraduateProject\static\test" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -168,6 +169,7 @@
       <workItem from="1562295597642" duration="383000" />
       <workItem from="1563515040110" duration="444000" />
       <workItem from="1564068423985" duration="664000" />
+      <workItem from="1566299505530" duration="10342000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>
