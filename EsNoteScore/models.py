@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 class esNote_score_model(models.Model):
     noteID = models.AutoField(primary_key=True)
     scoreName = models.CharField(max_length=45)
-    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE, related_name='esNote_score', null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='esNote_score', null=True)
     scoreCreateTime = models.DateTimeField(auto_now_add=True)
     scoreModifyTime = models.DateTimeField(auto_now=True)
     scoreStatus = models.IntegerField()
