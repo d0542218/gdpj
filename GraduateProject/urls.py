@@ -27,6 +27,7 @@ router = DefaultRouter()
 router.register('esNoteScore', views.EsNoteScoreViewSet)
 router.register('user_esNote',views.UserViewSet)
 router.register('esNoteScorePic', views.EsNoteScorePicViewSet)
+router.register('uploadImages',views.upload_images)
 
 
 urlpatterns = [

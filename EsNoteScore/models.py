@@ -12,11 +12,11 @@ class esNote_score_model(models.Model):
     scoreCreateTime = models.DateTimeField(auto_now_add=True)
     scoreModifyTime = models.DateTimeField(auto_now=True)
     scoreStatus = models.IntegerField()
-    scoreInfoJason = models.FileField()
+    scoreInfoJason = models.FileField(null=True)
 
 
 class esNote_score_pic_model(models.Model):
     esNote_score_noteID = models.AutoField(primary_key=True)
     esNote_score_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     score_picModifyTime = models.DateTimeField(auto_now=True)
-    esNote_score = models.ForeignKey(esNote_score_model, on_delete=models.CASCADE)
+    esNote_score = models.ForeignKey(esNote_score_model,related_name='esNote_score_pic', on_delete=models.CASCADE)
