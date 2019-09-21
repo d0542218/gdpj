@@ -32,7 +32,9 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
         }
         $('#step-1-next').click(function() {
             var yesUpload = confirm("是否上傳完畢");
-            var token = sessionStorage.getItem('refresh');
+            var token = sessionStorage.getItem('access');
+            console.log(token);
+            token=token.replace(/\"/g,"");
             console.log(token);
             if (yesUpload == true){
                 $.ajax({
@@ -41,7 +43,7 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
                     url: "/api/v1/uploadImages/",
                     dataType: "json",
                     data:JSON.stringify({
-                        "scoreInfoJason":imgform
+                        "esNote_score":imgform
                     }),
                     
                     success: function(data) {
