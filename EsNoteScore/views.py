@@ -112,7 +112,14 @@ class upload_images(viewsets.ModelViewSet):
         QDdefaultScore.update(defaultScore)
         serializer = self.get_serializer(data=QDdefaultScore)
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=self.request.user)
+        try:
+            serializer.save(user=self.request.user)
+            # print("hihi")
+        except:
+            token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            access_token = AccessToken(token)
+            user = User.objects.get(id=int(access_token['user_id']))
+            serializer.save(user=user)
         self.noteID = int(dict(serializer.data).get('noteID'))
         self.return_data.update(serializer.data)
         # print(serializer.data)
