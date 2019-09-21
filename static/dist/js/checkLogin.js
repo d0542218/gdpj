@@ -23,7 +23,6 @@ function checkLogin(){
 	}
 }
 $(document).ready(function(){
-	console.log('aa');
 	if(sessionStorage.getItem('access')){
 		var token = sessionStorage.getItem('access');
 		var base64Url = token.split('.')[1];

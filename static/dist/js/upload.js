@@ -11,12 +11,12 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
     $('#upload_page_IMG').show();
 
     for (var i in files) {
-        if (files[i].type == 'image/jpeg') {
+        console.log(files[i].type);
+        if ((files[i].type == 'image/jpeg') | (files[i].type == 'image/png')) {
                     //將圖片在頁面預覽
                     var fr = new FileReader();
                     fr.onload = openfile;
                     fr.readAsDataURL(files[i]);
-
                     imgform.append('sheet_image[]',files[i]);
                 }
             }
@@ -31,24 +31,27 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
             document.getElementById('to_upload_img_DIV').appendChild(imgx);
         }
         $('#step-1-next').click(function() {
-            // alert("是否上傳完畢");
-            var myDate = new Date();
-            imgform.append('username','aaa');
-            imgform.append('time',myDate.getMonth()+myDate.getDate()+myDate.getHours());
             var yesUpload = confirm("是否上傳完畢");
+            var token = sessionStorage.getItem('refresh');
+            console.log(token);
             if (yesUpload == true){
-            $.ajax({
-                type:"POST",
-                url: "/postSheetImg",
-                data:imgform,
-                dataType: "img",
-                success: function(data) {
-                    console.log(data)
-                    return data;
-                },
-                error: function(msg){
-                    return null;
+                $.ajax({
+                    headers:{ "Authorization": 'Bearer ' + token },
+                    type:"POST",
+                    url: "/api/v1/uploadImages/",
+                    dataType: "json",
+                    data:JSON.stringify({
+                        "scoreInfoJason":imgform
+                    }),
+                    
+                    success: function(data) {
+                        console.log(data)
+                        $('#stepper1').next();
+                        return data;
+                    },
+                    error: function(msg){
+                        return null;
+                    }
+                })}else{
                 }
-            })}else{
-            }
-        })
+            })
