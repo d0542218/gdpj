@@ -138,7 +138,7 @@ class upload_images(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         self.querysetflag = 0
         self.serializerflag = 0
-        self.return_data.update({'esNote_score_noteID':self.temp})
+        self.return_data.update({'esNote_score_pic':self.temp})
         return Response(self.return_data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
