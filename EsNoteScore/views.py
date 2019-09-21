@@ -114,8 +114,8 @@ class upload_images(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         try:
             serializer.save(user=self.request.user)
-            # print("hihi")
         except:
+            print(self.request.META)
             token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
             access_token = AccessToken(token)
             user = User.objects.get(id=int(access_token['user_id']))
@@ -123,9 +123,11 @@ class upload_images(viewsets.ModelViewSet):
         self.noteID = int(dict(serializer.data).get('noteID'))
         self.return_data.update(serializer.data)
         # print(serializer.data)
-        print(self.noteID)
+        # print(self.noteID)
 
     def create(self, request, *args, **kwargs):
+        print(request.data)
+        self.temp.clear()
         self.build_default_Esnote()
         QDic = QueryDict('', mutable=True)
         self.querysetflag = 1
@@ -146,6 +148,7 @@ class upload_images(viewsets.ModelViewSet):
         self.querysetflag = 0
         self.serializerflag = 0
         self.return_data.update({'esNote_score_pic':self.temp})
+
         return Response(self.return_data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
