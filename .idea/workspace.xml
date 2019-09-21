@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EsNoteScore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -80,19 +81,19 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\GitHub\gdpj\GraduateProject" />
-      <recent name="D:\GitHub\gdpj\EsNoteScore" />
-      <recent name="D:\GitHub\GraduateProject\templates\registration" />
-      <recent name="D:\GitHub\GraduateProject\templates" />
-      <recent name="D:\GitHub\GraduateProject\static\test" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\gdpj\EsNoteScore" />
       <recent name="D:\GitHub\gdpj\GraduateProject\media\img" />
       <recent name="$PROJECT_DIR$/static/dist/img/credit" />
       <recent name="$PROJECT_DIR$/static/dist/img" />
       <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\gdpj\GraduateProject" />
+      <recent name="D:\GitHub\gdpj\EsNoteScore" />
+      <recent name="D:\GitHub\GraduateProject\templates\registration" />
+      <recent name="D:\GitHub\GraduateProject\templates" />
+      <recent name="D:\GitHub\GraduateProject\static\test" />
     </key>
   </component>
   <component name="RunDashboard">
