@@ -116,7 +116,7 @@ class upload_images(viewsets.ModelViewSet):
             serializer.save(user=self.request.user)
             # print("hihi")
         except:
-            token = self.request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+            token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
             access_token = AccessToken(token)
             user = User.objects.get(id=int(access_token['user_id']))
             serializer.save(user=user)
