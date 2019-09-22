@@ -3,8 +3,8 @@ from django.db.models import QuerySet
 from django.http import QueryDict
 from rest_framework.response import Response
 from EsNoteScore.models import esNote_score_model, esNote_score_pic_model
-from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Serializer, UserSerializer
-from rest_framework import viewsets, authentication, permissions, status
+from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Serializer, UserSerializer,searchPicSerializer
+from rest_framework import viewsets, authentication, permissions, status, generics, mixins
 from rest_framework_simplejwt.tokens import AccessToken
 from . import permission
 
@@ -154,3 +154,27 @@ class upload_images(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(esNote_score=esNote_score_model.objects.get(noteID=self.noteID))
         self.temp.append(serializer.data)
+
+
+class model_get_pictures(viewsets.GenericViewSet,mixins.ListModelMixin):
+    model = esNote_score_model
+    serializer_class = searchPicSerializer
+    queryset = esNote_score_model.objects.all()
+    id = None
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        if self.id is None:
+            pass # not done
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def get_queryset(self):
+        self.id = self.request.GET.get('id')
+        return esNote_score_model.objects.filter(noteID=self.id)
