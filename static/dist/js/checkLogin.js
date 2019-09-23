@@ -1,20 +1,22 @@
 function checkLogin(){
 	if(!sessionStorage.getItem('access')){
-		window.location.href='/account/login'
+		// window.location.href='/account/login'
+		// $('#step-1-next');
 	}else{
+		var access = sessionStorage.getItem("access")
+		access=access.replace(/\"/g,"");
 		$.ajax({
 			type:"POST",
 			url:"/auth/jwt/verify",
 			contentType:"application/json",
 			dataType:"json",
 			data:JSON.stringify({
-				"Token": sessionStorage.getItem("access"),
+				"token": access,
 			}),
 			success: function(data){
-				console.log("success access");
 			},
 			error: function(msg){
-				alert("error"+msg.responseText);
+				refresh();
 				return null;
 			}
 
@@ -30,17 +32,36 @@ $(document).ready(function(){
 		var jsonPayload = JSON.parse(decodeURIComponent(atob(base64).split('').map(function(c) {
 			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
 		}).join('')));
-		console.log(jsonPayload.user_id);
 		sessionStorage.setItem('user_id',JSON.stringify(jsonPayload.user_id));
 		var username = JSON.parse(sessionStorage.getItem('username'));
 		$(".navbar-custom-menu ul").empty();
 		$(".navbar-custom-menu ul").append('<li><a><span class="tab">'+username+'</span></a> <a class="btn btn-primary"><span class="tab" onclick="logout()">登出</span></a></li>');
 	}
-
+	checkLogin();
 });
 
-function logout(){
-	sessionStorage.clear();
-	$(".navbar-custom-menu ul").empty();
-	$(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
+
+function refresh(){
+	if(!sessionStorage.getItem('refresh')){
+		// window.location.href='/account/login'
+	}else{
+		var refresh = sessionStorage.getItem("refresh")
+		refresh=refresh.replace(/\"/g,"");
+		$.ajax({
+			type:"POST",
+			url:"/auth/jwt/refresh",
+			contentType:"application/json",
+			dataType:"json",
+			data:JSON.stringify({
+				"refresh": refresh,
+			}),
+			success: function(data){
+				var jwt = JSON.parse(JSON.stringify(data));
+				console.log(jwt);
+			},
+			error: function(msg){
+				return null;
+			}
+		})
+	}
 }

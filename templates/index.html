@@ -35,7 +35,9 @@
      <!-- Google Font -->
      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-     <link rel="stylesheet" type="text/css" href="../static/dist/css/pitureUpload.css">
+     <link rel="stylesheet" href="../static/dist/css/pitureUpload.css">
+
+     <link rel="stylesheet" href="../static/dist/css/smoothproducts.css">
 
  </head>
 
@@ -158,7 +160,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <div id="dropDIV" accept="image/*" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">
+                                                    <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">
                                                         <img id="upload_page_IMG" src="../static/dist/img/upload.svg">
                                                     </div>
                                                     <div id="to_upload_img_DIV"></div>
@@ -176,7 +178,7 @@
                                     </div>
                                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                         <!-- Floating Action Button like Google Material -->
-                                        <div class="fixed-action-btn vertical" style="top: 25%; right: 5%;">
+                                        <!-- <div class="fixed-action-btn vertical" style="top: 25%; right: 5%;">
                                             <a class="btn-floating btn-large" id="hi">
                                                 <i class="large material-icons">menu</i>
                                             </a>
@@ -197,16 +199,16 @@
                                                     </a>
                                                 </li>
                                             </ul>
-                                        </div>
-                                        <div class="form-group row justify-content-center" style="margin:0 auto;">
-                                            <img src="../static/dist/img/Image 1.svg">
+                                        </div> -->
+                                        <div class="row justify-content-center">
+                                            <div class="sp-wrap" style="display: inline-block;">
+                                            </div>
                                         </div>
                                         <br><br>
                                         <div class="row justify-content-around">
                                             <a href="#" class="" onclick="stepper1.previous()"><img src="../static/dist/img/Back.svg"></a>
                                             <a href="#" class="" id="step-2-next" onclick="stepper1.next()"><img src="../static/dist/img/next.svg"></a>
                                         </div>
-
                                     </div>
                                     <div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center" aria-labelledby="stepper1trigger3">
                                         <div class="form-group row justify-content-center" style="margin:0 auto;">
@@ -239,27 +241,36 @@
 
         </div>
         <!-- ./wrapper -->
-        <script src="../static/bower/jquery/dist/jquery.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        <script src="../static/dist/js/jquery-fab-button.js"></script>
-        <!-- bsstepper -->
-        <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- SlimScroll -->
-        <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-        <!-- FastClick -->
-        <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
-        <!-- AdminLTE App -->
-        <script src="../static/dist/js/adminlte.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="../static/dist/js/demo.js"></script>
-        <!-- 'I write js for upload' -->
-        <script src="../static/dist/js/upload.js"></script>
-        <!-- 'bs-stepper ready funtion'-->
-        <script src="../static/dist/js/stepperReady.js"></script>
-        <!-- I write js for change login -->
-        <script src="../static/dist/js/checkLogin.js"></script>
+        <script type="text/javascript">
+         function logout(){
+            sessionStorage.clear();
+            $(".navbar-custom-menu ul").empty();
+            $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
+        } 
+    </script>
+    <script src="../static/bower/jquery/dist/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="../static/dist/js/jquery-fab-button.js"></script>
+    <!-- bsstepper -->
+    <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../static/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../static/dist/js/demo.js"></script>
+    <!-- SmoothProduc for step2 -->
+    <script src="../static/dist/js/smoothproducts.js"></script>
+    <!-- I write js for change login -->
+    <script src="../static/dist/js/checkLogin.js"></script>
+    <!-- 'I write js for upload' -->
+    <script src="../static/dist/js/upload.js"></script>
+    <!-- 'bs-stepper ready funtion'-->
+    <script src="../static/dist/js/stepperReady.js"></script>
 </body>
 
 </html>
