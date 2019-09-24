@@ -27,7 +27,7 @@ class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
     # esNote_score_pic = serializers.ListField(child=serializers.FileField(allow_empty_file=False))
 
     def create(self, validated_data):
-        print("VVVVVVVVVVVVVVVVVV")
+        # print("VVVVVVVVVVVVVVVVVV")
         print(validated_data)
         esNote_score = validated_data.get('esNote_score')
         # print(esNote_score)

@@ -3,6 +3,7 @@ $(document).ready(function() {
 	$('.sidebar-menu').tree()
 	// $('body').bootstrapMaterialDesign();
 	$('.fixed-action-btn').click(function(){
-		console.log("i am in")
+		// console.log("i am in")
 	})
 })
+
