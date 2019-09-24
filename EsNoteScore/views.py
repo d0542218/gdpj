@@ -85,6 +85,7 @@ class upload_images(viewsets.ModelViewSet):
     noteID = None
     return_data = {}
     temp = []
+    order = 0
 
     def get_queryset(self):
         assert self.queryset is not None, (
@@ -126,12 +127,14 @@ class upload_images(viewsets.ModelViewSet):
         # print(self.noteID)
 
     def create(self, request, *args, **kwargs):
-        print(request.data)
+        # print(request.data)
+        self.order=0
         self.temp.clear()
         self.build_default_Esnote()
         QDic = QueryDict('', mutable=True)
         self.querysetflag = 1
         self.serializerflag = 1
+
         pic = request.FILES
         # print(pic.getlist('esNote_score_pic'))
         # print(request.data)
@@ -139,8 +142,10 @@ class upload_images(viewsets.ModelViewSet):
         # serializer.is_valid(raise_exception=True)
         # self.perform_create(serializer)
         for i in pic.getlist('esNote_score_pic'):
+            self.order+=1
             QDic.update({'esNote_score_pic': i})
-            # print(QDic)
+            print("QDic")
+            print(QDic)
             serializer = self.get_serializer(data=QDic)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
@@ -152,7 +157,7 @@ class upload_images(viewsets.ModelViewSet):
         return Response(self.return_data, status=status.HTTP_201_CREATED, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save(esNote_score=esNote_score_model.objects.get(noteID=self.noteID))
+        serializer.save(esNote_score=esNote_score_model.objects.get(noteID=self.noteID),order=self.order)
         self.temp.append(serializer.data)
 
 
