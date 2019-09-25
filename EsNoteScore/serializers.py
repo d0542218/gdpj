@@ -29,7 +29,7 @@ class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
     def create(self, validated_data):
         # print("VVVVVVVVVVVVVVVVVV")
         print(validated_data)
-        esNote_score = validated_data.get('esNote_score')
+        # esNote_score = validated_data.get('esNote_score')
         # print(esNote_score)
         image = validated_data.pop('esNote_score_pic')
         pic = esNote_score_pic_model.objects.create(esNote_score_pic=image, **validated_data)
@@ -43,7 +43,7 @@ class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
 class pic_Serializer(serializers.ModelSerializer):
     class Meta:
         model = esNote_score_pic_model
-        fields = ('esNote_score_noteID', 'esNote_score_pic')
+        fields = ('esNote_score_noteID','order', 'esNote_score_pic')
 
 
 class searchPicSerializer(serializers.ModelSerializer):
@@ -53,6 +53,6 @@ class searchPicSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = esNote_score_model
-        fields = ('noteID','order','esNote_score_pic')
+        fields = ('noteID','esNote_score_pic')
 
 
