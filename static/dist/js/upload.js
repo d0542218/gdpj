@@ -1,18 +1,28 @@
 
 var files ;
 var imgform = new FormData();
-var count = 0;
+$('#file-uploader').change(function(evt){
+    files = evt.target.files;
+    for (var i in files) {
+        if ((files[i].type == 'image/jpeg') | (files[i].type == 'image/png')) {
+                    //將圖片在頁面預覽
+                    var fr = new FileReader();
+                    fr.onload = openfile;
+                    fr.readAsDataURL(files[i]);
+                    imgform.append('esNote_score_pic',files[i]);
+                }
+            }
+        });
 function dragoverHandler(evt) {
     evt.preventDefault();
     $('#upload_page_IMG').hide();
-}
-function dropHandler(evt) {//evt 為 DragEvent 物件
+};
+function dropHandler(evt) {
     evt.preventDefault();
     files = evt.dataTransfer.files;//由DataTransfer物件的files屬性取得檔案物件
     $('#upload_page_IMG').show();
 
     for (var i in files) {
-        files[count].name = count+files.type;
         if ((files[i].type == 'image/jpeg') | (files[i].type == 'image/png')) {
                     //將圖片在頁面預覽
                     var fr = new FileReader();
@@ -52,15 +62,13 @@ function dropHandler(evt) {//evt 為 DragEvent 物件
                         dataType:"json",
                         data: imgform,
                         success: function(data) {
-                            var score_pic = data.esNote_score_pic
+                            var score_pic = data.esNote_score_pic;
+                            sessionStorage.setItem('noteID',JSON.stringify(data.noteID));
+                            console.log(data.noteID);
                             $.each(score_pic,function(index,val){
-                                $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>")
-                                
+                                $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");      
                             })
                             $('.sp-wrap').smoothproducts();
-                            // score_pic.each()<a href="../static/dist/img/photo1.png"><img src="../static/dist/img/photo1.png" alt=""></a>
-                            // console.log(score_pic[0].esNote_score_pic)
-                            // $('#step2_content').html("<img src='"+data[7].esNote_score_pic)
                             stepper1.next();
                             return data;
                         },

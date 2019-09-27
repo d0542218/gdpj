@@ -160,9 +160,13 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <div id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">
-                                                        <img id="upload_page_IMG" src="../static/dist/img/upload.svg">
-                                                    </div>
+                                                    <label class="upload-label" id="dropDIV" ondragover="dragoverHandler(event)" ondrop="dropHandler(event)">
+                                                        <div>
+                                                            <input id="file-uploader" type="file" multiple="multiple" accept=".jpg,.png,.jpeg" style="display:none;" >
+                                                            <img id="upload_page_IMG" src="../static/dist/img/upload.svg">
+                                                            <div id="upload_page_Text">點擊或拖拉檔案至此</div>
+                                                        </div>
+                                                    </label>
                                                     <div id="to_upload_img_DIV"></div>
                                                 </div>
                                             </div>
@@ -200,13 +204,13 @@
                                                 </li>
                                             </ul>
                                         </div> -->
-                                        <div class="row justify-content-center">
+                                        <div id='step2-row' class="row justify-content-center">
                                             <div class="sp-wrap" style="display: inline-block;">
                                             </div>
                                         </div>
                                         <br><br>
                                         <div class="row justify-content-around">
-                                            <a href="#" class="" onclick="stepper1.previous()"><img src="../static/dist/img/Back.svg"></a>
+                                            <a href="#" class="" id="step-2-previous"><img src="../static/dist/img/Back.svg"></a>
                                             <a href="#" class="" id="step-2-next" onclick="stepper1.next()"><img src="../static/dist/img/next.svg"></a>
                                         </div>
                                     </div>
@@ -271,6 +275,8 @@
     <script src="../static/dist/js/upload.js"></script>
     <!-- 'bs-stepper ready funtion'-->
     <script src="../static/dist/js/stepperReady.js"></script>
+    <!-- I write js for recheck -->
+    <script src="../static/dist/js/recheck.js"></script>
 </body>
 
 </html>
