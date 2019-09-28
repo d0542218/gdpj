@@ -1,5 +1,9 @@
+from io import BytesIO
+
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.contrib.auth.models import User
+from PIL import Image as Img
 
 
 # Create your models here.
@@ -21,3 +25,17 @@ class esNote_score_pic_model(models.Model):
     esNote_score_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     score_picModifyTime = models.DateTimeField(auto_now=True)
     esNote_score = models.ForeignKey(esNote_score_model,related_name='esNote_score_pic', on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        if self.esNote_score_pic:
+            img = Img.open(BytesIO(self.esNote_score_pic.read()))
+            if img.mode != 'RGB':
+                img = img.convert('RGB')
+            # 尺寸浩要限制
+            # img.thumbnail((self.esNote_score_pic.width / 1.5, self.esNote_score_pic.height / 1.5), Img.ANTIALIAS)
+            output = BytesIO()
+            img.save(output, format='JPEG', quality=70)
+            output.seek(0)
+            self.esNote_score_pic = InMemoryUploadedFile(output, 'ImageField', "%s.jpg" % self.esNote_score_pic.name.split('.')[0],
+                                              'image/jpeg', output.__sizeof__, None)
+        super(esNote_score_pic_model, self).save(*args, **kwargs)
