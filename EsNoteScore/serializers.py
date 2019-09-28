@@ -43,7 +43,7 @@ class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
 class pic_Serializer(serializers.ModelSerializer):
     class Meta:
         model = esNote_score_pic_model
-        fields = ('esNote_score_noteID','order', 'esNote_score_pic')
+        fields = ('esNote_score_noteID','order', 'esNote_score_pic','esNote_score_resize_pic')
 
 
 class searchPicSerializer(serializers.ModelSerializer):
