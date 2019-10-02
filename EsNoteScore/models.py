@@ -30,9 +30,9 @@ class esNote_score_pic_model(models.Model):
     def save(self, *args, **kwargs):
         if self.esNote_score_pic:
             img = Img.open(BytesIO(self.esNote_score_pic.read()))
-            resize = img.copy()
             if img.mode != 'RGB':
                 img = img.convert('RGB')
+            resize = img.copy()
             output = BytesIO()
             img.save(output, format='JPEG', quality=70)
             output.seek(0)

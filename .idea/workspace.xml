@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EsNoteScore/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EsNoteScore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -90,19 +89,19 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\GitHub\gdpj\GraduateProject" />
-      <recent name="D:\GitHub\gdpj\EsNoteScore" />
-      <recent name="D:\GitHub\GraduateProject\templates\registration" />
-      <recent name="D:\GitHub\GraduateProject\templates" />
-      <recent name="D:\GitHub\GraduateProject\static\test" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\GitHub\gdpj\EsNoteScore" />
       <recent name="D:\GitHub\gdpj\GraduateProject\media\img" />
       <recent name="$PROJECT_DIR$/static/dist/img/credit" />
       <recent name="$PROJECT_DIR$/static/dist/img" />
       <recent name="$PROJECT_DIR$/templates" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\gdpj\GraduateProject" />
+      <recent name="D:\GitHub\gdpj\EsNoteScore" />
+      <recent name="D:\GitHub\GraduateProject\templates\registration" />
+      <recent name="D:\GitHub\GraduateProject\templates" />
+      <recent name="D:\GitHub\GraduateProject\static\test" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -184,7 +183,10 @@
       <workItem from="1569343883553" duration="399000" />
       <workItem from="1569402281862" duration="2851000" />
       <workItem from="1569658048790" duration="5973000" />
-      <workItem from="1569738889661" duration="6498000" />
+      <workItem from="1569738889661" duration="6652000" />
+      <workItem from="1569745585673" duration="1204000" />
+      <workItem from="1569920322549" duration="723000" />
+      <workItem from="1570007432825" duration="4723000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>
