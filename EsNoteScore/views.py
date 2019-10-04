@@ -1,8 +1,16 @@
+import json
+import os
+from io import BytesIO
+
+import requests
 import rest_framework_simplejwt
+from PIL import ImageDraw, Image
 from django.contrib.auth.models import User, AnonymousUser
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import QuerySet
 from django.http import QueryDict
 from rest_framework.exceptions import ParseError, NotFound, AuthenticationFailed
+from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from EsNoteScore.models import esNote_score_model, esNote_score_pic_model
 from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Serializer, UserSerializer \
@@ -10,6 +18,8 @@ from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Se
 from rest_framework import viewsets, authentication, permissions, status, generics, mixins
 from rest_framework_simplejwt.tokens import AccessToken
 import rest_framework_simplejwt.exceptions
+
+from GraduateProject import settings
 from . import permission
 
 
@@ -201,3 +211,64 @@ class model_get_pictures(viewsets.GenericViewSet, mixins.ListModelMixin):
     def get_queryset(self):
         self.id = self.request.GET.get('id')
         return esNote_score_model.objects.filter(noteID=self.id)
+
+#
+#
+#
+#
+# class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin):
+#     model = esNote_score_model
+#     serializer_class = predictPicSerializer
+#     secserializer_class = searchPicSerializer
+#     queryset = esNote_score_model.objects.all()
+#     noteID=0
+#     modlist=[]
+#
+#     def list(self, request, *args, **kwargs):
+#         res=[]
+#         queryset = esNote_score_model.objects.filter(noteID=request.GET.get('id'))
+#         self.modlist = esNote_score_pic_model.objects.filter(esNote_score__noteID=request.GET.get('id'))
+#         secserializer = self.secserializer_class(queryset, many=True)
+#         j = json.loads(JSONRenderer().render(secserializer.data))
+#         print(j)
+#         self.noteID = j[0].get("noteID")
+#         piclist = j[0].get("esNote_score_pic")
+#         j=0
+#         for i in piclist:
+#             print(i.get('esNote_score_resize_pic'))
+#             res.append(draw(j,i.get('esNote_score_resize_pic'),self.modlist))
+#             j+=1
+#         return Response(res)
+#
+#
+# def draw(site, filepath,modlist):
+#     r = requests.post('http://127.0.0.1:5000/', json={"img_url": "http://127.0.0.1:8000/" + filepath})
+#     im = Image.open(settings.BASE_DIR+'/'+settings.MEDIA_URL+filepath.split('/')[-1])
+#     bar_array = r.json()
+#     output = BytesIO()
+#     for bar in bar_array:
+#         for note in bar["notes"]:
+#             bbox = note["bounding box"]
+#             ystart = bbox[1] - bbox[3] / 2
+#             yend = bbox[1] + bbox[3] / 2
+#             xstart = bbox[0] - bbox[2] / 2
+#             xend = bbox[0] + bbox[2] / 2
+#             rectangleWithwidth([xstart, xend, ystart, yend], "blue", im, width=5,)
+#     output.seek(0)
+#     im.save(output, format='JPEG', quality=70)
+#     img = InMemoryUploadedFile(output, 'ImageField', "predict_%s.jpg" % filepath.split("/")[-1],
+#                                'image/jpeg', output.__sizeof__, None)
+#     modlist[site].update(predict_score_pic=img)
+#     return "http://127.0.0.1:8000/" +"predict_%s.jpg" % filepath.spilt("/")[-1]
+#         # self.serializer.save(esNote_score=esNote_score_model.objects.get(noteID=self.noteID), order=self.order)
+#
+#
+# def rectangleWithwidth(list, color, file, width=5):
+#     draw = ImageDraw.Draw(file)
+#     # list[0] = xs,list[1] = xend ,list[2] = ys,list[3] = yend,
+#     assert len(list) == 4
+#     assert list is not None
+#     draw.line([(list[0], list[2]), (list[1], list[2])], fill=color, width=width)
+#     draw.line([(list[0], list[2]), (list[0], list[3])], fill=color, width=width)
+#     draw.line([(list[1], list[2]), (list[1], list[3])], fill=color, width=width)
+#     draw.line([(list[0], list[3]), (list[1], list[3])], fill=color, width=width)

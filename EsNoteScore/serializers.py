@@ -37,13 +37,13 @@ class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = esNote_score_pic_model
-        fields = ('esNote_score_noteID', 'esNote_score_pic', 'score_picModifyTime', 'belongTo','order')
+        fields = ('esNote_score_noteID', 'esNote_score_pic','predict_score_pic','score_picModifyTime', 'belongTo','order')
 
 
 class pic_Serializer(serializers.ModelSerializer):
     class Meta:
         model = esNote_score_pic_model
-        fields = ('esNote_score_noteID','order', 'esNote_score_pic','esNote_score_resize_pic')
+        fields = ('esNote_score_noteID','order', 'esNote_score_pic','esNote_score_resize_pic',"predict_score_pic")
 
 
 class searchPicSerializer(serializers.ModelSerializer):
@@ -54,5 +54,13 @@ class searchPicSerializer(serializers.ModelSerializer):
     class Meta:
         model = esNote_score_model
         fields = ('noteID','esNote_score_pic')
+#
+#
+# class predictPicSerializer(serializers.ModelSerializer):
+#     esNote_score_pic = pic_Serializer(many=True, read_only=True)
+#
+#     class Meta:
+#         model = esNote_score_model
+#         fields = ('noteID','esNote_score_pic')
 
 
