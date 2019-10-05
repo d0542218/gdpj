@@ -29,7 +29,7 @@ router.register('user_esNote',views.UserViewSet)
 router.register('esNoteScorePic', views.EsNoteScorePicViewSet)
 router.register('uploadImages',views.upload_images)
 router.register('searchimg',views.model_get_pictures)
-# router.register("peddict",views.model_get_predict_pictures)
+router.register("predict",views.model_get_predict_pictures)
 
 
 urlpatterns = [

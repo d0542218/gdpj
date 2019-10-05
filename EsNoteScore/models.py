@@ -1,3 +1,4 @@
+import time
 from io import BytesIO
 
 import requests
@@ -43,36 +44,14 @@ class esNote_score_pic_model(models.Model):
             # wait for detail
             output2 = BytesIO()
             width, height = resize.size
-            if width>height:
-                rate = 1000 / width
-            else:
-                rate = 1000 / height
-            resize.thumbnail((int(width*rate), int(height*rate)), Img.ANTIALIAS)
+            if width>1000 and height>1000:
+                if width>height:
+                    rate = 1000 / width
+                else:
+                    rate = 1000 / height
+                resize.thumbnail((int(width*rate), int(height*rate)), Img.ANTIALIAS)
             resize.save(output2, format='JPEG', quality=70)
             output2.seek(0)
             self.esNote_score_resize_pic= InMemoryUploadedFile(output2, 'ImageField', "samll_%s.jpg" % self.esNote_score_pic.name.split('.')[0],
                                               'image/jpeg', output.__sizeof__, None)
-        # if self.esNote_score_resize_pic:
-        #     print("http://127.0.0.1:8000/media/" + self.esNote_score_resize_pic.name)
-        #     r = requests.post('http://127.0.0.1:5000/', json={"img_url": "http://127.0.0.1:8000/media/" + self.esNote_score_resize_pic.name})
-        #     im = Img.open(BytesIO(self.esNote_score_resize_pic.read()))
-        #     bar_array = r.json()
-        #     for bar in bar_array:
-        #         for note in bar["notes"]:
-        #             bbox = note["bounding box"]
-        #             ystart = bbox[1] - bbox[3] / 2
-        #             yend = bbox[1] + bbox[3] / 2
-        #             xstart = bbox[0] - bbox[2] / 2
-        #             xend = bbox[0] + bbox[2] / 2
-        #             draw = ImageDraw.Draw(im)
-        #             draw.line([(xstart, ystart), (xend, ystart)], fill="blue", width=5)
-        #             draw.line([(xstart, ystart), (xstart,yend)], fill="blue", width=5)
-        #             draw.line([(xend, ystart), (xend, yend)], fill="blue", width=5)
-        #             draw.line([(xstart, yend), (xend, yend)], fill="blue", width=5)
-        #             # self.rectangleWithwidth([xstart, xend, ystart, yend], "blue", im, width=5)
-        #     output3 = BytesIO()
-        #     im.save(output3, format='JPEG', quality=70)
-        #     output3.seek(0)
-        #     self.esNote_score_predict_pic = InMemoryUploadedFile(output3, 'ImageField', "predict %s.jpg" % self.esNote_score_pic.name.split('.')[0],
-        #                                       'image/jpeg', output3.__sizeof__, None)
         super(esNote_score_pic_model, self).save(*args, **kwargs)
