@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EsNoteScore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/models.py" afterDir="false" />
-    </list>
+    <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +186,7 @@
       <workItem from="1570007432825" duration="4723000" />
       <workItem from="1570035726441" duration="18751000" />
       <workItem from="1570212837857" duration="720000" />
-      <workItem from="1570257179469" duration="668000" />
+      <workItem from="1570257179469" duration="1237000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>
