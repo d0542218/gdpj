@@ -225,29 +225,31 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=order)[0]
         except IndexError:
             raise NotFound("please check id and order.")
-        r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
-        print(r.status_code)
-        if r.status_code != 200:
-            raise ParseError("remote server error", code=r.status_code)
-        im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
-        bar_array = r.json()
-        for bar in bar_array:
-            for note in bar["notes"]:
-                bbox = note["bounding box"]
-                ystart = bbox[1] - bbox[3] / 2
-                yend = bbox[1] + bbox[3] / 2
-                xstart = bbox[0] - bbox[2] / 2
-                xend = bbox[0] + bbox[2] / 2
-                draw = ImageDraw.Draw(im)
-                draw.line([(xstart, ystart), (xend, ystart)], fill="blue", width=2)
-                draw.line([(xstart, ystart), (xstart, yend)], fill="blue", width=2)
-                draw.line([(xend, ystart), (xend, yend)], fill="blue", width=2)
-                draw.line([(xstart, yend), (xend, yend)], fill="blue", width=2)
-        response = HttpResponse(content_type="image/jpeg")
-        im.save(response, "JPEG")
-        im.close()
+        try:
+            r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
+            print(r.status_code)
+            if r.status_code != 200:
+                raise ParseError("remote server error", code=r.status_code)
+            im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
+            bar_array = r.json()
+            for bar in bar_array:
+                for note in bar["notes"]:
+                    bbox = note["bounding box"]
+                    ystart = bbox[1] - bbox[3] / 2
+                    yend = bbox[1] + bbox[3] / 2
+                    xstart = bbox[0] - bbox[2] / 2
+                    xend = bbox[0] + bbox[2] / 2
+                    draw = ImageDraw.Draw(im)
+                    draw.line([(xstart, ystart), (xend, ystart)], fill="blue", width=2)
+                    draw.line([(xstart, ystart), (xstart, yend)], fill="blue", width=2)
+                    draw.line([(xend, ystart), (xend, yend)], fill="blue", width=2)
+                    draw.line([(xstart, yend), (xend, yend)], fill="blue", width=2)
+            response = HttpResponse(content_type="image/jpeg")
+            im.save(response, "JPEG")
+            im.close()
+        except requests.exceptions.ConnectionError:
+            raise ParseError("remote server closed.", code=500)
         return response
-
 
 class model_get_history(viewsets.GenericViewSet, mixins.ListModelMixin):
     queryset = esNote_score_model.objects.all()

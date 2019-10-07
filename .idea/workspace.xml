@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EsNoteScore/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EsNoteScore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduateProject/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraduateProject/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/GraduateProject/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -195,7 +192,7 @@
       <workItem from="1570257179469" duration="17597000" />
       <workItem from="1570296377908" duration="261000" />
       <workItem from="1570349908658" duration="646000" />
-      <workItem from="1570440605555" duration="3256000" />
+      <workItem from="1570440605555" duration="3550000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>
