@@ -15,7 +15,6 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -27,16 +26,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
 
 INSTALLED_APPS = [
-'django.contrib.admin',
-'django.contrib.auth',
-'django.contrib.contenttypes',
-'django.contrib.sessions',
-'django.contrib.messages',
-'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     # package
     "rest_framework",
     "rest_framework.authtoken",
@@ -46,22 +44,24 @@ INSTALLED_APPS = [
     "Account",
     "History",
     "EsNoteScore"
-    ]
+]
 
 REST_FRAMEWORK = {
-'DEFAULT_AUTHENTICATION_CLASSES': (
-    'rest_framework.authentication.TokenAuthentication',
-    'rest_framework_simplejwt.authentication.JWTAuthentication',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
 
 SIMPLE_JWT = {
-'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
-'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     # 'ROTATE_REFRESH_TOKENS': False,
     # 'BLACKLIST_AFTER_ROTATION': True,
 
-'ALGORITHM': 'HS256',
+    'ALGORITHM': 'HS256',
     # 'SIGNING_KEY': settings.SECRET_KEY,
     # 'VERIFYING_KEY': None,
 
@@ -77,70 +77,67 @@ SIMPLE_JWT = {
     # 'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     # 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
-'AUTH_HEADER_TYPES': ('JWT',),
+    'AUTH_HEADER_TYPES': ('JWT',),
 }
 
 MIDDLEWARE = [
-'django.middleware.security.SecurityMiddleware',
-'django.contrib.sessions.middleware.SessionMiddleware',
-'django.middleware.common.CommonMiddleware',
-'django.middleware.csrf.CsrfViewMiddleware',
-'django.contrib.auth.middleware.AuthenticationMiddleware',
-'django.contrib.messages.middleware.MessageMiddleware',
-'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'GraduateProject.urls'
 
 TEMPLATES = [
-{
-'BACKEND': 'django.template.backends.django.DjangoTemplates',
-'DIRS': [os.path.join(BASE_DIR, 'templates')]
-,
-'APP_DIRS': True,
-'OPTIONS': {
-'context_processors': [
-'django.template.context_processors.debug',
-'django.template.context_processors.request',
-'django.contrib.auth.context_processors.auth',
-'django.contrib.messages.context_processors.messages',
-],
-},
-},
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')]
+        ,
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
 ]
 
 WSGI_APPLICATION = 'GraduateProject.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-'default': {
-'ENGINE': 'django.db.backends.sqlite3',
-'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-{
-'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-},
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -155,17 +152,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-
-
 STATICFILES_DIRS = [
-(os.path.join(BASE_DIR, "static")),
-
+    (os.path.join(BASE_DIR, "static")),
 
 ]
 
@@ -175,24 +168,24 @@ LOGIN_REDIRECT_URL = '/index'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT =os.path.join(BASE_DIR, 'GraduateProject/media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'GraduateProject/media')
 
 # BOWER_COMPONENTS_ROOT = '/PROJECT_ROOT/bower_components/'
 
 
 AUTH_PASSWORD_VALIDATORS = [
-{
-'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-'OPTIONS': {
-'min_length': 9,
-}
-},
-{
-'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-},
-{
-'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-},
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 9,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
 ]
 
 # DJOSER = {

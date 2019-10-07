@@ -11,7 +11,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from EsNoteScore.models import esNote_score_model, esNote_score_pic_model
 from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Serializer, UserSerializer \
-    , searchPicSerializer
+    , searchPicSerializer, historySerializer
 from rest_framework import viewsets, authentication, permissions, status, generics, mixins
 from rest_framework_simplejwt.tokens import AccessToken
 import rest_framework_simplejwt.exceptions
@@ -222,13 +222,13 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         esNote_score__noteID = request.GET.get('id')
         order = request.GET.get('order')
         try:
-            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID,order=order)[0]
+            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=order)[0]
         except IndexError:
             raise NotFound("please check id and order.")
         r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
         print(r.status_code)
-        if r.status_code !=200:
-            raise ParseError("remote server error",code=r.status_code)
+        if r.status_code != 200:
+            raise ParseError("remote server error", code=r.status_code)
         im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
         bar_array = r.json()
         for bar in bar_array:
@@ -247,3 +247,23 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         im.save(response, "JPEG")
         im.close()
         return response
+
+
+class model_get_history(viewsets.GenericViewSet, mixins.ListModelMixin):
+    queryset = esNote_score_model.objects.all()
+    page =True
+    serializer_class = historySerializer
+
+    def get_queryset(self):
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
+        return esNote_score_model.objects.filter(user=user)

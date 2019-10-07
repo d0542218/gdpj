@@ -30,6 +30,7 @@ router.register('esNoteScorePic', views.EsNoteScorePicViewSet)
 router.register('uploadImages',views.upload_images)
 router.register('searchimg',views.model_get_pictures)
 router.register("predict",views.model_get_predict_pictures)
+router.register("get_history",views.model_get_history)
 
 
 urlpatterns = [

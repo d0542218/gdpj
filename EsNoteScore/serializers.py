@@ -56,3 +56,9 @@ class searchPicSerializer(serializers.ModelSerializer):
         fields = ('noteID','esNote_score_pic')
 
 
+class historySerializer(serializers.ModelSerializer):
+    esNote_score_pic = pic_Serializer(many=True, read_only=True)
+
+    class Meta:
+        model = esNote_score_model
+        fields = ("noteID", "scoreName", "scoreStatus", "scoreInfoJason","scoreCreateTime","scoreModifyTime", "esNote_score_pic",)
