@@ -1,3 +1,4 @@
+import socket
 from io import BytesIO
 import requests
 import rest_framework_simplejwt
@@ -75,7 +76,7 @@ class EsNoteScorePicViewSet(viewsets.ModelViewSet):
     serializer_class = esNote_score_pic_Serializer
 
     def create(self, request, *args, **kwargs):
-        print(request.data)
+        # print(request.data)
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
@@ -165,8 +166,8 @@ class upload_images(viewsets.ModelViewSet):
         for i in pic.getlist('esNote_score_pic'):
             self.order += 1
             QDic.update({'esNote_score_pic': i})
-            print("QDic")
-            print(QDic)
+            # print("QDic")
+            # print(QDic)
             serializer = self.get_serializer(data=QDic)
             serializer.is_valid(raise_exception=True)
             self.perform_create(serializer)
@@ -214,11 +215,13 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         res = []
         url = "http://140.134.26.63:15001/predict_by_url"
         # url = "http://127.0.0.1:5000/predict_by_url"
-        ip = "http://182.155.209.64:5000/media/"
+        ip = socket.gethostbyname(socket.gethostname()+":18000/media/")
+        print(ip)
+        ip2 = "http://182.155.209.64:18000/media/"
         if not request.GET.get('id'):
             raise ParseError("id is null")
         if not request.GET.get('order'):
-            raise ParseError("id is null")
+            raise ParseError("order is null")
         esNote_score__noteID = request.GET.get('id')
         order = request.GET.get('order')
         try:

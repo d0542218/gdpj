@@ -28,7 +28,7 @@ class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
 
     def create(self, validated_data):
         # print("VVVVVVVVVVVVVVVVVV")
-        print(validated_data)
+        # print(validated_data)
         # esNote_score = validated_data.get('esNote_score')
         # print(esNote_score)
         image = validated_data.pop('esNote_score_pic')
