@@ -19,30 +19,27 @@
     <link rel="stylesheet" href="../static/bower/Ionicons/css/ionicons.min.css">
     <!-- Theme style -->
     <link rel="stylesheet" href="../static/dist/css/AdminLTE.min.css">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-     folder instead of downloading all of them to reduce the load. -->
-     <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="../static/dist/css/skins/_all-skins.min.css">
 
-     <link rel="stylesheet" href="../static/node_modules/bs-stepper/dist/css/bs-stepper.min.css">
+    <link rel="stylesheet" href="../static/node_modules/bs-stepper/dist/css/bs-stepper.min.css">
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-     <link href="../static/dist/css/jquery-fab-button.css" rel="stylesheet">
+    <!--googleIcons-->
+    <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
 
-     <!--googleIcons-->
-     <link rel="stylesheet" href="../static/dist/css/material-design-icon.css">
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 
-     <!-- Google Font -->
-     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <link rel="stylesheet" href="../static/dist/css/pitureUpload.css">
 
-     <link rel="stylesheet" href="../static/dist/css/pitureUpload.css">
+    <link rel="stylesheet" href="../static/dist/css/smoothproducts.css">
 
-     <link rel="stylesheet" href="../static/dist/css/smoothproducts.css">
-
- </head>
+</head>
 
 
- <body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
     <!-- Site wrapper -->
     <script>
         var stepper1 = null;
@@ -177,37 +174,14 @@
                                                 <a href="#" class="" id="step-1-next" ><img src="../static/dist/img/next.svg"></a>
                                             </div>
                                         </div>
-
-
                                     </div>
                                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
-                                        <!-- Floating Action Button like Google Material -->
-                                        <!-- <div class="fixed-action-btn vertical" style="top: 25%; right: 5%;">
-                                            <a class="btn-floating btn-large" id="hi">
-                                                <i class="large material-icons">menu</i>
-                                            </a>
-                                            <ul>
-                                                <li>
-                                                    <a class="btn-floating bg-indigo">
-                                                        <i class="material-icons">add</i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="btn-floating bg-indigo">
-                                                        <i class="material-icons">clear</i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a class="btn-floating bg-indigo">
-                                                        <i class="material-icons">help</i>>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div> -->
                                         <div id='step2-row' class="row justify-content-center">
                                             <div class="sp-wrap" style="display: inline-block;">
                                             </div>
                                         </div>
+                                        <select id="ImgOrder" class="row"style="margin-left:auto;margin-right:auto;">
+                                        </select>
                                         <br><br>
                                         <div class="row justify-content-around">
                                             <a href="#" class="" id="step-2-previous"><img src="../static/dist/img/Back.svg"></a>
@@ -246,7 +220,7 @@
         </div>
         <!-- ./wrapper -->
         <script type="text/javascript">
-         function logout(){
+           function logout(){
             sessionStorage.clear();
             $(".navbar-custom-menu ul").empty();
             $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
@@ -254,7 +228,6 @@
     </script>
     <script src="../static/bower/jquery/dist/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <script src="../static/dist/js/jquery-fab-button.js"></script>
     <!-- bsstepper -->
     <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
     <!-- Bootstrap 3.3.7 -->
@@ -275,8 +248,6 @@
     <script src="../static/dist/js/upload.js"></script>
     <!-- 'bs-stepper ready funtion'-->
     <script src="../static/dist/js/stepperReady.js"></script>
-    <!-- I write js for recheck -->
-    <script src="../static/dist/js/recheck.js"></script>
 </body>
 
 </html>

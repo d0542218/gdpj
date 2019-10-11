@@ -1,6 +1,6 @@
 function checkLogin(){
 	if(!sessionStorage.getItem('access')){
-		// window.location.href='/account/login'
+		window.location.href='/account/login';
 		// $('#step-1-next');
 	}else{
 		var access = sessionStorage.getItem("access")
@@ -60,6 +60,7 @@ function refresh(){
 				console.log(jwt);
 			},
 			error: function(msg){
+				window.location.href='/account/login'
 				return null;
 			}
 		})
