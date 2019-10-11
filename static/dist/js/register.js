@@ -8,7 +8,6 @@ function register(){
 		alert("還有資訊未填");
 	}else{
 		$.ajax({
-
 			type:"POST",
 			url:"/auth/users/create",
 			contentType:"application/json",

@@ -1,6 +1,8 @@
 
 var files ;
 var imgform = new FormData();
+var backFiles = [];
+var count = 0;
 $('#file-uploader').change(function(evt){
     files = evt.target.files;
     for (var i in files) {
@@ -64,10 +66,14 @@ function dropHandler(evt) {
                         success: function(data) {
                             var score_pic = data.esNote_score_pic;
                             sessionStorage.setItem('noteID',JSON.stringify(data.noteID));
-                            console.log(data.noteID);
+                            console.log(score_pic);
                             $.each(score_pic,function(index,val){
-                                $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");      
+                                backFiles[i] = val.esNote_score_pic;
+                                $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
+                                $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
+                                count++;      
                             })
+                            console.log(backFiles);
                             $('.sp-wrap').smoothproducts();
                             stepper1.next();
                             return data;
@@ -77,6 +83,54 @@ function dropHandler(evt) {
                         }
                     });
                 }
-
             }
         });
+        $('#step-2-previous').click(function(){
+            window.location.reload();
+            var token = sessionStorage.getItem('access').replace(/\"/g,"");
+            $.ajax({
+                url: "/api/v1/esNoteScore/"+sessionStorage.getItem('noteID').replace(/\"/g,""),
+                method: "DELETE",
+                headers: {
+                    "Authorization": "bearer "+token,
+                },
+                processData: false,
+                contentType: false,
+                success: function(data) {
+                    console.log(data);
+                },
+                error: function(msg){
+                    console.log(msg);
+                    return null;
+                }
+            });
+        });
+        $('#ImgOrder').change(function(){
+            var order = $('#ImgOrder option:selected').val();
+        });
+        $('#step-2-next').click(function() {
+            var token = sessionStorage.getItem('access');
+            token=token.replace(/\"/g,"");
+            for(i = 1;i<count;i++){
+                $.ajax({
+                    url: "/api/v1/predict/",
+                    method: "GET",
+                    headers: {
+                        "Authorization": "bearer "+token,
+                    },
+                    processData: false,
+                    contentType: false,
+                    mimeType: "multipart/form-data",
+                    dataType:"json",
+                    data:{"id":sessionStorage.getItem('noteID').replace(/\"/g,""),"order":i},
+                    success: function(data) {
+                    // stepper1.next();
+                    console.log(data);
+                    return data;
+                },
+                error: function(msg){
+                    return null;
+                }
+            });
+            }
+        })        

@@ -31,7 +31,7 @@
 				if (thumbQty > 1) {
 					var firstLarge,firstThumb,
 						defaultImage = $('a.sp-default', this)[0]?true:false;
-					$(this).append('<div class="sp-large"></div><div class="sp-thumbs sp-tb-active"></div>');
+					$(this).append('<div class="sp-large"></div><div class="row sp-thumbs sp-tb-active"></div>');
 					$('a', this).each(function(index) {
 						var thumb = $('img', this).attr('src'),
 							large = $(this).attr('href'),
