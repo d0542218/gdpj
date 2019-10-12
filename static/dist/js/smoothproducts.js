@@ -113,20 +113,20 @@
 			});
 
 			// Zoom In non-touch
-			$(document.body).on('mouseenter', '.sp-non-touch .sp-large', function(event) {
-				var largeUrl = $('a', this).attr('href');
-				$(this).append('<div class="sp-zoom"><img src="' + largeUrl + '"/></div>');
-				$(this).find('.sp-zoom').fadeIn(250);
-				event.preventDefault();
-			});
+			// $(document.body).on('mouseenter', '.sp-non-touch .sp-large', function(event) {
+			// 	var largeUrl = $('a', this).attr('href');
+			// 	$(this).append('<div class="sp-zoom"><img src="' + largeUrl + '"/></div>');
+			// 	$(this).find('.sp-zoom').fadeIn(250);
+			// 	event.preventDefault();
+			// });
 
-			// Zoom Out non-touch
-			$(document.body).on('mouseleave', '.sp-non-touch .sp-large', function(event) {
-				$(this).find('.sp-zoom').fadeOut(250, function() {
-					$(this).remove();
-				});
-				event.preventDefault();
-			});
+			// // Zoom Out non-touch
+			// $(document.body).on('mouseleave', '.sp-non-touch .sp-large', function(event) {
+			// 	$(this).find('.sp-zoom').fadeOut(250, function() {
+			// 		$(this).remove();
+			// 	});
+			// 	event.preventDefault();
+			// });
 
 			// Open in Lightbox non-touch
 			$(document.body).on('click', '.sp-non-touch .sp-zoom', function(event) {
@@ -248,23 +248,23 @@
 
 			// Panning zoomed image (non-touch)
 
-			$('.sp-large').mousemove(function(e) {
-				var viewWidth = $(this).width(),
-					viewHeight = $(this).height(),
-					viewOffset = $(this).offset(),
-					largeWidth = $(this).find('.sp-zoom').width(),
-					largeHeight = $(this).find('.sp-zoom').height(),
-					relativeXPosition = (e.pageX - viewOffset.left),
-					relativeYPosition = (e.pageY - viewOffset.top),
-					moveX = Math.floor((relativeXPosition * (viewWidth - largeWidth) / viewWidth)),
-					moveY = Math.floor((relativeYPosition * (viewHeight - largeHeight) / viewHeight));
+			// $('.sp-large').mousemove(function(e) {
+			// 	var viewWidth = $(this).width(),
+			// 		viewHeight = $(this).height(),
+			// 		viewOffset = $(this).offset(),
+			// 		largeWidth = $(this).find('.sp-zoom').width(),
+			// 		largeHeight = $(this).find('.sp-zoom').height(),
+			// 		relativeXPosition = (e.pageX - viewOffset.left),
+			// 		relativeYPosition = (e.pageY - viewOffset.top),
+			// 		moveX = Math.floor((relativeXPosition * (viewWidth - largeWidth) / viewWidth)),
+			// 		moveY = Math.floor((relativeYPosition * (viewHeight - largeHeight) / viewHeight));
 
-				$(this).find('.sp-zoom').css({
-					left: moveX,
-					top: moveY
-				});
+			// 	$(this).find('.sp-zoom').css({
+			// 		left: moveX,
+			// 		top: moveY
+			// 	});
 
-			});
+			// });
 
 			function get_url_from_background(bg){
 				return bg.match(/url\([\"\']{0,1}(.+)[\"\']{0,1}\)+/i)[1];

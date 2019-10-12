@@ -68,9 +68,9 @@ function dropHandler(evt) {
                             sessionStorage.setItem('noteID',JSON.stringify(data.noteID));
                             console.log(score_pic);
                             $.each(score_pic,function(index,val){
-                                backFiles[i] = val.esNote_score_pic;
+                                backFiles[count] = val.esNote_score_pic;
                                 $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
-                                $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
+                                // $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
                                 count++;      
                             })
                             console.log(backFiles);
