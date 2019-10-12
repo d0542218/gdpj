@@ -183,6 +183,7 @@ class upload_images(viewsets.ModelViewSet):
         self.temp.append(serializer.data)
 
 
+# permission staff wait
 class model_get_pictures(viewsets.GenericViewSet, mixins.ListModelMixin):
     model = esNote_score_model
     serializer_class = searchPicSerializer
@@ -218,6 +219,17 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         ip = socket.gethostbyname(socket.gethostname())+":18000/media/"
         print(ip)
         ip2 = "http://182.155.209.64:18000/media/"
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
         if not request.GET.get('id'):
             raise ParseError("id is null")
         if not request.GET.get('order'):
@@ -226,8 +238,11 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         order = request.GET.get('order')
         try:
             pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=order)[0]
+            owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
         except IndexError:
             raise NotFound("please check id and order.")
+        if not (user == owner or request.user.is_staff):
+            raise AuthenticationFailed("Permission deny.")
         try:
             r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
             print(r.status_code)
@@ -253,6 +268,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         except requests.exceptions.ConnectionError:
             raise ParseError("remote server closed.", code=500)
         return response
+
 
 class model_get_history(viewsets.GenericViewSet, mixins.ListModelMixin):
     queryset = esNote_score_model.objects.all()
