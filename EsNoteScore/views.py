@@ -215,7 +215,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         res = []
         url = "http://140.134.26.63:15001/predict_by_url"
         # url = "http://127.0.0.1:5000/predict_by_url"
-        ip = socket.gethostbyname(socket.gethostname()+":18000/media/")
+        ip = socket.gethostbyname(socket.gethostname())+":18000/media/"
         print(ip)
         ip2 = "http://182.155.209.64:18000/media/"
         if not request.GET.get('id'):
