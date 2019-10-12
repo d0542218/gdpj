@@ -164,7 +164,6 @@
                                                             <div id="upload_page_Text">點擊或拖拉檔案至此</div>
                                                         </div>
                                                     </label>
-                                                    <!-- <div ></div> -->
                                                 </div>
                                             </div>
 
@@ -177,8 +176,7 @@
                                     </div>
                                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                         <div id='step2-row' class="row justify-content-center">
-                                            <div class="sp-wrap" style="display: inline-block;">
-                                            </div>
+                                            <div class="sp-wrap" style="display: inline-block;"></div>
                                         </div>
                                         <select id="ImgOrder" class="row"style="margin-left:auto;margin-right:auto;">
                                         </select>
@@ -220,7 +218,7 @@
         </div>
         <!-- ./wrapper -->
         <script type="text/javascript">
-           function logout(){
+         function logout(){
             sessionStorage.clear();
             $(".navbar-custom-menu ul").empty();
             $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');

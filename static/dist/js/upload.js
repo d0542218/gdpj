@@ -89,14 +89,14 @@ $('#step-1-next').click(function() {
                 success: function(data) {
                     var score_pic = data.esNote_score_pic;
                     sessionStorage.setItem('noteID',JSON.stringify(data.noteID));
-                    console.log(score_pic);
+                    // console.log(score_pic);
                     $.each(score_pic,function(index,val){
-                        backFiles[count] = val.esNote_score_pic;
+                        backFiles[img_count] = val.esNote_score_pic;
                         $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
                                 // $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
                                 img_count++;      
                             })
-                    console.log(backFiles);
+                    // console.log(backFiles);
                     $('.sp-wrap').smoothproducts();
                     stepper1.next();
                     return data;
@@ -109,18 +109,18 @@ $('#step-1-next').click(function() {
     }
 });
 $('#step-2-previous').click(function(){
-    window.location.reload();
+    // window.location.reload();
     var token = sessionStorage.getItem('access').replace(/\"/g,"");
     $.ajax({
-        url: "/api/v1/esNoteScore/"+sessionStorage.getItem('noteID').replace(/\"/g,""),
+        async:true,
+        crossDomain:true,
+        url: "/api/v1/esNoteScore/"+sessionStorage.getItem('noteID').replace(/\"/g,"")+'/',
         method: "DELETE",
         headers: {
             "Authorization": "bearer "+token,
         },
-        processData: false,
-        contentType: false,
         success: function(data) {
-            console.log(data);
+            window.location.reload();
         },
         error: function(msg){
             console.log(msg);
