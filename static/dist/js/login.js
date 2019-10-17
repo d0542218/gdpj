@@ -16,16 +16,14 @@ function login(){
 			}),
 			success: function(data){
 				var jwt = JSON.parse(JSON.stringify(data));
-				var refresh = jwt.refresh;
-				var access = jwt.access;
 				sessionStorage.setItem('username',JSON.stringify(username));
-				sessionStorage.setItem('refresh',JSON.stringify(refresh));
-				sessionStorage.setItem('access',JSON.stringify(access));
+				sessionStorage.setItem('refresh',JSON.stringify(jwt.refresh));
+				sessionStorage.setItem('access',JSON.stringify(jwt.access));
 				window.location.href='../';
 			},
 			error: function(msg){
-				var err = eval("(" + msg.responseText + ")");
-				alert("error "+msg);
+				console.log(msg.responseText);
+				alert("錯誤的帳號密碼");
 				return null;
 			}
 		}

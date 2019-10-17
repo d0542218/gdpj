@@ -2,8 +2,8 @@
 var files ;
 var file_count = 0;
 var imgform = new FormData();
-var backFiles = [];
-var img_count = 0;
+// var backFiles = [];
+// var img_count = 0;
 $('#file-uploader').change(function(evt){
     if((file_count+evt.target.files.length)<=5){
         file_count += evt.target.files.length;
@@ -50,8 +50,8 @@ function openfile(evt) {
     var img = evt.target.result;
     var imgx = document.createElement('img');
     imgx.style.margin = "10px";
-    imgx.style.width = "400px";
     imgx.style.height = "400px";
+    imgx.style.width = "400px";
     imgx.src = img;
     $('#upload_page_IMG').hide();
     $('#upload_page_Text').remove();
@@ -59,9 +59,9 @@ function openfile(evt) {
     $('#to_upload_img_DIV').append("<div id ='upload_page_Text'>點擊或拖拉檔案至此</div>");
     document.getElementById('dropDIV').style.width="80%";
     if(file_count>3){
-        document.getElementById('dropDIV').style.height="900px";
+        document.getElementById('dropDIV').style.height="80%";
     }else{
-        document.getElementById('dropDIV').style.height="600px";
+        document.getElementById('dropDIV').style.height="60%";
     }
     document.getElementById('upload_page_Text').style.margin="10px";
 
@@ -91,10 +91,10 @@ $('#step-1-next').click(function() {
                     sessionStorage.setItem('noteID',JSON.stringify(data.noteID));
                     // console.log(score_pic);
                     $.each(score_pic,function(index,val){
-                        backFiles[img_count] = val.esNote_score_pic;
+                        // backFiles[img_count] = val.esNote_score_pic;
                         $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
                                 // $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
-                                img_count++;      
+                                // img_count++;      
                             })
                     // console.log(backFiles);
                     $('.sp-wrap').smoothproducts();

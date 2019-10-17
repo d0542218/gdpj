@@ -68,7 +68,7 @@
                     </li> -->
 
                     <li>
-                        <a href="../templates/blank.html"><img src="../static/dist/img/home.svg"> <span>轉換樂譜</span></a>
+                        <a href="../"><img src="../static/dist/img/home.svg"> <span>轉換樂譜</span></a>
                     </li>
                     <li>
                         <a href="/history" class="aria-disabled="true><img src="../static/dist/img/history.svg" onclick="checkLogin()"> <span>歷史紀錄</span></a>
@@ -85,15 +85,12 @@
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-
-            </section>
-
             <!-- Main content -->
             <section class="content">
                 <div class="mb-5 p-4 bg-white shadow-sm">
-
+                    <div class="row">
+                        
+                    </div>
 
                 </div>
                 <!-- /.content -->
@@ -101,19 +98,31 @@
             <!-- /.content-wrapper -->
 
         </div>
-        <!-- ./wrapper -->
-        <script src="../static/bower/jquery/dist/jquery.min.js"></script>
-        <!-- Bootstrap 3.3.7 -->
-        <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
-        <!-- SlimScroll -->
-        <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-        <!-- FastClick -->
-        <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
-        <!-- AdminLTE App -->
-        <script src="../static/dist/js/adminlte.min.js"></script>
-        <!-- AdminLTE for demo purposes -->
-        <script src="../static/dist/js/demo.js"></script>
-        
-    </body>
+        <script type="text/javascript">
+         function logout(){
+            sessionStorage.clear();
+            $(".navbar-custom-menu ul").empty();
+            $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
+            window.location.reload();
+        } 
+    </script>
+    <!-- ./wrapper -->
+    <script src="../static/bower/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- SlimScroll -->
+    <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- FastClick -->
+    <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../static/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="../static/dist/js/demo.js"></script>
+    <!-- I write js for change login -->
+    <script src="../static/dist/js/checkLogin.js"></script>
+    <!-- I write js for get history -->
+    <script src="../static/dist/js/history.js"></script>
 
-    </html>
+</body>
+
+</html>
