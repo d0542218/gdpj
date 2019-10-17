@@ -24,7 +24,8 @@ function login(){
 				window.location.href='../';
 			},
 			error: function(msg){
-				alert("error"+msg.responseText);
+				var err = eval("(" + msg.responseText + ")");
+				alert("error "+msg);
 				return null;
 			}
 		}
