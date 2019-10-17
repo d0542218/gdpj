@@ -33,14 +33,12 @@ class esNote_score_pic_model(models.Model):
     def save(self, *args, **kwargs):
         if self.esNote_score_pic:
             img = Img.open(BytesIO(self.esNote_score_pic.read()))
-            print(self.esNote_score_pic.name)
             if img.mode != 'RGB':
                 img = img.convert('RGB')
             if hasattr(img, '_getexif'):
                 orientation = 0x0112
                 exif = img._getexif()
                 if exif is not None and orientation in exif.keys():
-                    print("yes")
                     orientation = exif[orientation]
                     rotations = {
                         3: Image.ROTATE_180,
@@ -48,7 +46,6 @@ class esNote_score_pic_model(models.Model):
                         8: Image.ROTATE_90
                     }
                     if orientation in rotations.keys():
-                        print(orientation)
                         img = img.transpose(rotations[orientation])
             resize = img.copy()
             output = BytesIO()
