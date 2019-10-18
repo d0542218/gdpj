@@ -1,4 +1,4 @@
 #static ignore:
 static/node_modules
 static/bower
-venv/
+/.idea/
