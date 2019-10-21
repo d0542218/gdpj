@@ -216,7 +216,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         res = []
         url = "http://140.134.26.63:15001/predict_by_url"
         # url = "http://127.0.0.1:5000/predict_by_url"
-        ip = socket.gethostbyname(socket.gethostname())+":18000/media/"
+        ip = socket.gethostbyname(socket.gethostname()) + ":18000/media/"
         print(ip)
         ip2 = "http://182.155.209.64:18000/media/"
         if self.request.user == AnonymousUser():
@@ -272,7 +272,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
 
 class model_get_history(viewsets.GenericViewSet, mixins.ListModelMixin):
     queryset = esNote_score_model.objects.all()
-    page =True
+    page = True
     serializer_class = historySerializer
 
     def get_queryset(self):
@@ -288,3 +288,42 @@ class model_get_history(viewsets.GenericViewSet, mixins.ListModelMixin):
         else:
             user = self.request.user
         return esNote_score_model.objects.filter(user=user)
+
+
+class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin):
+    queryset = esNote_score_model.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
+        if not request.GET.get('id'):
+            raise ParseError("id is null")
+        if not request.GET.get('order'):
+            raise ParseError("order is null")
+        esNote_score__noteID = request.GET.get('id')
+        order = request.GET.get('order')
+        try:
+            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=order)[0]
+            owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
+        except IndexError:
+            raise NotFound("please check id and order.")
+        if not (user == owner or request.user.is_staff):
+            raise AuthenticationFailed("Permission deny.")
+        res = []
+        url = "http://140.134.26.63:15001/predict_by_url"
+        # url = "http://127.0.0.1:5000/predict_by_url"
+        ip = socket.gethostbyname(socket.gethostname()) + ":18000/media/"
+        im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
+        response = HttpResponse(content_type="image/jpeg")
+        im.save(response, "JPEG")
+        im.close()
+        return response
