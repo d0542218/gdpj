@@ -31,6 +31,7 @@ router.register('uploadImages',views.upload_images)
 router.register('searchimg',views.model_get_pictures)
 router.register("predict",views.model_get_predict_pictures)
 router.register("get_history",views.model_get_history)
+router.register('fakePredict',views.model_get_fake_predict_pictures)
 
 
 urlpatterns = [
