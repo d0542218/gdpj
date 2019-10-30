@@ -327,3 +327,10 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         im.save(response, "JPEG")
         im.close()
         return response
+
+
+class model_store_json(viewsets.GenericViewSet, mixins.UpdateModelMixin):
+    queryset = esNote_score_model.objects.all()
+    serializer_class = esNote_score_Serializer
+
+
