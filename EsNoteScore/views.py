@@ -1,3 +1,4 @@
+import base64
 import socket
 from io import BytesIO
 import requests
@@ -322,11 +323,19 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         url = "http://140.134.26.63:15001/predict_by_url"
         # url = "http://127.0.0.1:5000/predict_by_url"
         ip = socket.gethostbyname(socket.gethostname()) + ":18000/media/"
-        im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
-        response = HttpResponse(content_type="image/jpeg")
-        im.save(response, "JPEG")
-        im.close()
-        return response
+        # img = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
+        # response = HttpResponse(content_type="image/jpeg")
+        # im.save(response, "JPEG")
+        # im.close()
+
+        img = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
+        img.show()
+        output_buffer = BytesIO()
+        img.save(output_buffer, format='JPEG')
+        byte_data = output_buffer.getvalue()
+        base64_str = base64.b64encode(byte_data)
+        img.close()
+        return Response(base64_str)
 
 
 class model_store_json(viewsets.GenericViewSet, mixins.UpdateModelMixin):
