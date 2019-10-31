@@ -29,6 +29,8 @@ class esNote_score_pic_model(models.Model):
     esNote_score = models.ForeignKey(esNote_score_model, related_name='esNote_score_pic', on_delete=models.CASCADE)
     esNote_score_resize_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     esNote_score_predict_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
+    esNote_score_simple_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
+    esNote_score_data = models.FileField(null=True)
 
     def save(self, *args, **kwargs):
         if self.esNote_score_pic:
