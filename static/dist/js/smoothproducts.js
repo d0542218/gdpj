@@ -7,18 +7,18 @@
  * http://www.opensource.org/licenses/mit-license.php
  */
 
-(function($) {
-	$.fn.extend({
-		deleteSmoothProducts: function () {
-			$(document.body).off('click', '.sp-lightbox');
-			$(document.body).off('click', '#sp-prev');
-			$(document.body).off('click', '#sp-next');
-			$(document.body).off('click', '.sp-large a');
-			$(document.body).off('click', '.sp-noff-touch .sp-zoom');
-			$(document.body).off('click', '.sp-tb-active a');
-			$(document.body).off('click', '.sp-thumbs');
-		},
-		smoothproducts: function() {
+ (function($) {
+ 	$.fn.extend({
+ 		deleteSmoothProducts: function () {
+ 			$(document.body).off('click', '.sp-lightbox');
+ 			$(document.body).off('click', '#sp-prev');
+ 			$(document.body).off('click', '#sp-next');
+ 			$(document.body).off('click', '.sp-large a');
+ 			$(document.body).off('click', '.sp-noff-touch .sp-zoom');
+ 			$(document.body).off('click', '.sp-tb-active a');
+ 			$(document.body).off('click', '.sp-thumbs');
+ 		},
+ 		smoothproducts: function() {
 
 			// Add some markup & set some CSS
 
@@ -30,12 +30,12 @@
 				// If more than one image
 				if (thumbQty > 1) {
 					var firstLarge,firstThumb,
-						defaultImage = $('a.sp-default', this)[0]?true:false;
-					$(this).append('<div class="sp-large"></div><div class="row sp-thumbs sp-tb-active"></div>');
+					defaultImage = $('a.sp-default', this)[0]?true:false;
+					$(this).append('<div class="sp-large"></div><div class="sp-thumbs sp-tb-active"></div>');
 					$('a', this).each(function(index) {
 						var thumb = $('img', this).attr('src'),
-							large = $(this).attr('href'),
-							classes = '';
+						large = $(this).attr('href'),
+						classes = '';
 						//set default image
 						if((index === 0 && !defaultImage) || $(this).hasClass('sp-default')){
 							classes = ' class="sp-current"';
@@ -45,15 +45,16 @@
 						$(this).parents('.sp-wrap').find('.sp-thumbs').append('<a href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+'></a>');
 						$(this).remove();
 					});
-					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="" /></a>');
+					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="" id ="sp-current-big-img"/></a>');
 					$('.sp-wrap').css('display', 'inline-block');
 				// If only one image
-				} else {
-					$(this).append('<div class="sp-large"></div>');
-					$('a', this).appendTo($('.sp-large', this)).addClass('.sp-current-big');
-					$('.sp-wrap').css('display', 'inline-block');
-				}
-			});
+			} else {
+				$(this).append('<div class="sp-large"></div>');
+				$('a', this).appendTo($('.sp-large', this)).addClass('.sp-current-big');
+				$('img', this).attr('id','sp-current-big-img');
+				$('.sp-wrap').css('display', 'inline-block');
+			}
+		});
 
 
 			// Prevent clicking while things are happening
@@ -82,7 +83,7 @@
 				$(this).parents('.sp-wrap').find('.sp-zoom').remove();
 
 				var currentHeight = $(this).parents('.sp-wrap').find('.sp-large').height(),
-					currentWidth = $(this).parents('.sp-wrap').find('.sp-large').width();
+				currentWidth = $(this).parents('.sp-wrap').find('.sp-large').width();
 				$(this).parents('.sp-wrap').find('.sp-large').css({
 					overflow: 'hidden',
 					height: currentHeight + 'px',
@@ -92,9 +93,9 @@
 				$(this).addClass('sp-current').parents('.sp-wrap').find('.sp-large a').remove();
 
 				var nextLarge = $(this).parent().find('.sp-current').attr('href'),
-					nextThumb = get_url_from_background($(this).parent().find('.sp-current').css('backgroundImage'));
+				nextThumb = get_url_from_background($(this).parent().find('.sp-current').css('backgroundImage'));
 
-				$(this).parents('.sp-wrap').find('.sp-large').html('<a href="' + nextLarge + '" class="sp-current-big"><img src="' + nextThumb + '"/></a>');
+				$(this).parents('.sp-wrap').find('.sp-large').html('<a href="' + nextLarge + '" class="sp-current-big"><img src="' + nextThumb + '" id ="sp-current-big-img"/></a>');
 				$(this).parents('.sp-wrap').find('.sp-large').hide().fadeIn(250, function() {
 
 					var autoHeight = $(this).parents('.sp-wrap').find('.sp-large img').height();
@@ -129,10 +130,11 @@
 			// });
 
 			// Open in Lightbox non-touch
+			// Open in Lightbox non-touch
 			$(document.body).on('click', '.sp-non-touch .sp-zoom', function(event) {
 				var currentImg = $(this).html(),
-					thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
-					currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
+				thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
+				currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
 				$(this).parents('.sp-wrap').addClass('sp-selected');
 				$('body').append("<div class='sp-lightbox' data-currenteq='"+currentThumb+"'>" + currentImg + "</div>");
 
@@ -151,8 +153,8 @@
 			// Open in Lightbox touch
 			$(document.body).on('click', '.sp-large a', function(event) {
 				var currentImg = $(this).attr('href'),
-					thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
-					currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
+				thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
+				currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
 
 				$(this).parents('.sp-wrap').addClass('sp-selected');
 				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><img src="' + currentImg + '"/></div>');
@@ -173,56 +175,56 @@
 			$(document.body).on('click', '#sp-next', function(event) {
 				event.stopPropagation();
 				var currentEq = $('.sp-lightbox').data('currenteq'),
-					totalItems = $('.sp-selected .sp-thumbs a').length;
+				totalItems = $('.sp-selected .sp-thumbs a').length;
 
-					if(currentEq >= totalItems) {
-					} else {
-						var nextEq = currentEq + 1,
-						newImg = $('.sp-selected .sp-thumbs').find('a:eq('+currentEq+')').attr('href'),
-						newThumb = get_url_from_background($('.sp-selected .sp-thumbs').find('a:eq('+currentEq+')').css('backgroundImage'));
-						if (currentEq == (totalItems - 1)) {
-							$('#sp-next').css('opacity','.1');
-						}
-						$('#sp-prev').css('opacity','1');
-						$('.sp-selected .sp-current').removeClass();
-						$('.sp-selected .sp-thumbs a:eq('+currentEq+')').addClass('sp-current');
-						$('.sp-selected .sp-large').empty().append('<a href='+newImg+'><img src="'+newThumb+'"/></a>');
-						$('.sp-lightbox img').fadeOut(250, function() {
-							$(this).remove();
-							$('.sp-lightbox').data('currenteq',nextEq).append('<img src="'+newImg+'"/>');
-							$('.sp-lightbox img').hide().fadeIn(250);
-						});
+				if(currentEq >= totalItems) {
+				} else {
+					var nextEq = currentEq + 1,
+					newImg = $('.sp-selected .sp-thumbs').find('a:eq('+currentEq+')').attr('href'),
+					newThumb = get_url_from_background($('.sp-selected .sp-thumbs').find('a:eq('+currentEq+')').css('backgroundImage'));
+					if (currentEq == (totalItems - 1)) {
+						$('#sp-next').css('opacity','.1');
 					}
+					$('#sp-prev').css('opacity','1');
+					$('.sp-selected .sp-current').removeClass();
+					$('.sp-selected .sp-thumbs a:eq('+currentEq+')').addClass('sp-current');
+					$('.sp-selected .sp-large').empty().append('<a href='+newImg+'><img src="'+newThumb+'"/></a>');
+					$('.sp-lightbox img').fadeOut(250, function() {
+						$(this).remove();
+						$('.sp-lightbox').data('currenteq',nextEq).append('<img src="'+newImg+'"/>');
+						$('.sp-lightbox img').hide().fadeIn(250);
+					});
+				}
 
 				event.preventDefault();
 			});
 
 		// Pagination Backward
-			$(document.body).on('click', '#sp-prev', function(event) {
+		$(document.body).on('click', '#sp-prev', function(event) {
 
-				event.stopPropagation();
-				var currentEq = $('.sp-lightbox').data('currenteq'),
-					currentEq = currentEq - 1;
-					if(currentEq <= 0) {
-					} else {
-						if (currentEq == 1) {
-							$('#sp-prev').css('opacity','.1');
-						}
-						var nextEq = currentEq - 1,
-						newImg = $('.sp-selected .sp-thumbs').find('a:eq('+nextEq+')').attr('href'),
-						newThumb = get_url_from_background($('.sp-selected .sp-thumbs').find('a:eq('+nextEq+')').css('backgroundImage'));
-						$('#sp-next').css('opacity','1');
-						$('.sp-selected .sp-current').removeClass();
-						$('.sp-selected .sp-thumbs a:eq('+nextEq+')').addClass('sp-current');
-						$('.sp-selected .sp-large').empty().append('<a href='+newImg+'><img src="'+newThumb+'"/></a>');
-						$('.sp-lightbox img').fadeOut(250, function() {
-							$(this).remove();
-							$('.sp-lightbox').data('currenteq',currentEq).append('<img src="'+newImg+'"/>');
-							$('.sp-lightbox img').hide().fadeIn(250);
-						});
-					}
-				event.preventDefault();
-			});
+			event.stopPropagation();
+			var currentEq = $('.sp-lightbox').data('currenteq'),
+			currentEq = currentEq - 1;
+			if(currentEq <= 0) {
+			} else {
+				if (currentEq == 1) {
+					$('#sp-prev').css('opacity','.1');
+				}
+				var nextEq = currentEq - 1,
+				newImg = $('.sp-selected .sp-thumbs').find('a:eq('+nextEq+')').attr('href'),
+				newThumb = get_url_from_background($('.sp-selected .sp-thumbs').find('a:eq('+nextEq+')').css('backgroundImage'));
+				$('#sp-next').css('opacity','1');
+				$('.sp-selected .sp-current').removeClass();
+				$('.sp-selected .sp-thumbs a:eq('+nextEq+')').addClass('sp-current');
+				$('.sp-selected .sp-large').empty().append('<a href='+newImg+'><img src="'+newThumb+'"/></a>');
+				$('.sp-lightbox img').fadeOut(250, function() {
+					$(this).remove();
+					$('.sp-lightbox').data('currenteq',currentEq).append('<img src="'+newImg+'"/>');
+					$('.sp-lightbox img').hide().fadeIn(250);
+				});
+			}
+			event.preventDefault();
+		});
 
 
 			// Close Lightbox
@@ -241,7 +243,7 @@
 			function closeModal (){
 				$('.sp-selected').removeClass('sp-selected');
 				$('.sp-lightbox').fadeOut(function() {
-						$(this).remove();
+					$(this).remove();
 				});
 			}
 

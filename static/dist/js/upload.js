@@ -2,6 +2,7 @@
 var files ;
 var file_count = 0;
 var imgform = new FormData();
+var current = 0;
 // var backFiles = [];
 // var img_count = 0;
 $('#file-uploader').change(function(evt){
@@ -132,28 +133,38 @@ $('#ImgOrder').change(function(){
     var order = $('#ImgOrder option:selected').val();
 });
 $('#step-2-next').click(function() {
+    $( "body" ).loading();
+    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
     var token = sessionStorage.getItem('access');
     token=token.replace(/\"/g,"");
-    for(i = 1;i<count;i++){
+    for(i = 1;i<file_count+1;i++){
         $.ajax({
-            url: "/api/v1/predict/",
+            url: "/api/v1/fakePredict/?id="+id+"&order="+i,
             method: "GET",
             headers: {
                 "Authorization": "bearer "+token,
             },
             processData: false,
-            contentType: false,
-            mimeType: "multipart/form-data",
-            dataType:"json",
-            data:{"id":sessionStorage.getItem('noteID').replace(/\"/g,""),"order":i},
+            // dataType: "image",
             success: function(data) {
-                    // stepper1.next();
-                    console.log(data);
-                    return data;
-                },
-                error: function(msg){
-                    return null;
-                }
-            });
+                console.log(data)
+                ctx.drawImage(imagetoCanvas(data),10,10)
+                data = btoa(unescape(encodeURIComponent(data)));
+                // data = base64Encode(data);
+                // console.log(data);
+                $('#testIMG').attr('src','data:image/png;base64,'+data);
+                $( "body" ).loading( "stop" );
+                return data;
+            },
+            error: function(msg){
+                console.log('error'+msg);
+                return null;
+            }
+        });
     }
-})        
+})
+
+$('#rotate').click(function(){
+    current = (current+90)%360;
+    document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';
+})

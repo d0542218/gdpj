@@ -166,7 +166,6 @@
                                                     </label>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="row justify-content-around">
                                             <div>
@@ -178,8 +177,9 @@
                                         <div id='step2-row' class="row justify-content-center">
                                             <div class="sp-wrap" style="display: inline-block;"></div>
                                         </div>
-                                        <select id="ImgOrder" class="row"style="margin-left:auto;margin-right:auto;">
-                                        </select>
+                                        <div class="row justify-content-center">
+                                            <button id='rotate'>旋轉</button>
+                                        </div>
                                         <br><br>
                                         <div class="row justify-content-around">
                                             <a href="#" class="" id="step-2-previous"><img src="../static/dist/img/Back.svg"></a>
@@ -188,7 +188,7 @@
                                     </div>
                                     <div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center" aria-labelledby="stepper1trigger3">
                                         <div class="form-group row justify-content-center" style="margin:0 auto;">
-                                            <img src="../static/dist/img/Image 1.svg">
+                                            <img src="" id='testIMG'>
                                         </div>
                                         <br><br>
                                         <div class="row justify-content-around">
@@ -218,7 +218,7 @@
         </div>
         <!-- ./wrapper -->
         <script type="text/javascript">
-         function logout(){
+           function logout(){
             sessionStorage.clear();
             $(".navbar-custom-menu ul").empty();
             $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
@@ -247,6 +247,8 @@
     <script src="../static/dist/js/upload.js"></script>
     <!-- 'bs-stepper ready funtion'-->
     <script src="../static/dist/js/stepperReady.js"></script>
+    <!-- canvas -->
+    <script src="../static/node_modules/canvasjs/dist/canvasjs.min.js"></script>
 </body>
 
 </html>
