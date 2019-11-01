@@ -147,14 +147,9 @@ $('#step-2-next').click(function() {
             processData: false,
             // dataType: "image",
             success: function(data) {
-                console.log(data)
-                ctx.drawImage(imagetoCanvas(data),10,10)
-                data = btoa(unescape(encodeURIComponent(data)));
-                // data = base64Encode(data);
-                // console.log(data);
                 $('#testIMG').attr('src','data:image/png;base64,'+data);
                 $( "body" ).loading( "stop" );
-                return data;
+                // return data;
             },
             error: function(msg){
                 console.log('error'+msg);
