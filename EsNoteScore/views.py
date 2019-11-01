@@ -329,7 +329,7 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         # im.close()
 
         img = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
-        img.show()
+        # img.show()
         output_buffer = BytesIO()
         img.save(output_buffer, format='JPEG')
         byte_data = output_buffer.getvalue()

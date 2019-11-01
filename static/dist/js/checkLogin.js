@@ -58,6 +58,7 @@ function refresh(){
 			success: function(data){
 				var jwt = JSON.parse(JSON.stringify(data));
 				console.log(jwt);
+				sessionStorage.setItem('access',JSON.stringify(jwt.access));
 			},
 			error: function(msg){
 				window.location.href='/account/login'
