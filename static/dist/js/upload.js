@@ -141,12 +141,15 @@ $('#step-2-next').click(function() {
         $.ajax({
             url: "/api/v1/predict/?id="+id+"&order="+i,
             method: "GET",
+            dataType:"json",
             headers: {
                 "Authorization": "bearer "+token,
             },
             success: function(data) {
-                $('#step3-wrap1').append("<a href='data'><img src= 'data'></a>");
-                // $('#step3-wrap2').append("<a href=' " +data +"'><img src= 'data:image/png;base64,"+data+"'></a>");
+                var predictIMG = JSON.parse(JSON.stringify(data));
+                console.log(predictIMG);
+                $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
+                $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
                 $('.sp-wrap').smoothproducts();
                 $( "body" ).loading( "stop" );
             },
