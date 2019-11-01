@@ -1,6 +1,5 @@
 function login(){
 	var username = document.forms["loginForm"]["username"].value;
-	// var email = document.forms["loginForm"]["email"].value;
 	var pw = document.forms["loginForm"]["PW"].value;
 	if(username==""||pw==""){
 		alert("還有資訊未填");

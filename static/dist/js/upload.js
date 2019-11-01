@@ -75,7 +75,7 @@ $('#step-1-next').click(function() {
         var token = sessionStorage.getItem('access');
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
-
+            $( "body" ).loading();
             $.ajax({
                 url: "/api/v1/uploadImages/",
                 method: "POST",
@@ -100,6 +100,7 @@ $('#step-1-next').click(function() {
                     // console.log(backFiles);
                     $('.sp-wrap').smoothproducts();
                     stepper1.next();
+                    $( "body" ).loading( "stop" );
                     return data;
                 },
                 error: function(msg){
@@ -110,7 +111,6 @@ $('#step-1-next').click(function() {
     }
 });
 $('#step-2-previous').click(function(){
-    // window.location.reload();
     var token = sessionStorage.getItem('access').replace(/\"/g,"");
     $.ajax({
         async:true,
@@ -129,32 +129,29 @@ $('#step-2-previous').click(function(){
         }
     });
 });
-$('#ImgOrder').change(function(){
-    var order = $('#ImgOrder option:selected').val();
-});
+
 $('#step-2-next').click(function() {
+    $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
+    $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading();
     var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
     var token = sessionStorage.getItem('access');
     token=token.replace(/\"/g,"");
     for(i = 1;i<file_count+1;i++){
         $.ajax({
-            url: "/api/v1/fakePredict/?id="+id+"&order="+i,
+            url: "/api/v1/predict/?id="+id+"&order="+i,
             method: "GET",
+            dataType:"json",
             headers: {
                 "Authorization": "bearer "+token,
             },
-            processData: false,
-            // dataType: "image",
             success: function(data) {
-                console.log(data)
-                ctx.drawImage(imagetoCanvas(data),10,10)
-                data = btoa(unescape(encodeURIComponent(data)));
-                // data = base64Encode(data);
-                // console.log(data);
-                $('#testIMG').attr('src','data:image/png;base64,'+data);
+                var predictIMG = JSON.parse(JSON.stringify(data));
+                console.log(predictIMG);
+                $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
+                $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
+                $('.sp-wrap').smoothproducts();
                 $( "body" ).loading( "stop" );
-                return data;
             },
             error: function(msg){
                 console.log('error'+msg);
@@ -163,7 +160,16 @@ $('#step-2-next').click(function() {
         });
     }
 })
+$('#step-3-previous').click(function(){
+    var temp = $('#step2-row');
+    var temp2 = $('#step2-wrap');
+    temp2.
+    stepper1.previous();
 
+});
+$('#ImgOrder').change(function(){
+    var order = $('#ImgOrder option:selected').val();
+});
 $('#rotate').click(function(){
     current = (current+90)%360;
     document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';

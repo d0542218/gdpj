@@ -175,7 +175,7 @@
                                     </div>
                                     <div id="test-l-2" role="tabpanel" class="bs-stepper-pane" aria-labelledby="stepper1trigger2">
                                         <div id='step2-row' class="row justify-content-center">
-                                            <div class="sp-wrap" style="display: inline-block;"></div>
+                                            <div class="sp-wrap" style="display: inline-block;"id ='step2-wrap'></div>
                                         </div>
                                         <div class="row justify-content-center">
                                             <button id='rotate'>旋轉</button>
@@ -187,13 +187,13 @@
                                         </div>
                                     </div>
                                     <div id="test-l-3" role="tabpanel" class="bs-stepper-pane text-center" aria-labelledby="stepper1trigger3">
-                                        <div class="form-group row justify-content-center" style="margin:0 auto;">
-                                            <img src="" id='testIMG'>
+                                        <div class="form-group row justify-content-center"style="margin:0 auto;display: inline-block;" id ='step3-content1'>
+                                        </div>
+                                        <div class="form-group row justify-content-center"style="margin:0 auto;display: inline-block;" id ='step3-content2'>
                                         </div>
                                         <br><br>
                                         <div class="row justify-content-around">
-
-                                            <a href="#" class="" onclick="stepper1.previous()"><img src="../static/dist/img/Back.svg"></a>
+                                            <a href="#" class="" id="step-3-previous"><img src="../static/dist/img/Back.svg"></a>
                                             <a href="#" class="" id="step-3-next" onclick="stepper1.next()"><img src="../static/dist/img/next.svg"></a>
                                         </div>
                                     </div>
@@ -218,7 +218,7 @@
         </div>
         <!-- ./wrapper -->
         <script type="text/javascript">
-           function logout(){
+         function logout(){
             sessionStorage.clear();
             $(".navbar-custom-menu ul").empty();
             $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
@@ -247,8 +247,8 @@
     <script src="../static/dist/js/upload.js"></script>
     <!-- 'bs-stepper ready funtion'-->
     <script src="../static/dist/js/stepperReady.js"></script>
-    <!-- canvas -->
-    <script src="../static/node_modules/canvasjs/dist/canvasjs.min.js"></script>
+    <!-- loading -->
+    <script src="../static/node_modules/jquery-easy-loading/dist/jquery.loading.min.js"></script>
 </body>
 
 </html>
