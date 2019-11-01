@@ -59,11 +59,11 @@ class esNote_score_pic_model(models.Model):
             # wait for detail
             output2 = BytesIO()
             width, height = resize.size
-            if width > 1000 and height > 1000:
+            if width > 2000 and height > 2000:
                 if width > height:
-                    rate = 1000 / width
+                    rate = 2000 / width
                 else:
-                    rate = 1000 / height
+                    rate = 2000 / height
                 resize.thumbnail((int(width * rate), int(height * rate)), Img.ANTIALIAS)
             resize.save(output2, format='JPEG', quality=70)
             output2.seek(0)
