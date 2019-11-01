@@ -21,6 +21,13 @@ class esNote_score_Serializer(serializers.HyperlinkedModelSerializer):
         fields = ("noteID", "scoreName", "scoreStatus", "scoreInfoJason", "owner", "esNote_score_pic")
 
 
+class change_score_name_Serializer(serializers.ModelSerializer):
+
+
+    class Meta:
+        model = esNote_score_model
+        fields = ("scoreName",)
+
 class esNote_score_pic_Serializer(serializers.HyperlinkedModelSerializer):
     belongTo = serializers.ReadOnlyField(source='esNote_score_pic_set')
 

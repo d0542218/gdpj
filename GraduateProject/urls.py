@@ -32,7 +32,10 @@ router.register('searchimg',views.model_get_pictures)
 router.register("predict",views.model_get_predict_pictures)
 router.register("get_history",views.model_get_history)
 router.register('fakePredict',views.model_get_fake_predict_pictures)
-router.register('model_store_json',views.model_store_json)
+router.register('change_score_name', views.change_score_name)
+router.register('change_order_of_pics',views.change_order_of_pics)
+
+
 
 
 urlpatterns = [
