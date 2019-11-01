@@ -602,7 +602,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         res = []
         url = "http://140.134.26.63:15001/predict_by_url"
         # url = "http://127.0.0.1:5000/predict_by_url"
-        ip = "http://140.134.26.63::18000/media/"
+        ip = "http://140.134.26.63:18000/media/"
         ip2 = "http://182.155.209.64:18000/media/"
         if self.request.user == AnonymousUser():
             try:
@@ -633,7 +633,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         return_json = {}
         try:
             # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
-            r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
+            r = requests.request("POST", url, data={"img_url": ip2 + quote(str(pic_model.esNote_score_resize_pic))})
             print(r.status_code)
             if r.status_code != 200:
                 raise ParseError("remote server error", code=r.status_code)
@@ -675,7 +675,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                 pic_model.esNote_score_simple_pic.save("simple_%s.jpg" % pic_model.esNote_score_pic.name.split('.')[0],
                                                         output_buffer, save=True)
                 simple_url =pic_model.esNote_score_simple_pic.url
-                return_json["simple url"] = simple_url
+                return_json["simple_url"] = simple_url
         except requests.exceptions.ConnectionError:
             raise ParseError("remote server closed.", code=500)
         return_json["pic"] = base64_str
@@ -706,6 +706,7 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
     queryset = esNote_score_model.objects.all()
 
     def list(self, request, *args, **kwargs):
+        return_json = {}
         if self.request.user == AnonymousUser():
             try:
                 token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
@@ -745,7 +746,9 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         byte_data = output_buffer.getvalue()
         base64_str = base64.b64encode(byte_data)
         img.close()
-        return Response(base64_str)
+        return_json['simple_url'] = pic_model.esNote_score_resize_pic.url
+        return_json["pic"] = base64_str
+        return Response(return_json)
 
 
 class change_score_name(viewsets.GenericViewSet, mixins.UpdateModelMixin):
