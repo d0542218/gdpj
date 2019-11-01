@@ -154,12 +154,16 @@ $('#step-2-next').click(function() {
                 $( "body" ).loading( "stop" );
             },
             error: function(msg){
-                console.log('error'+msg);
+                console.log(msg);
                 return null;
             }
         });
+        sleep(1000);
     }
 })
+function sleep(ms = 0){
+    return new Promise(r=> setTimeout(r,ms));
+}
 $('#step-3-previous').click(function(){
     var temp = $('#step2-row');
     var temp2 = $('#step2-wrap');
