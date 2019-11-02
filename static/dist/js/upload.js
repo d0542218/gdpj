@@ -98,7 +98,7 @@ $('#step-1-next').click(function() {
                                 // img_count++;      
                             })
                     // console.log(backFiles);
-                    $('.sp-wrap').smoothproducts();
+                    $('#step2-wrap').smoothproducts();
                     $( "body" ).loading( "stop" );
                     stepper1.next();
                     return data;
@@ -131,36 +131,39 @@ $('#step-2-previous').click(function(){
 });
 
 $('#step-2-next').click(function() {
+    var step3_flag = false;
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading();
     var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
     var token = sessionStorage.getItem('access');
     token=token.replace(/\"/g,"");
-    for(i = 1;i<file_count+1;i++){
+    var tempFlag = 0;
+    for(i=1;i<file_count+1;i++){
         $.ajax({
-            url: "/api/v1/predict/?id="+id+"&order="+i,
+            url: "/api/v1/fakePredict/?id="+id+"&order="+i,
             method: "GET",
             dataType:"json",
             headers: {
                 "Authorization": "bearer "+token,
-            },
-            success: function(data) {
-                var predictIMG = JSON.parse(JSON.stringify(data));
-                console.log(predictIMG);
-                $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
-                $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
-                
-            },
-            error: function(msg){
-                console.log(msg);
-                return null;
             }
+        }).done(function(data){
+            tempFlag++;
+            var predictIMG = JSON.parse(JSON.stringify(data));
+            // for(j=0;j<predictIMG.simple_url)
+            $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
+            $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
+            if(tempFlag==file_count){
+                $( "body" ).loading( "stop" );
+                $('#step3-content1').smoothproducts();
+                stepper1.next();
+            }
+        })
+        .fail(function (jqXHR, textStatus, errorThrown){
+            console.log(errorThrown);
         });
-        sleep(1000);
+        sleep(1500);
     }
-    $('.sp-wrap').smoothproducts();
-    $( "body" ).loading( "stop" );
 })
 function sleep(ms = 0){
     return new Promise(r=> setTimeout(r,ms));
@@ -168,7 +171,6 @@ function sleep(ms = 0){
 $('#step-3-previous').click(function(){
     var temp = $('#step2-row');
     var temp2 = $('#step2-wrap');
-    temp2.
     stepper1.previous();
 
 });
