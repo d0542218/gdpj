@@ -150,14 +150,15 @@ $('#step-2-next').click(function() {
                 console.log(predictIMG);
                 $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
                 $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
-                $('.sp-wrap').smoothproducts();
-                $( "body" ).loading( "stop" );
+                
             },
             error: function(msg){
                 console.log('error'+msg);
                 return null;
             }
         });
+        $('.sp-wrap').smoothproducts();
+        $( "body" ).loading( "stop" );
     }
 })
 $('#step-3-previous').click(function(){
