@@ -153,14 +153,21 @@ $('#step-2-next').click(function() {
                 
             },
             error: function(msg){
-                console.log('error'+msg);
+                console.log(msg);
                 return null;
             }
         });
+<<<<<<< HEAD
         $('.sp-wrap').smoothproducts();
         $( "body" ).loading( "stop" );
+=======
+        sleep(1000);
+>>>>>>> 2abdf5c758714d9323743540bdd5094caec6218d
     }
 })
+function sleep(ms = 0){
+    return new Promise(r=> setTimeout(r,ms));
+}
 $('#step-3-previous').click(function(){
     var temp = $('#step2-row');
     var temp2 = $('#step2-wrap');
