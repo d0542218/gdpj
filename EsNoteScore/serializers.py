@@ -18,7 +18,7 @@ class esNote_score_Serializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = esNote_score_model
-        fields = ("noteID", "scoreName", "scoreStatus", "scoreInfoJason", "owner", "esNote_score_pic")
+        fields = ("noteID", "scoreName", "scoreStatus", "owner", "esNote_score_pic")
 
 
 class change_score_name_Serializer(serializers.ModelSerializer):
@@ -68,4 +68,4 @@ class historySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = esNote_score_model
-        fields = ("noteID", "scoreName", "scoreStatus", "scoreInfoJason","scoreCreateTime","scoreModifyTime", "esNote_score_pic",)
+        fields = ("noteID", "scoreName", "scoreStatus","scoreCreateTime","scoreModifyTime", "esNote_score_pic",)

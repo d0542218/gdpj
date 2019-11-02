@@ -3,12 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="fca6fbc2-1e64-46ab-aca0-bd4d6729f8f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EsNoteScore/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EsNoteScore/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/EsNoteScore/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/inputjson.json" beforeDir="false" afterPath="$PROJECT_DIR$/inputjson.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/returnJson.json" beforeDir="false" afterPath="$PROJECT_DIR$/returnJson.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/score.json" beforeDir="false" afterPath="$PROJECT_DIR$/score.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/dist/js/upload.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/dist/js/upload.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/package-lock.json" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -205,6 +206,7 @@
       <workItem from="1571659841046" duration="1275000" />
       <workItem from="1572088653353" duration="57000" />
       <workItem from="1572420743774" duration="3920000" />
+      <workItem from="1572670491218" duration="11057000" />
     </task>
     <task id="LOCAL-00001" summary="static 完成">
       <created>1556126209913</created>

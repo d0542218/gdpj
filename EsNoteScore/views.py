@@ -1,21 +1,20 @@
 import base64
 import json
-import os
-import socket
-import time
 from io import BytesIO
 import requests
 import rest_framework_simplejwt
 from PIL import ImageDraw, ImageFont, Image as Img
 from django.conf import settings
 from django.contrib.auth.models import User, AnonymousUser
+from django.core.files import File
+from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import QuerySet
 from django.http import QueryDict, HttpResponse
 from rest_framework.exceptions import ParseError, NotFound, AuthenticationFailed
 from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from EsNoteScore.models import esNote_score_model, esNote_score_pic_model
+from EsNoteScore.models import esNote_score_model, esNote_score_pic_model, esNote_simple_score_pic_model
 from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Serializer, UserSerializer \
     , searchPicSerializer, historySerializer, change_score_name_Serializer
 from rest_framework import viewsets, authentication, permissions, status, generics, mixins
@@ -596,7 +595,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                     imglist.append(img)
                     site = [15, 30]
         # for i in imglist:
-            # i.show()
+        # i.show()
         return imglist
 
     def list(self, request, *args, **kwargs):
@@ -632,19 +631,28 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         return_json = {}
+        if not (pic_model.esNote_score_data):
+            try:
+                # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
+                r = requests.request("POST", url, data={"img_url": ip2 + quote(str(pic_model.esNote_score_resize_pic))})
+                print(r.status_code)
+                if r.status_code != 200:
+                    raise ParseError("remote server error", code=r.status_code)
+                score = r.json()
+                file = ContentFile(json.dumps(score))
+                pic_model.esNote_score_data.save("predict_data_%s.json" % pic_model.esNote_score_pic.name.split('.')[0], file)
+            except requests.exceptions.ConnectionError:
+                raise ParseError("remote server closed.", code=500)
+        else:
+            with pic_model.esNote_score_data.open() as file:
+                score = json.load(file)
         try:
-            # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
-            r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
-            print(r.status_code)
-            if r.status_code != 200:
-                raise ParseError("remote server error", code=r.status_code)
-            im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
-            score = r.json()
             with open('score.json', 'w') as outfile:
                 json.dump(score, outfile)
             input = {}
             input['lines'] = score
             input['duet'] = False
+            im = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
             for line in score:
                 for bar in line:
                     for note in bar["notes"]:
@@ -669,16 +677,21 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             base64_str = base64.b64encode(byte_data)
             im.close()
             imglist = self.first_collection(input)
-            if len(imglist)!=1:
-                print("等等再做")
-            else:
-                imglist[0].save(output_buffer, format='JPEG')
-                pic_model.esNote_score_simple_pic.save("simple_%s.jpg" % pic_model.esNote_score_pic.name.split('.')[0],
-                                                        output_buffer, save=True)
-                simple_url =pic_model.esNote_score_simple_pic.url
-                return_json["simple_url"] = simple_url
-        except requests.exceptions.ConnectionError:
-            raise ParseError("remote server closed.", code=500)
+            for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
+                i.delete()
+            for index,i in enumerate(imglist):
+                i.save(output_buffer, format='JPEG')
+                p = esNote_simple_score_pic_model(score_pic=pic_model)
+                p.save()
+                p.simple_pic.save("simple_%s_%s.jpg" % (pic_model.esNote_score_pic.name.split('.')[0], str(index)),
+                                      output_buffer, save=True)
+            simple_url = []
+            for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
+                simple_url.append(i.simple_pic.url)
+                return_json['simple_url'] = simple_url
+        except Exception as e:
+            print(e)
+
         return_json["pic"] = base64_str
         return Response(return_json)
 
@@ -727,29 +740,44 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         order = request.GET.get('order')
         try:
             pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=order)[0]
+            esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
             owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
         except IndexError:
             raise NotFound("please check id and order.")
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
-        res = []
-        url = "http://140.134.26.63:15001/predict_by_url"
-        # url = "http://127.0.0.1:5000/predict_by_url"
-        ip = socket.gethostbyname(socket.gethostname()) + ":18000/media/"
-        # img = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
-        # response = HttpResponse(content_type="image/jpeg")
-        # im.save(response, "JPEG")
-        # im.close()
+        if not (pic_model.esNote_score_data):
+            print("no file.")
+            a = {"this is a json": True}
+            myfile = ContentFile(json.dumps(a))
+            pic_model.esNote_score_data.save("test.json", myfile)
+        else:
+            with pic_model.esNote_score_data.open() as file:
+                data = json.load(file)
+                print(data)
 
         img = Img.open(BytesIO(pic_model.esNote_score_resize_pic.read()))
-
-        # img.show()
         output_buffer = BytesIO()
         img.save(output_buffer, format='JPEG')
         byte_data = output_buffer.getvalue()
         base64_str = base64.b64encode(byte_data)
+
+        imglist = []
+        imglist.append(output_buffer)
+        imglist.append(output_buffer)
+        for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
+            i.delete()
+        for im in imglist:
+            p = esNote_simple_score_pic_model(score_pic=pic_model)
+            p.save()
+            p.simple_pic.save("simple_%s.jpg" % pic_model.esNote_score_pic.name.split('.')[0],
+                              im, save=True)
         img.close()
-        return_json['simple_url'] = pic_model.esNote_score_resize_pic.url
+        simple_url = []
+        for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
+            simple_url.append(i.simple_pic.url)
+
+        return_json['simple_url'] = simple_url
         return_json["pic"] = base64_str
         return Response(return_json)
 
@@ -804,8 +832,7 @@ class change_order_of_pics(viewsets.GenericViewSet, mixins.UpdateModelMixin):
             order = int(order)
             if index + 1 != order:
                 raise ParseError("please check order of list.")
-        for i,j in zip(pic_model,new_order):
+        for i, j in zip(pic_model, new_order):
             i.order = int(j)
             i.save()
         return Response("ok")
-
