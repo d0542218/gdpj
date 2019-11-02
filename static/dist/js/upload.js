@@ -99,8 +99,8 @@ $('#step-1-next').click(function() {
                             })
                     // console.log(backFiles);
                     $('.sp-wrap').smoothproducts();
-                    stepper1.next();
                     $( "body" ).loading( "stop" );
+                    stepper1.next();
                     return data;
                 },
                 error: function(msg){
@@ -157,13 +157,10 @@ $('#step-2-next').click(function() {
                 return null;
             }
         });
-<<<<<<< HEAD
-        $('.sp-wrap').smoothproducts();
-        $( "body" ).loading( "stop" );
-=======
         sleep(1000);
->>>>>>> 2abdf5c758714d9323743540bdd5094caec6218d
     }
+    $('.sp-wrap').smoothproducts();
+    $( "body" ).loading( "stop" );
 })
 function sleep(ms = 0){
     return new Promise(r=> setTimeout(r,ms));
