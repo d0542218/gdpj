@@ -56,16 +56,24 @@ class pic_Serializer(serializers.ModelSerializer):
 class searchPicSerializer(serializers.ModelSerializer):
     # esNote_score_pic = serializers.HyperlinkedRelatedField(many=True, view_name='esnote_score_pic_model-detail',
     #                                                        read_only=True)
-    esNote_score_pic = pic_Serializer(many=True, read_only=True)
-
+    # esNote_score_pic = pic_Serializer(many=True, read_only=True)
+    esNote_score_pic = serializers.SerializerMethodField()
     class Meta:
         model = esNote_score_model
         fields = ('noteID','esNote_score_pic')
 
+    def get_esNote_score_pic(self, instance):
+        score_pics = instance.esNote_score_pic.all().order_by('order')
+        return pic_Serializer(score_pics, many=True).data
+
 
 class historySerializer(serializers.ModelSerializer):
-    esNote_score_pic = pic_Serializer(many=True, read_only=True)
+    # esNote_score_pic = pic_Serializer(many=True, read_only=True)
+    esNote_score_pic = serializers.SerializerMethodField()
 
     class Meta:
         model = esNote_score_model
         fields = ("noteID", "scoreName", "scoreStatus","scoreCreateTime","scoreModifyTime", "esNote_score_pic",)
+    def get_esNote_score_pic(self, instance):
+        score_pics = instance.esNote_score_pic.all().order_by('order')
+        return pic_Serializer(score_pics, many=True).data
