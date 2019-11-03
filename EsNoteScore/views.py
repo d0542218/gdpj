@@ -885,6 +885,10 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
         for simple_score in simple_score_pics:
             im = Img.open(BytesIO(simple_score.simple_pic.read()))
             imglist.append(im)
+        if scoreName != 'deafault':
+            font = ImageFont.truetype('PingFangTC.ttf', 22)
+            draw = ImageDraw.Draw(imglist[0])
+            draw.text(((imglist[0].size[0] - font.getsize(scoreName)[0]) / 2, 10), scoreName, (0, 0, 0), font=font)
         if ZIP:
             zip_file = BytesIO()
             with zipfile.ZipFile(zip_file, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
@@ -901,7 +905,7 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             pdf_file = BytesIO()
             output_buffer = BytesIO()
             imglist[0].save(pdf_file, "PDF", resolution=100.0, save_all=True, append_images=imglist[1:])
-            response = HttpResponse(pdf_file.getvalue(), content_type='application/vnd.ms-excel')
+            response = HttpResponse(pdf_file.getvalue(), content_type='application/pdf')
             response['Content-Disposition'] = 'attachment; filename="%s.pdf"' % (scoreName)
             pdf_file.close()
             output_buffer.close()
