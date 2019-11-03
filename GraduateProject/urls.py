@@ -25,15 +25,16 @@ from EsNoteScore import views
 
 router = DefaultRouter()
 router.register('esNoteScore', views.EsNoteScoreViewSet)
-router.register('user_esNote',views.UserViewSet)
+router.register('user_esNote', views.UserViewSet)
 router.register('esNoteScorePic', views.EsNoteScorePicViewSet)
-router.register('uploadImages',views.upload_images)
-router.register('searchimg',views.model_get_pictures)
-router.register("predict",views.model_get_predict_pictures)
-router.register("get_history",views.model_get_history)
-router.register('fakePredict',views.model_get_fake_predict_pictures)
+router.register('uploadImages', views.upload_images)
+router.register('searchimg', views.model_get_pictures)
+router.register("predict", views.model_get_predict_pictures)
+router.register("get_history", views.model_get_history)
+router.register('fakePredict', views.model_get_fake_predict_pictures)
 router.register('change_score_name', views.change_score_name)
-router.register('change_order_of_pics',views.change_order_of_pics)
+router.register('change_order_of_pics', views.change_order_of_pics)
+router.register('get_simple_score', views.get_simple_score)
 
 
 

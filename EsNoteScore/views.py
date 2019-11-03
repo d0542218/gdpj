@@ -22,6 +22,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 import rest_framework_simplejwt.exceptions
 from urllib.parse import quote
 import math
+import zipfile
 
 
 # Create your views here.
@@ -640,7 +641,8 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                     raise ParseError("remote server error", code=r.status_code)
                 score = r.json()
                 file = ContentFile(json.dumps(score))
-                pic_model.esNote_score_data.save("predict_data_%s.json" % pic_model.esNote_score_pic.name.split('.')[0], file)
+                pic_model.esNote_score_data.save("predict_data_%s.json" % pic_model.esNote_score_pic.name.split('.')[0],
+                                                 file)
             except requests.exceptions.ConnectionError:
                 raise ParseError("remote server closed.", code=500)
         else:
@@ -679,12 +681,12 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             imglist = self.first_collection(input)
             for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
                 i.delete()
-            for index,i in enumerate(imglist):
+            for index, i in enumerate(imglist):
                 i.save(output_buffer, format='JPEG')
                 p = esNote_simple_score_pic_model(score_pic=pic_model)
                 p.save()
                 p.simple_pic.save("simple_%s_%s.jpg" % (pic_model.esNote_score_pic.name.split('.')[0], str(index)),
-                                      output_buffer, save=True)
+                                  output_buffer, save=True)
             simple_url = []
             for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
                 simple_url.append(i.simple_pic.url)
@@ -693,6 +695,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             print(e)
 
         return_json["pic"] = base64_str
+        output_buffer.close()
         return Response(return_json)
 
 
@@ -765,6 +768,7 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         imglist = []
         imglist.append(output_buffer)
         imglist.append(output_buffer)
+        output_buffer.close()
         for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
             i.delete()
         for im in imglist:
@@ -836,3 +840,69 @@ class change_order_of_pics(viewsets.GenericViewSet, mixins.UpdateModelMixin):
             i.order = int(j)
             i.save()
         return Response("ok")
+
+
+class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
+    queryset = esNote_score_model.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        PDF = False
+        ZIP = False
+        if request.GET.get('PDF'):
+            PDF = True
+        if request.GET.get('ZIP'):
+            ZIP = True
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
+        if not request.GET.get('id'):
+            raise ParseError("id is null")
+        if not (PDF or ZIP):
+            raise ParseError("please fill in PDF or ZIP")
+        if PDF and ZIP:
+            raise ParseError("please only fill in PDF or ZIP")
+        esNote_score__noteID = request.GET.get('id')
+        try:
+            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=1)[0]
+            esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
+            owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
+        except IndexError:
+            raise NotFound("please check id and order.")
+        if not (user == owner or request.user.is_staff):
+            raise AuthenticationFailed("Permission deny.")
+        scoreName = esNote_score.scoreName
+        simple_score_pics = esNote_simple_score_pic_model.objects.filter(score_pic=pic_model)
+        imglist = []
+
+        for simple_score in simple_score_pics:
+            im = Img.open(BytesIO(simple_score.simple_pic.read()))
+            imglist.append(im)
+        if ZIP:
+            zip_file = BytesIO()
+            with zipfile.ZipFile(zip_file, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
+                for index, img in enumerate(imglist):
+                    output_buffer = BytesIO()
+                    img.save(output_buffer, format='JPEG')
+                    zf.writestr('%s_%d.jpg' % (scoreName, index), output_buffer.getvalue())
+            response = HttpResponse(zip_file.getvalue(), content_type='application/zip')
+            response['Content-Disposition'] = 'attachment; filename="%s.zip"' % (scoreName)
+            zip_file.close()
+            output_buffer.close()
+            return response
+        elif PDF:
+            pdf_file = BytesIO()
+            output_buffer = BytesIO()
+            imglist[0].save(pdf_file, "PDF", resolution=100.0, save_all=True, append_images=imglist[1:])
+            response = HttpResponse(pdf_file.getvalue(), content_type='application/vnd.ms-excel')
+            response['Content-Disposition'] = 'attachment; filename="%s.pdf"' % (scoreName)
+            pdf_file.close()
+            output_buffer.close()
+            return response
