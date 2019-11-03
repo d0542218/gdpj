@@ -875,7 +875,7 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
             owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
         except IndexError:
-            raise NotFound("please check id and order.")
+            raise NotFound("please check id.")
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         scoreName = esNote_score.scoreName
