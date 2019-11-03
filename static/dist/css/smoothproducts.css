@@ -27,7 +27,7 @@ html, body {
 	border: 5px solid #eee;
 	border-radius: 3px;
 	position: relative;
-	margin: 0 25px 15px 0;
+	/*margin: 0 25px 15px 0;*/
 	float: left;
 	/**************
 	  Set max-width to your thumbnail width
@@ -77,13 +77,14 @@ html, body {
 /* Image currently being viewed */
 
 .sp-large {
+	text-align: center;
 	position: relative;
 	overflow: hidden;
 	top: 0;
 	left: 0;
 }
 .sp-large a img {
-	max-width: 80%;
+	max-width: 95%;
 	height: auto;
 }
 .sp-large a {

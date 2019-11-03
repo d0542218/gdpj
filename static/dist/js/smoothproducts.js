@@ -18,12 +18,11 @@
  			$(document.body).off('click', '.sp-tb-active a');
  			$(document.body).off('click', '.sp-thumbs');
  		},
- 		smoothproducts: function() {
+ 		smoothproducts: function(productId) {
 
 			// Add some markup & set some CSS
-
 			$('.sp-loading').hide();
-			$('.sp-wrap').each(function() {
+			$(productId).each(function() {
 				$(this).addClass('sp-touch');
 				var thumbQty = $('a', this).length;
 
@@ -42,17 +41,17 @@
 							firstLarge = large;
 							firstThumb = $('img', this)[0].src;
 						}
-						$(this).parents('.sp-wrap').find('.sp-thumbs').append('<a href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+'></a>');
+						$(this).parents(productId).find('.sp-thumbs').append('<a href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+'></a>');
 						$(this).remove();
 					});
 					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="" id ="sp-current-big-img"/></a>');
-					$('.sp-wrap').css('display', 'inline-block');
+					$(productId).css('display', 'inline-block');
 				// If only one image
 			} else {
 				$(this).append('<div class="sp-large"></div>');
 				$('a', this).appendTo($('.sp-large', this)).addClass('.sp-current-big');
 				$('img', this).attr('id','sp-current-big-img');
-				$('.sp-wrap').css('display', 'inline-block');
+				$(productId).css('display', 'inline-block');
 			}
 		});
 
@@ -65,12 +64,12 @@
 
 			// Is this a touch screen or not?
 			$(document.body).on('mouseover', function(event) {
-				$('.sp-wrap').removeClass('sp-touch').addClass('sp-non-touch');
+				$(productId).removeClass('sp-touch').addClass('sp-non-touch');
 				event.preventDefault();
 			});
 
 			$(document.body).on('touchstart', function() {
-				$('.sp-wrap').removeClass('sp-non-touch').addClass('sp-touch');
+				$(productId).removeClass('sp-non-touch').addClass('sp-touch');
 			});
 
 			// Clicking a thumbnail
@@ -79,28 +78,28 @@
 				event.preventDefault();
 				$(this).parent().find('.sp-current').removeClass();
 				$(this).addClass('sp-current');
-				$(this).parents('.sp-wrap').find('.sp-thumbs').removeClass('sp-tb-active');
-				$(this).parents('.sp-wrap').find('.sp-zoom').remove();
+				$(this).parents(productId).find('.sp-thumbs').removeClass('sp-tb-active');
+				$(this).parents(productId).find('.sp-zoom').remove();
 
-				var currentHeight = $(this).parents('.sp-wrap').find('.sp-large').height(),
-				currentWidth = $(this).parents('.sp-wrap').find('.sp-large').width();
-				$(this).parents('.sp-wrap').find('.sp-large').css({
+				var currentHeight = $(this).parents(productId).find('.sp-large').height(),
+				currentWidth = $(this).parents(productId).find('.sp-large').width();
+				$(this).parents(productId).find('.sp-large').css({
 					overflow: 'hidden',
 					height: currentHeight + 'px',
 					width: currentWidth + 'px'
 				});
 
-				$(this).addClass('sp-current').parents('.sp-wrap').find('.sp-large a').remove();
+				$(this).addClass('sp-current').parents(productId).find('.sp-large a').remove();
 
 				var nextLarge = $(this).parent().find('.sp-current').attr('href'),
 				nextThumb = get_url_from_background($(this).parent().find('.sp-current').css('backgroundImage'));
 
-				$(this).parents('.sp-wrap').find('.sp-large').html('<a href="' + nextLarge + '" class="sp-current-big"><img src="' + nextThumb + '" id ="sp-current-big-img"/></a>');
-				$(this).parents('.sp-wrap').find('.sp-large').hide().fadeIn(250, function() {
+				$(this).parents(productId).find('.sp-large').html('<a href="' + nextLarge + '" class="sp-current-big"><img src="' + nextThumb + '" id ="sp-current-big-img"/></a>');
+				$(this).parents(productId).find('.sp-large').hide().fadeIn(250, function() {
 
-					var autoHeight = $(this).parents('.sp-wrap').find('.sp-large img').height();
+					var autoHeight = $(this).parents(productId).find('.sp-large img').height();
 
-					$(this).parents('.sp-wrap').find('.sp-large').animate({
+					$(this).parents(productId).find('.sp-large').animate({
 						height: autoHeight
 					}, 'fast', function() {
 						$('.sp-large').css({
@@ -109,7 +108,7 @@
 						});
 					});
 
-					$(this).parents('.sp-wrap').find('.sp-thumbs').addClass('sp-tb-active');
+					$(this).parents(productId).find('.sp-thumbs').addClass('sp-tb-active');
 				});
 			});
 
@@ -133,9 +132,9 @@
 			// Open in Lightbox non-touch
 			$(document.body).on('click', '.sp-non-touch .sp-zoom', function(event) {
 				var currentImg = $(this).html(),
-				thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
-				currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
-				$(this).parents('.sp-wrap').addClass('sp-selected');
+				thumbAmt = $(this).parents(productId).find('.sp-thumbs a').length,
+				currentThumb = ($(this).parents(productId).find('.sp-thumbs .sp-current').index())+1;
+				$(this).parents(productId).addClass('sp-selected');
 				$('body').append("<div class='sp-lightbox' data-currenteq='"+currentThumb+"'>" + currentImg + "</div>");
 
 				if(thumbAmt > 1){
@@ -153,10 +152,10 @@
 			// Open in Lightbox touch
 			$(document.body).on('click', '.sp-large a', function(event) {
 				var currentImg = $(this).attr('href'),
-				thumbAmt = $(this).parents('.sp-wrap').find('.sp-thumbs a').length,
-				currentThumb = ($(this).parents('.sp-wrap').find('.sp-thumbs .sp-current').index())+1;
+				thumbAmt = $(this).parents(productId).find('.sp-thumbs a').length,
+				currentThumb = ($(this).parents(productId).find('.sp-thumbs .sp-current').index())+1;
 
-				$(this).parents('.sp-wrap').addClass('sp-selected');
+				$(this).parents(productId).addClass('sp-selected');
 				$('body').append('<div class="sp-lightbox" data-currenteq="'+currentThumb+'"><img src="' + currentImg + '"/></div>');
 
 				if(thumbAmt > 1){
