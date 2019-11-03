@@ -1,15 +1,11 @@
-import time
 from io import BytesIO
-
-import requests
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image as Img, ImageDraw, Image
+from PIL import Image as Img, Image
 
 
 # Create your models here.
-
 
 class esNote_score_model(models.Model):
     noteID = models.AutoField(primary_key=True)
@@ -18,8 +14,6 @@ class esNote_score_model(models.Model):
     scoreCreateTime = models.DateTimeField(auto_now_add=True)
     scoreModifyTime = models.DateTimeField(auto_now=True)
     scoreStatus = models.IntegerField()
-    scoreInfoJason = models.FileField(null=True)
-
 
 class esNote_score_pic_model(models.Model):
     esNote_score_noteID = models.AutoField(primary_key=True)
@@ -29,8 +23,8 @@ class esNote_score_pic_model(models.Model):
     esNote_score = models.ForeignKey(esNote_score_model, related_name='esNote_score_pic', on_delete=models.CASCADE)
     esNote_score_resize_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     esNote_score_predict_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
-    esNote_score_simple_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     esNote_score_data = models.FileField(null=True)
+
 
     def save(self, *args, **kwargs):
         if self.esNote_score_pic:
@@ -72,3 +66,9 @@ class esNote_score_pic_model(models.Model):
                                                                     0],
                                                                 'image/jpeg', output.__sizeof__, None)
         super(esNote_score_pic_model, self).save(*args, **kwargs)
+
+
+class esNote_simple_score_pic_model(models.Model):
+    simple_score_ID = models.AutoField(primary_key=True)
+    simple_pic = models.ImageField(max_length=100, null=True, default="Images/noimg.png")
+    score_pic = models.ForeignKey(esNote_score_pic_model, related_name='score_pic', on_delete=models.CASCADE)
