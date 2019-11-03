@@ -768,7 +768,6 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
         imglist = []
         imglist.append(output_buffer)
         imglist.append(output_buffer)
-        output_buffer.close()
         for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
             i.delete()
         for im in imglist:
@@ -783,6 +782,7 @@ class model_get_fake_predict_pictures(viewsets.GenericViewSet, mixins.ListModelM
 
         return_json['simple_url'] = simple_url
         return_json["pic"] = base64_str
+        output_buffer.close()
         return Response(return_json)
 
 

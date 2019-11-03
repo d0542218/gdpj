@@ -65,7 +65,6 @@ class esNote_score_pic_model(models.Model):
                                                                 "samll_%s.jpg" % self.esNote_score_pic.name.split('.')[
                                                                     0],
                                                                 'image/jpeg', output.__sizeof__, None)
-            output2.close()
         super(esNote_score_pic_model, self).save(*args, **kwargs)
 
 
