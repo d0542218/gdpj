@@ -791,6 +791,7 @@ class change_score_name(viewsets.GenericViewSet, mixins.UpdateModelMixin):
     serializer_class = change_score_name_Serializer
 
     def update(self, request, *args, **kwargs):
+        print(request.data)
         if self.request.user == AnonymousUser():
             try:
                 token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
@@ -804,8 +805,8 @@ class change_score_name(viewsets.GenericViewSet, mixins.UpdateModelMixin):
             user = self.request.user
         partial = kwargs.pop('partial', False)
         instance = self.get_object()
-        print(instance)
-        print(instance.user)
+        # print(instance)
+        # print(instance.user)
         if not (user == instance.user or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         serializer = self.get_serializer(instance, data=request.data, partial=partial)
