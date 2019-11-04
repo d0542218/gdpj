@@ -93,12 +93,12 @@ $('#step-1-next').click(function() {
                     // console.log(score_pic);
                     $.each(score_pic,function(index,val){
                         // backFiles[img_count] = val.esNote_score_pic;
-                        $('.sp-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
+                        $('#step2-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
                                 // $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
                                 // img_count++;      
                             })
                     // console.log(backFiles);
-                    $('#step2-wrap').smoothproducts();
+                    $('#step2-wrap').smoothproducts('#step2-wrap');
                     $( "body" ).loading( "stop" );
                     stepper1.next();
                     return data;
@@ -121,7 +121,9 @@ $('#step-2-previous').click(function(){
             "Authorization": "bearer "+token,
         },
         success: function(data) {
+            $( "body" ).loading();
             window.location.reload();
+            $( "body" ).loading( "stop" );
         },
         error: function(msg){
             console.log(msg);
@@ -131,14 +133,25 @@ $('#step-2-previous').click(function(){
 });
 
 $('#step-2-next').click(function() {
-    var step3_flag = false;
+    if(document.getElementById('step3-wrap1')){
+        var f = document.getElementById('step3-content1');
+        var step3Child = f.childNodes;
+        for(var i = step3Child.length - 1; i >= 0; i--) {
+            f.removeChild(step3Child[i]);
+        }
+        f = document.getElementById('step3-content2');
+        step3Child = f.childNodes;
+        for(var i = step3Child.length - 1; i >= 0; i--) {
+            f.removeChild(step3Child[i]);
+        }
+    }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading();
     var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
     var token = sessionStorage.getItem('access');
     token=token.replace(/\"/g,"");
-    var tempFlag = 0;
+    var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
         $.ajax({
             url: "/api/v1/fakePredict/?id="+id+"&order="+i,
@@ -148,14 +161,15 @@ $('#step-2-next').click(function() {
                 "Authorization": "bearer "+token,
             }
         }).done(function(data){
-            tempFlag++;
+            step3Flag++;
             var predictIMG = JSON.parse(JSON.stringify(data));
             // for(j=0;j<predictIMG.simple_url)
             $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
             $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
-            if(tempFlag==file_count){
+            if(step3Flag==file_count){
                 $( "body" ).loading( "stop" );
-                $('#step3-content1').smoothproducts();
+                $('#step3-content1').smoothproducts('#step3-content1');
+                $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
             }
         })
@@ -165,15 +179,26 @@ $('#step-2-next').click(function() {
         sleep(1500);
     }
 })
+$('#step-3-previous').click(function(){
+    $( "body" ).loading();
+    $( "body" ).loading( "stop" );
+    stepper1.previous();
+})
+$('#step-3-next').click(function(){
+    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
+    $.ajax({
+        url:"/api/v1/change_score_name/"+id+"/",
+        method:"PATCH",
+        data:JSON.stringify({
+            "scoreName":$('#step3Label').val()
+        })
+    }).done(function(data){
+        console.log(data);
+    })
+})
 function sleep(ms = 0){
     return new Promise(r=> setTimeout(r,ms));
 }
-$('#step-3-previous').click(function(){
-    var temp = $('#step2-row');
-    var temp2 = $('#step2-wrap');
-    stepper1.previous();
-
-});
 $('#ImgOrder').change(function(){
     var order = $('#ImgOrder option:selected').val();
 });
@@ -181,3 +206,13 @@ $('#rotate').click(function(){
     current = (current+90)%360;
     document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';
 })
+$('#editName_btn').click(function(){
+    $('#step3Label').css('display','none');
+    $('#step3Input').css('display','');
+})
+
+$("#step3Input").on("change paste", function() {
+    $('#step3Label').css('display','');
+    $('#step3Input').css('display','none');
+    $('#step3Label').html($('#step3Input').val());
+});
