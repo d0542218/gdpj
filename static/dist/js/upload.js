@@ -149,8 +149,7 @@ $('#step-2-next').click(function() {
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading();
     var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
-    var token = sessionStorage.getItem('access');
-    token=token.replace(/\"/g,"");
+    var token = sessionStorage.getItem('access').replace(/\"/g,"");
     var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
         $.ajax({
@@ -163,9 +162,10 @@ $('#step-2-next').click(function() {
         }).done(function(data){
             step3Flag++;
             var predictIMG = JSON.parse(JSON.stringify(data));
-            // for(j=0;j<predictIMG.simple_url)
-            $('#step3-wrap1').append("<a href='"+predictIMG.simple_url+"'><img src= '"+predictIMG.simple_url+"'></a>");
-            $('#step3-wrap2').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
+            $('#step3-wrap1').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
+            for(j=0;j<predictIMG.simple_url.length;j++){
+                $('#step3-wrap2').append("<a href='"+predictIMG.simple_url[j]+"'><img src= '"+predictIMG.simple_url[j]+"'></a>");
+            }
             if(step3Flag==file_count){
                 $( "body" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
@@ -185,12 +185,17 @@ $('#step-3-previous').click(function(){
     stepper1.previous();
 })
 $('#step-3-next').click(function(){
+    var name = $('#step3Label').text();
     var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
+    var token = sessionStorage.getItem('access').replace(/\"/g,"");
     $.ajax({
         url:"/api/v1/change_score_name/"+id+"/",
         method:"PATCH",
+        headers: {
+            "Authorization": "bearer "+token,
+        },
         data:JSON.stringify({
-            "scoreName":$('#step3Label').val()
+            'scoreName':name
         })
     }).done(function(data){
         console.log(data);
@@ -202,10 +207,16 @@ function sleep(ms = 0){
 $('#ImgOrder').change(function(){
     var order = $('#ImgOrder option:selected').val();
 });
-$('#rotate').click(function(){
+$('#rotate_right').click(function(){
     current = (current+90)%360;
     document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';
 })
+
+$('#rotate_left').click(function(){
+    current = (current-90)%360;
+    document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';
+})
+
 $('#editName_btn').click(function(){
     $('#step3Label').css('display','none');
     $('#step3Input').css('display','');
