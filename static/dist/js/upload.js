@@ -179,26 +179,78 @@ $('#step-2-next').click(function() {
         sleep(1500);
     }
 })
-$('#step-3-previous').click(function(){
-    $( "body" ).loading();
-    $( "body" ).loading( "stop" );
-    stepper1.previous();
-})
-$('#step-3-next').click(function(){
+$('#step-3-pdf').click(function(){
+    var form = new FormData();
     var name = $('#step3Label').text();
     var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
     var token = sessionStorage.getItem('access').replace(/\"/g,"");
+    form.append("scoreName",name);
     $.ajax({
         url:"/api/v1/change_score_name/"+id+"/",
-        method:"PATCH",
+        method:"PUT",
+        headers: {
+            "Authorization": "bearer "+token,
+            "Content-Type": "multipart/form-data;"
+        },
+        dataType:"json",
+        processData:false,
+        contentType:false,
+        mimeType: "multipart/form-data",
+        data:form
+
+    }).done(function(data){
+        console.log(data);
+    }).fail(function(jqXHR,textStatus,errorThrown){
+        console.log(jqXHR,textStatus,errorThrown);
+    })
+    $.ajax({
+        url:"/api/v1/get_simple_score?id="+id+"&PDF=1",
+        method:"GET",
         headers: {
             "Authorization": "bearer "+token,
         },
-        data:JSON.stringify({
-            'scoreName':name
-        })
+        processData:false,
     }).done(function(data){
         console.log(data);
+    }).fail(function(jqXHR,textStatus,errorThrown){
+        console.log(jqXHR,textStatus,errorThrown);
+    })
+})
+$('#step-3-jpg').click(function(){
+    var form = new FormData();
+    var name = $('#step3Label').text();
+    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
+    var token = sessionStorage.getItem('access').replace(/\"/g,"");
+    form.append("scoreName",name);
+    $.ajax({
+        url:"/api/v1/change_score_name/"+id+"/",
+        method:"PUT",
+        headers: {
+            "Authorization": "bearer "+token,
+            "Content-Type": "multipart/form-data;"
+        },
+        dataType:"json",
+        processData:false,
+        contentType:false,
+        mimeType: "multipart/form-data",
+        data:form
+
+    }).done(function(data){
+        console.log(data);
+    }).fail(function(jqXHR,textStatus,errorThrown){
+        console.log(jqXHR,textStatus,errorThrown);
+    })
+    $.ajax({
+        url:"/api/v1/get_simple_score?id="+id+"&PDF=1",
+        method:"GET",
+        headers: {
+            "Authorization": "bearer "+token,
+        },
+        processData:false,
+    }).done(function(data){
+        console.log(data);
+    }).fail(function(jqXHR,textStatus,errorThrown){
+        console.log(jqXHR,textStatus,errorThrown);
     })
 })
 function sleep(ms = 0){
@@ -206,7 +258,7 @@ function sleep(ms = 0){
 }
 $('#ImgOrder').change(function(){
     var order = $('#ImgOrder option:selected').val();
-});
+})
 $('#rotate_right').click(function(){
     current = (current+90)%360;
     document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';
@@ -227,3 +279,6 @@ $("#step3Input").on("change paste", function() {
     $('#step3Input').css('display','none');
     $('#step3Label').html($('#step3Input').val());
 });
+        // data:JSON.stringify({
+        //     'scoreName':name
+        // })
