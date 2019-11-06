@@ -162,7 +162,7 @@ $('#step-2-next').click(function() {
         }).done(function(data){
             step3Flag++;
             var predictIMG = JSON.parse(JSON.stringify(data));
-            $('#step3-wrap1').append("<a href=''><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
+            $('#step3-wrap1').append("<a href='data:image/png;base64,"+predictIMG.pic +"'><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
             for(j=0;j<predictIMG.simple_url.length;j++){
                 $('#step3-wrap2').append("<a href='"+predictIMG.simple_url[j]+"'><img src= '"+predictIMG.simple_url[j]+"'></a>");
             }
@@ -224,8 +224,9 @@ $('#step-3-jpg').click(function(){
     form.append("scoreName",name);
     $.ajax({
         url:"/api/v1/change_score_name/"+id+"/",
-        method:"PUT",
+        method:"POST",
         headers: {
+            'X-HTTP-Method-Override': 'PATCH',
             "Authorization": "bearer "+token,
             "Content-Type": "multipart/form-data;"
         },
@@ -237,18 +238,19 @@ $('#step-3-jpg').click(function(){
 
     }).done(function(data){
         console.log(data);
+        $()
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
     })
     $.ajax({
-        url:"/api/v1/get_simple_score?id="+id+"&PDF=1",
+        url:"/api/v1/get_simple_score?id="+id+"&ZIP=1",
         method:"GET",
         headers: {
             "Authorization": "bearer "+token,
         },
         processData:false,
     }).done(function(data){
-        console.log(data);
+        $('#step-3-jpg').attr("href",data);
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
     })
