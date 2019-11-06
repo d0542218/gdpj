@@ -171,6 +171,7 @@ $('#step-2-next').click(function() {
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
+                getfile(id,token);
             }
         })
         .fail(function (jqXHR, textStatus, errorThrown){
@@ -179,82 +180,39 @@ $('#step-2-next').click(function() {
         sleep(1500);
     }
 })
-$('#step-3-pdf').click(function(){
-    var form = new FormData();
-    var name = $('#step3Label').text();
-    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
-    var token = sessionStorage.getItem('access').replace(/\"/g,"");
-    form.append("scoreName",name);
+function getfile(id,token){
     $.ajax({
-        url:"/api/v1/change_score_name/"+id+"/",
-        method:"PUT",
+        url:"/api/v1/get_simple_score?id="+id+"&fileType=ZIP",
+        method:"GET",
         headers: {
             "Authorization": "bearer "+token,
-            "Content-Type": "multipart/form-data;"
         },
-        dataType:"json",
         processData:false,
-        contentType:false,
-        mimeType: "multipart/form-data",
-        data:form
-
+        dataType:'json'
     }).done(function(data){
-        console.log(data);
+        var step3File = JSON.parse(JSON.stringify(data));
+        console.log(step3File);
+        $('#step-3-jpg').attr('download',step3File.filename);
+        $('#step-3-jpg').attr("href","data:application/zip;base64,"+step3File.file);
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
     })
     $.ajax({
-        url:"/api/v1/get_simple_score?id="+id+"&PDF=1",
+        url:"/api/v1/get_simple_score?id="+id+"&fileType=PDF",
         method:"GET",
         headers: {
             "Authorization": "bearer "+token,
         },
         processData:false,
     }).done(function(data){
-        console.log(data);
+        var step3File = JSON.parse(JSON.stringify(data));
+        console.log(step3File);
+        $('#step-3-pdf').attr('download',step3File.filename);
+        $('#step-3-pdf').attr("href","data:application/zip;base64,"+step3File.file);
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
-    })
-})
-$('#step-3-jpg').click(function(){
-    var form = new FormData();
-    var name = $('#step3Label').text();
-    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
-    var token = sessionStorage.getItem('access').replace(/\"/g,"");
-    form.append("scoreName",name);
-    $.ajax({
-        url:"/api/v1/change_score_name/"+id+"/",
-        method:"POST",
-        headers: {
-            'X-HTTP-Method-Override': 'PATCH',
-            "Authorization": "bearer "+token,
-            "Content-Type": "multipart/form-data;"
-        },
-        dataType:"json",
-        processData:false,
-        contentType:false,
-        mimeType: "multipart/form-data",
-        data:form
-
-    }).done(function(data){
-        console.log(data);
-        $()
-    }).fail(function(jqXHR,textStatus,errorThrown){
-        console.log(jqXHR,textStatus,errorThrown);
-    })
-    $.ajax({
-        url:"/api/v1/get_simple_score?id="+id+"&ZIP=1",
-        method:"GET",
-        headers: {
-            "Authorization": "bearer "+token,
-        },
-        processData:false,
-    }).done(function(data){
-        $('#step-3-jpg').attr("href",data);
-    }).fail(function(jqXHR,textStatus,errorThrown){
-        console.log(jqXHR,textStatus,errorThrown);
-    })
-})
+    }) 
+}
 function sleep(ms = 0){
     return new Promise(r=> setTimeout(r,ms));
 }
@@ -280,7 +238,27 @@ $("#step3Input").on("change paste", function() {
     $('#step3Label').css('display','');
     $('#step3Input').css('display','none');
     $('#step3Label').html($('#step3Input').val());
+    var name = $('#step3Label').text();
+    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
+    var token = sessionStorage.getItem('access').replace(/\"/g,"");
+    $.ajax({
+        url:"/api/v1/change_score_name2/",
+        method:"POST",
+        headers: {
+            "Authorization": "bearer "+token,
+        },
+        dataType:"json",
+        processData:false,
+        contentType:false,
+        data:JSON.stringify({
+            "id":id,
+            "scoreName":name
+        })
+
+    }).done(function(data){
+        console.log(data);
+    }).fail(function(jqXHR,textStatus,errorThrown){
+        console.log(jqXHR,textStatus,errorThrown);
+    })
+    getfile(id,token);
 });
-        // data:JSON.stringify({
-        //     'scoreName':name
-        // })
