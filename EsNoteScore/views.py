@@ -849,10 +849,6 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
     def list(self, request, *args, **kwargs):
         PDF = False
         ZIP = False
-        if request.GET.get('PDF'):
-            PDF = True
-        if request.GET.get('ZIP'):
-            ZIP = True
         if self.request.user == AnonymousUser():
             try:
                 token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
@@ -866,8 +862,15 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             user = self.request.user
         if not request.GET.get('id'):
             raise ParseError("id is null")
-        if not (PDF or ZIP):
-            raise ParseError("please fill in PDF or ZIP")
+        if request.GET.get('fileType'):
+            if request.GET.get('fileType') == 'PDF':
+                PDF = True
+            elif request.GET.get('fileType') == 'ZIP':
+                ZIP = True
+            else:
+                raise ParseError("no support this fileType.")
+        else:
+            raise ParseError("please fill fileType.")
         if PDF and ZIP:
             raise ParseError("please only fill in PDF or ZIP")
         esNote_score__noteID = request.GET.get('id')
@@ -890,6 +893,7 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             font = ImageFont.truetype('PingFangTC.ttf', 22)
             draw = ImageDraw.Draw(imglist[0])
             draw.text(((imglist[0].size[0] - font.getsize(scoreName)[0]) / 2, 10), scoreName, (0, 0, 0), font=font)
+        return_json = {}
         if ZIP:
             zip_file = BytesIO()
             with zipfile.ZipFile(zip_file, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
@@ -897,17 +901,19 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
                     output_buffer = BytesIO()
                     img.save(output_buffer, format='JPEG')
                     zf.writestr('%s_%d.jpg' % (scoreName, index), output_buffer.getvalue())
-            response = HttpResponse(zip_file.getvalue(), content_type='application/zip')
-            response['Content-Disposition'] = 'attachment; filename="%s.zip"' % (scoreName)
+            base64_str = base64.b64encode(zip_file.getvalue())
+            return_json['filename'] = '%s.zip' % (scoreName)
+            return_json["file"] = base64_str
             zip_file.close()
             output_buffer.close()
-            return response
+            return Response(return_json)
         elif PDF:
             pdf_file = BytesIO()
             output_buffer = BytesIO()
             imglist[0].save(pdf_file, "PDF", resolution=100.0, save_all=True, append_images=imglist[1:])
-            response = HttpResponse(pdf_file.getvalue(), content_type='application/pdf')
-            response['Content-Disposition'] = 'attachment; filename="%s.pdf"' % (scoreName)
+            base64_str = base64.b64encode(pdf_file.getvalue())
+            return_json['filename'] = "%s.pdf" % (scoreName)
+            return_json["file"] = base64_str
             pdf_file.close()
             output_buffer.close()
-            return response
+            return Response(return_json)
