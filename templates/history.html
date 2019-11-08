@@ -89,40 +89,60 @@
             <section class="content">
                 <div class="mb-5 p-4 bg-white shadow-sm">
                     <div class="row">
-                        
+                        <div class="col-xs-12">
+                            <div class="box">
+                                <div class="box-header">歷史紀錄</div>
+                                <div class="box-body table-responsive no-padding">
+                                    <table class="table table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <th>樂譜名稱</th>
+                                                <th>上傳日期</th>
+                                                <th>描述</th>
+                                                <th>下載</th>
+                                            </tr>
+                                            <tr>
+                                                <td>test</td>
+                                                <td>2019年11月8日</td>
+                                                <td></td>
+                                                <td> 
+                                                    <button class="btn btn-lg btn-blue">JPG <i class="fa fa-download"></i></button>
+                                                    <button class="btn btn-lg btn-blue">PDF <i class="fa fa-download"></i></button> </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-                <!-- /.content -->
             </div>
-            <!-- /.content-wrapper -->
+            <script type="text/javascript">
+             function logout(){
+                sessionStorage.clear();
+                $(".navbar-custom-menu ul").empty();
+                $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
+                window.location.reload();
+            } 
+        </script>
+        <!-- ./wrapper -->
+        <script src="../static/bower/jquery/dist/jquery.min.js"></script>
+        <!-- Bootstrap 3.3.7 -->
+        <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../static/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../static/dist/js/demo.js"></script>
+        <!-- I write js for change login -->
+        <script src="../static/dist/js/checkLogin.js"></script>
+        <!-- I write js for get history -->
+        <script src="../static/dist/js/history.js"></script>
 
-        </div>
-        <script type="text/javascript">
-         function logout(){
-            sessionStorage.clear();
-            $(".navbar-custom-menu ul").empty();
-            $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
-            window.location.reload();
-        } 
-    </script>
-    <!-- ./wrapper -->
-    <script src="../static/bower/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap 3.3.7 -->
-    <script src="../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../static/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../static/dist/js/demo.js"></script>
-    <!-- I write js for change login -->
-    <script src="../static/dist/js/checkLogin.js"></script>
-    <!-- I write js for get history -->
-    <script src="../static/dist/js/history.js"></script>
+    </body>
 
-</body>
-
-</html>
+    </html>

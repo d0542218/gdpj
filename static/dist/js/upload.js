@@ -191,7 +191,6 @@ function getfile(id,token){
         dataType:'json'
     }).done(function(data){
         var step3File = JSON.parse(JSON.stringify(data));
-        console.log(step3File);
         $('#step-3-jpg').attr('download',step3File.filename);
         $('#step-3-jpg').attr("href","data:application/zip;base64,"+step3File.file);
     }).fail(function(jqXHR,textStatus,errorThrown){
@@ -206,7 +205,6 @@ function getfile(id,token){
         processData:false,
     }).done(function(data){
         var step3File = JSON.parse(JSON.stringify(data));
-        console.log(step3File);
         $('#step-3-pdf').attr('download',step3File.filename);
         $('#step-3-pdf').attr("href","data:application/zip;base64,"+step3File.file);
     }).fail(function(jqXHR,textStatus,errorThrown){
@@ -248,15 +246,13 @@ $("#step3Input").on("change paste", function() {
             "Authorization": "bearer "+token,
         },
         dataType:"json",
-        processData:false,
-        contentType:false,
+        contentType:"application/json",
         data:JSON.stringify({
             "id":id,
             "scoreName":name
         })
 
     }).done(function(data){
-        console.log(data);
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
     })
