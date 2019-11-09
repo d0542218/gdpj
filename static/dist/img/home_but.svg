@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="190" height="50" viewBox="0 0 190 50">
+  <g id="Group_101" data-name="Group 101" transform="translate(-781 -1166)">
+    <rect id="Rectangle_560" data-name="Rectangle 560" width="190" height="50" rx="25" transform="translate(781 1166)" fill="#2cb4fb"/>
+    <g id="Group_100" data-name="Group 100" transform="translate(-15 11)">
+      <text id="Home" transform="translate(910 1191)" fill="#fff" stroke="#fff" stroke-width="1" font-size="30" font-family="SourceSansPro-Regular, Source Sans Pro" letter-spacing="0.1em"><tspan x="-42.285" y="0">Home</tspan></text>
+      <g id="icon_home" transform="translate(929.167 1165)">
+        <path id="Path_357" data-name="Path 357" d="M27.19,9.05,14.975.325a1.746,1.746,0,0,0-2.028,0L.731,9.05a1.745,1.745,0,0,0,2.028,2.841l.731-.522V26.176a1.745,1.745,0,0,0,1.745,1.745H22.686a1.745,1.745,0,0,0,1.745-1.745V11.369a2.974,2.974,0,0,0,1.743.847A1.745,1.745,0,0,0,27.19,9.05ZM20.941,24.431h-3.49V19.2a3.49,3.49,0,0,0-6.98,0v5.235H6.98V8.876l6.98-4.986,6.98,4.986Z" transform="translate(-98.392 1.052)" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+</svg>
