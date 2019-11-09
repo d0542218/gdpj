@@ -153,7 +153,7 @@ $('#step-2-next').click(function() {
     var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
         $.ajax({
-            url: "/api/v1/fakePredict/?id="+id+"&order="+i,
+            url: "/api/v1/predict/?id="+id+"&order="+i,
             method: "GET",
             dataType:"json",
             headers: {

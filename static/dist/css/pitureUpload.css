@@ -107,3 +107,6 @@ position: relative;
     border-style: solid;
     border-width: 2px;
 }
+.col-xs-12 {
+  width: 100%;
+}
