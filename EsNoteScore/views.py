@@ -635,7 +635,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         if not (pic_model.esNote_score_data):
             try:
                 # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
-                r = requests.request("POST", url, data={"img_url": ip2 + quote(str(pic_model.esNote_score_resize_pic))})
+                r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
                 print(r.status_code)
                 if r.status_code != 200:
                     raise ParseError("remote server error", code=r.status_code)
