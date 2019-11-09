@@ -474,13 +474,14 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
     def rest_return(self, length, dotted):
         returnstr = ''
         length = int(length)
-
+        if length == 1:
+            length = 0
         if length == 0:
             returnstr += '````'
-        if length == 2:
+        elif length == 2:
             returnstr += '``'
         else:
-            returnstr += self.notes[int(math.log(int(length) - 2, 2))][0]
+            returnstr += self.notes[int (math.log(length,2))-2][0]
         if dotted == 1:
             returnstr += self.notes[int(math.log(length, 2)) - 2]['dot']
         returnstr += ' '
@@ -601,10 +602,10 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
 
     def list(self, request, *args, **kwargs):
         res = []
+        url = "http://127.0.0.1:5000/predict_by_url"
+        ip = "http://140.134.26.63:18000/media/"
+        # ip = "http://182.155.209.64:18000/media/"
         # url = "http://140.134.26.63:15001/predict_by_url"
-        url = "http://172.23.1.1:5000/predict_by_url"
-        ip = "http://172.23.1.2:8000/media/"
-        # ip2 = "http://182.155.209.64:18000/media/"
         if self.request.user == AnonymousUser():
             try:
                 token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
@@ -632,6 +633,8 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         return_json = {}
+        output_buffer = BytesIO()
+        base64_str=''
         if not (pic_model.esNote_score_data):
             try:
                 # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
@@ -668,7 +671,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                         draw.line([(xstart, ystart), (xstart, yend)], fill="blue", width=2)
                         draw.line([(xend, ystart), (xend, yend)], fill="blue", width=2)
                         draw.line([(xstart, yend), (xend, yend)], fill="blue", width=2)
-            output_buffer = BytesIO()
+
             im.save(output_buffer, format='JPEG')
             # im.show()
             output_buffer.seek(0)
