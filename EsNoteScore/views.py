@@ -601,10 +601,10 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
 
     def list(self, request, *args, **kwargs):
         res = []
-        url = "http://140.134.26.63:15001/predict_by_url"
-        # url = "http://127.0.0.1:5000/predict_by_url"
-        ip = "http://140.134.26.63:18000/media/"
-        ip2 = "http://182.155.209.64:18000/media/"
+        # url = "http://140.134.26.63:15001/predict_by_url"
+        url = "http://172.23.1.1:5000/predict_by_url"
+        ip = "http://172.23.1.2:8000/media/"
+        # ip2 = "http://182.155.209.64:18000/media/"
         if self.request.user == AnonymousUser():
             try:
                 token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
@@ -635,7 +635,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         if not (pic_model.esNote_score_data):
             try:
                 # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
-                r = requests.request("POST", url, data={"img_url": ip2 + quote(str(pic_model.esNote_score_resize_pic))})
+                r = requests.request("POST", url, data={"img_url": ip + quote(str(pic_model.esNote_score_resize_pic))})
                 print(r.status_code)
                 if r.status_code != 200:
                     raise ParseError("remote server error", code=r.status_code)
