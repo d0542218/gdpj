@@ -603,7 +603,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
     def list(self, request, *args, **kwargs):
         res = []
         url = "http://172.23.1.1:5000/predict_by_url"
-        ip = "http://172.23.1.2:18000/media/"
+        ip = "http://172.23.1.2:8000/media/"
         # ip = "http://182.155.209.64:18000/media/"
         # url = "http://140.134.26.63:15001/predict_by_url"
         if self.request.user == AnonymousUser():
