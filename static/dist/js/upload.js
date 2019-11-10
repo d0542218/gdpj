@@ -171,25 +171,6 @@ $('#step-2-next').click(function() {
         sleep(1500);
     }
 })
-function changeOrder(id,token,new_order){
-    $.ajax({
-     url:"http://127.0.0.1:8000/api/v1/change_order_of_pics_2/",
-     method: "POST",
-     dataType:'json',
-     data:JSON.stringify({
-        "id": id,
-        "new_order": new_order
-    }),
-     headers:{
-        "Authorization": "bearer "+token,
-    }
-}).done(function(data){
-    console.log(data);
-})
-.fail(function (jqXHR, textStatus, errorThrown){
-    console.log(errorThrown);
-});
-}
 function getfile(id,token){
     $.ajax({
         url:"/api/v1/get_simple_score?id="+id+"&fileType=ZIP",
@@ -266,3 +247,24 @@ $("#step3Input").on("change paste", function() {
     })
     getfile(id,token);
 });
+function changeOrder(id,token,new_order){
+    $.ajax({
+     url:"http://127.0.0.1:8000/api/v1/change_order_of_pics_2/",
+     method: "POST",
+     dataType:'json',
+     headers:{
+        "Authorization": "bearer "+token,
+    },
+    contentType:"application/json",
+    data:JSON.stringify({
+        "id":id,
+        "new_order":new_order
+    })
+}).done(function(data){
+    console.log(data);
+})
+.fail(function (jqXHR, textStatus, errorThrown){
+    var error = JSON.parse(JSON.stringify(jqXHR));
+    console.log(error+textStatus+errorThrown);
+});
+}
