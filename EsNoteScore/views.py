@@ -474,13 +474,14 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
     def rest_return(self, length, dotted):
         returnstr = ''
         length = int(length)
-
+        if length == 1:
+            length = 0
         if length == 0:
             returnstr += '````'
-        if length == 2:
+        elif length == 2:
             returnstr += '``'
         else:
-            returnstr += self.notes[int(math.log(int(length) - 2, 2))][0]
+            returnstr += self.notes[int (math.log(length,2))-2][0]
         if dotted == 1:
             returnstr += self.notes[int(math.log(length, 2)) - 2]['dot']
         returnstr += ' '
@@ -601,10 +602,10 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
 
     def list(self, request, *args, **kwargs):
         res = []
-        # url = "http://140.134.26.63:15001/predict_by_url"
         url = "http://172.23.1.1:5000/predict_by_url"
         ip = "http://172.23.1.2:8000/media/"
-        # ip2 = "http://182.155.209.64:18000/media/"
+        # ip = "http://182.155.209.64:18000/media/"
+        # url = "http://140.134.26.63:15001/predict_by_url"
         if self.request.user == AnonymousUser():
             try:
                 token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
@@ -632,6 +633,8 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         return_json = {}
+        output_buffer = BytesIO()
+        base64_str=''
         if not (pic_model.esNote_score_data):
             try:
                 # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
@@ -668,7 +671,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                         draw.line([(xstart, ystart), (xstart, yend)], fill="blue", width=2)
                         draw.line([(xend, ystart), (xend, yend)], fill="blue", width=2)
                         draw.line([(xstart, yend), (xend, yend)], fill="blue", width=2)
-            output_buffer = BytesIO()
+
             im.save(output_buffer, format='JPEG')
             # im.show()
             output_buffer.seek(0)
@@ -855,6 +858,47 @@ class change_score_name2(viewsets.GenericViewSet, mixins.CreateModelMixin):
         res = {}
         res['scoreName'] = esNote_score.scoreName
         return Response(res)
+
+class change_order_of_pics_2(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    queryset = esNote_score_model.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
+        if not request.data.get('id'):
+            raise ParseError("id is null")
+        if not request.data.get('new_order'):
+            raise ParseError("new_order is null")
+        esNote_score__noteID = request.data.get('id')
+        new_order = request.data.get('new_order').split(',')
+        try:
+            esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
+        except IndexError:
+            raise NotFound("please check id.")
+        if not (user == esNote_score.user or request.user.is_staff):
+            raise AuthenticationFailed("Permission deny.")
+        pic_model = esNote_score_pic_model.objects.filter(esNote_score=esNote_score).order_by('order')
+        if len(new_order) != len(new_order):
+            raise ParseError("please check length of list.")
+        copy = new_order[:]
+        copy.sort()
+        for index, order in enumerate(copy):
+            order = int(order)
+            if index + 1 != order:
+                raise ParseError("please check order of list.")
+        for i, j in zip(pic_model, new_order):
+            i.order = int(j)
+            i.save()
+        return Response("ok")
 
 
 class change_order_of_pics(viewsets.GenericViewSet, mixins.UpdateModelMixin):
