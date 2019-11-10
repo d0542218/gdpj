@@ -859,6 +859,47 @@ class change_score_name2(viewsets.GenericViewSet, mixins.CreateModelMixin):
         res['scoreName'] = esNote_score.scoreName
         return Response(res)
 
+class change_order_of_pics_2(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    queryset = esNote_score_model.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
+        if not request.data.get('id'):
+            raise ParseError("id is null")
+        if not request.data.get('new_order'):
+            raise ParseError("new_order is null")
+        esNote_score__noteID = request.data.get('id')
+        new_order = request.data.get('new_order').split(',')
+        try:
+            esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
+        except IndexError:
+            raise NotFound("please check id.")
+        if not (user == esNote_score.user or request.user.is_staff):
+            raise AuthenticationFailed("Permission deny.")
+        pic_model = esNote_score_pic_model.objects.filter(esNote_score=esNote_score).order_by('order')
+        if len(new_order) != len(new_order):
+            raise ParseError("please check length of list.")
+        copy = new_order[:]
+        copy.sort()
+        for index, order in enumerate(copy):
+            order = int(order)
+            if index + 1 != order:
+                raise ParseError("please check order of list.")
+        for i, j in zip(pic_model, new_order):
+            i.order = int(j)
+            i.save()
+        return Response("ok")
+
 
 class change_order_of_pics(viewsets.GenericViewSet, mixins.UpdateModelMixin):
     queryset = esNote_score_model.objects.all()

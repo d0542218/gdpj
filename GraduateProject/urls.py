@@ -34,6 +34,7 @@ router.register("get_history", views.model_get_history)
 router.register('fakePredict', views.model_get_fake_predict_pictures)
 router.register('change_score_name', views.change_score_name)
 router.register('change_order_of_pics', views.change_order_of_pics)
+router.register('change_order_of_pics_2', views.change_order_of_pics_2)
 router.register('get_simple_score', views.get_simple_score)
 router.register('change_score_name2',views.change_score_name2)
 
