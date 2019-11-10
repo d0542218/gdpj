@@ -19,7 +19,7 @@
  			$(document.body).off('click', '.sp-thumbs');
  		},
  		smoothproducts: function(productId) {
-
+ 			var i =1;
 			// Add some markup & set some CSS
 			$('.sp-loading').hide();
 			$(productId).each(function() {
@@ -30,7 +30,11 @@
 				if (thumbQty > 1) {
 					var firstLarge,firstThumb,
 					defaultImage = $('a.sp-default', this)[0]?true:false;
-					$(this).append('<div class="sp-large"></div><div class="sp-thumbs sp-tb-active"></div>');
+					if(productId=='#step2-wrap'){					
+						$(this).append('<div class="sp-large"></div><div id="items-list" class="sp-thumbs sp-tb-active"></div>');
+					}else{
+						$(this).append('<div class="sp-large"></div><div class="sp-thumbs sp-tb-active"></div>');
+					}
 					$('a', this).each(function(index) {
 						var thumb = $('img', this).attr('src'),
 						large = $(this).attr('href'),
@@ -41,7 +45,12 @@
 							firstLarge = large;
 							firstThumb = $('img', this)[0].src;
 						}
-						$(this).parents(productId).find('.sp-thumbs').append('<a href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+'></a>');
+						if(productId=='#step2-wrap'){
+							$(this).parents(productId).find('.sp-thumbs').append('<a id="'+i+'" href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+'></a>');
+							i+=1;
+						}else{
+							$(this).parents(productId).find('.sp-thumbs').append('<a href="' + large + '" style="background-image:url(' + thumb + ')"'+classes+'></a>');
+						}
 						$(this).remove();
 					});
 					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="" id ="sp-current-big-img"/></a>');
@@ -245,31 +254,41 @@
 					$(this).remove();
 				});
 			}
-
-
-			// Panning zoomed image (non-touch)
-
-			// $('.sp-large').mousemove(function(e) {
-			// 	var viewWidth = $(this).width(),
-			// 		viewHeight = $(this).height(),
-			// 		viewOffset = $(this).offset(),
-			// 		largeWidth = $(this).find('.sp-zoom').width(),
-			// 		largeHeight = $(this).find('.sp-zoom').height(),
-			// 		relativeXPosition = (e.pageX - viewOffset.left),
-			// 		relativeYPosition = (e.pageY - viewOffset.top),
-			// 		moveX = Math.floor((relativeXPosition * (viewWidth - largeWidth) / viewWidth)),
-			// 		moveY = Math.floor((relativeYPosition * (viewHeight - largeHeight) / viewHeight));
-
-			// 	$(this).find('.sp-zoom').css({
-			// 		left: moveX,
-			// 		top: moveY
-			// 	});
-
-			// });
-
 			function get_url_from_background(bg){
 				return bg.match(/url\([\"\']{0,1}(.+)[\"\']{0,1}\)+/i)[1];
 			}
-		}
-	});
+			let items = document.querySelectorAll('#items-list > a')
+			items.forEach(item => {
+				$(item).prop('draggable', true)
+				item.addEventListener('dragstart', dragStart)
+				item.addEventListener('drop', dropped)
+				item.addEventListener('dragenter', cancelDefault)
+				item.addEventListener('dragover', cancelDefault)
+			})
+			function dragStart (e) {
+				var index = $(e.target).index();
+				e.dataTransfer.setData('text/plain', index);
+			}
+			function dropped (e) {
+				cancelDefault(e)
+				  // get new and old index
+				  let oldIndex = e.dataTransfer.getData('text/plain')
+				  let target = $(e.target)
+				  let newIndex = target.index()
+				  // remove dropped items at old place
+				  let dropped = $(this).parent().children().eq(oldIndex).remove()
+				  // insert the dropped items at new place
+				  if (newIndex < oldIndex) {
+				  	target.before(dropped)
+				  } else {
+				  	target.after(dropped)
+				  }
+				}
+				function cancelDefault (e) {
+					e.preventDefault()
+					e.stopPropagation()
+					return false
+				}
+			}
+		});
 })(jQuery);

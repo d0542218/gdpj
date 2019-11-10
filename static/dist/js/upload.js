@@ -3,8 +3,6 @@ var files ;
 var file_count = 0;
 var imgform = new FormData();
 var current = 0;
-// var backFiles = [];
-// var img_count = 0;
 $('#file-uploader').change(function(evt){
     if((file_count+evt.target.files.length)<=5){
         file_count += evt.target.files.length;
@@ -71,6 +69,7 @@ $('#step-1-next').click(function() {
     if(imgform.getAll("esNote_score_pic").length==0){
         alert("請上傳圖片");
     }else{
+        var i = 1;
         var yesUpload = confirm("是否上傳完畢");
         var token = sessionStorage.getItem('access');
         token=token.replace(/\"/g,"");
@@ -90,14 +89,11 @@ $('#step-1-next').click(function() {
                 success: function(data) {
                     var score_pic = data.esNote_score_pic;
                     sessionStorage.setItem('noteID',JSON.stringify(data.noteID));
-                    // console.log(score_pic);
                     $.each(score_pic,function(index,val){
-                        // backFiles[img_count] = val.esNote_score_pic;
                         $('#step2-wrap').append("<a href='" +val.esNote_score_pic +"'><img src='"+val.esNote_score_pic +"'></a>");
-                                // $('#ImgOrder').append("<option value='"+i+"'>第"+(i+1)+"張</option>");
-                                // img_count++;      
-                            })
-                    // console.log(backFiles);
+                        $('#ImgOrder').append("<option value='"+i+"'>第"+(i)+"張</option>");
+                        i+=1;    
+                    })
                     $('#step2-wrap').smoothproducts('#step2-wrap');
                     $( "body" ).loading( "stop" );
                     stepper1.next();
@@ -133,27 +129,22 @@ $('#step-2-previous').click(function(){
 });
 
 $('#step-2-next').click(function() {
-    if(document.getElementById('step3-wrap1')){
-        var f = document.getElementById('step3-content1');
-        var step3Child = f.childNodes;
-        for(var i = step3Child.length - 1; i >= 0; i--) {
-            f.removeChild(step3Child[i]);
-        }
-        f = document.getElementById('step3-content2');
-        step3Child = f.childNodes;
-        for(var i = step3Child.length - 1; i >= 0; i--) {
-            f.removeChild(step3Child[i]);
-        }
-    }
+    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
+    var token = sessionStorage.getItem('access').replace(/\"/g,"");
+    let items = document.querySelectorAll('#items-list > a');
+    var new_order = "";
+    $.each(items,function(index,item){
+        new_order = new_order+$(item).attr('id')+',';
+    });
+    new_order = new_order.substring(0,new_order.length-1);
+    changeOrder(id,token,new_order);
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading();
-    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
-    var token = sessionStorage.getItem('access').replace(/\"/g,"");
     var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
         $.ajax({
-            url: "/api/v1/predict/?id="+id+"&order="+i,
+            url: "/api/v1/fakePredict/?id="+id+"&order="+i,
             method: "GET",
             dataType:"json",
             headers: {
@@ -180,6 +171,25 @@ $('#step-2-next').click(function() {
         sleep(1500);
     }
 })
+function changeOrder(id,token,new_order){
+    $.ajax({
+     url:"http://127.0.0.1:8000/api/v1/change_order_of_pics_2/",
+     method: "POST",
+     dataType:'json',
+     data:JSON.stringify({
+        "id": id,
+        "new_order": new_order
+    }),
+     headers:{
+        "Authorization": "bearer "+token,
+    }
+}).done(function(data){
+    console.log(data);
+})
+.fail(function (jqXHR, textStatus, errorThrown){
+    console.log(errorThrown);
+});
+}
 function getfile(id,token){
     $.ajax({
         url:"/api/v1/get_simple_score?id="+id+"&fileType=ZIP",
@@ -211,12 +221,10 @@ function getfile(id,token){
         console.log(jqXHR,textStatus,errorThrown);
     }) 
 }
+
 function sleep(ms = 0){
     return new Promise(r=> setTimeout(r,ms));
 }
-$('#ImgOrder').change(function(){
-    var order = $('#ImgOrder option:selected').val();
-})
 $('#rotate_right').click(function(){
     current = (current+90)%360;
     document.getElementById('sp-current-big-img').style.transform = 'rotate('+current+'deg)';

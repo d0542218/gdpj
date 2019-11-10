@@ -12,7 +12,7 @@ $(document).ready(function(){
 		success: function(data){
 			var history = JSON.parse(JSON.stringify(data));
 			$.each(history.results,function(index,val){
-				$("#historyTable").append("<tr><td>"+val.scoreName+"</td><td>"+val.scoreCreateTime.substring(0,9)+"</td><td><button id='jpg"+i+"' class='btn btn-lg btn-blue'>JPG<i class='fa fa-download'></i></button><button id='pdf"+i+"' class='btn btn-lg btn-blue'>PDF<i class='fa fa-download'></i></button></td></tr>");				getfile(val.noteID,token,document.getElementById('jpg'+i),document.getElementById('pdf'+i));
+				$("#historyTable").append("<tr><td>"+val.scoreName+"</td><td>"+val.scoreCreateTime.substring(0,10)+"</td><td><button id='jpg"+i+"' class='btn btn-lg btn-blue'>JPG<i class='fa fa-download'></i></button><button id='pdf"+i+"' class='btn btn-lg btn-blue'>PDF<i class='fa fa-download'></i></button></td></tr>");				getfile(val.noteID,token,document.getElementById('jpg'+i),document.getElementById('pdf'+i));
 				i+=1; 
 			})
 		},
