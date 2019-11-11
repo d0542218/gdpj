@@ -136,15 +136,17 @@ $('#step-2-next').click(function() {
     $.each(items,function(index,item){
         new_order = new_order+$(item).attr('id')+',';
     });
-    new_order = new_order.substring(0,new_order.length-1);
-    changeOrder(id,token,new_order);
+    if(new_order.length!=1){
+        new_order = new_order.substring(0,new_order.length-1);
+        changeOrder(id,token,new_order);
+    }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading();
     var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
         $.ajax({
-            url: "/api/v1/fakePredict/?id="+id+"&order="+i,
+            url: "/api/v1/predict/?id="+id+"&order="+i,
             method: "GET",
             dataType:"json",
             headers: {
@@ -249,10 +251,10 @@ $("#step3Input").on("change paste", function() {
 });
 function changeOrder(id,token,new_order){
     $.ajax({
-     url:"http://127.0.0.1:8000/api/v1/change_order_of_pics_2/",
-     method: "POST",
-     dataType:'json',
-     headers:{
+       url:"http://127.0.0.1:8000/api/v1/change_order_of_pics_2/",
+       method: "POST",
+       dataType:'json',
+       headers:{
         "Authorization": "bearer "+token,
     },
     contentType:"application/json",
