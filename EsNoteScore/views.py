@@ -269,19 +269,9 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             name = fClef[temp]
         return name
 
-    def initClef(self, unit):
-        if (unit['type'] == 'tonality'):
-            if unit['Clef'] == 'G':
-                so = int(unit['number'])
-            elif unit['Clef'] == 'C':
-                do = int(unit['number'])
-            elif unit['Clef'] == 'F':
-                fa = int(unit['number'])
 
     def createLines(self, lines):
 
-        #     lineCount = 1
-        #     sectionCount = 1
 
         so = None
         fa = None
@@ -296,29 +286,18 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         group = []
         singleNames = []
         singlePitchs = []
-        #     if(lines[0][0]['notes'][0]['type']=='tonality'):
-        #         print(lines[0][0]['notes'][0]['type'])
-        # #         if lines[0][0]['notes'][0]['Clef'] == 'G':
-        # #             so = int(lines[0][0]['noyes'][0]['number'])
-        # #         elif lines[0][0]['notes'][0]['Clef'] == 'C' :
-        # #             do = int(lines[0][0]['noyes'][0]['number'])
-        # #         elif lines[0][0]['notes'][0]['Clef'] == 'F' :
-        # #             fa = int(lines[0][0]['noyes'][0]['number'])
-        #     else:
-        so = 8
+    	if(lines[0][0]['notes'][0]['type']=='G-clef'):
+        	so = 8
+    	elif(lines[0][0]['notes'][0]['type']=='C-clef'):
+        	do = 10
+    	elif(lines[0][0]['notes'][0]['type']=='F-clef'):
+        	fa = 12
+    	else:
+        	so = 8
         for line in lines:
             for section in line:
                 notes = section['notes']
                 for unit in notes:
-                    #                 if((sectionCount == 1)and(lineCount == 1)and(unit['type'] != 'tonality')):
-                    #                     so = 8;
-                    #                 elif((sectionCount == 1)and(lineCount == 1)and(unit['type'] == 'tonality')):
-                    #                     if unit['Clef'] == 'G':
-                    #                         so = int(unit['number'])
-                    #                     elif unit['Clef'] == 'C' :
-                    #                         do = int(unit['number'])
-                    #                     elif unit['Clef'] == 'F' :
-                    #                         fa = int(unit['number'])
                     if (unit['type'] == 'note'):
                         for number in unit['number']:
                             number = int(number)
@@ -395,11 +374,8 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                         returnUnit['bounding box'] = unit['bounding box']
                         returnSection.append(returnUnit)
                         returnUnit = {}
-                #             sectionCount+=1
                 Line.append(returnSection)
                 returnSection = []
-            #         lineCount+=1
-            #         sectionCount=0
             returnLines.append(Line)
             Line = []
         return returnLines
