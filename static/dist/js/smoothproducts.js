@@ -53,6 +53,9 @@
 						}
 						$(this).remove();
 					});
+					if(productId=='#step3-content1'){
+						$('.sp-large').attr('max-height','842px');
+					}
 					$('.sp-large', this).append('<a href="' + firstLarge + '" class="sp-current-big"><img src="' + firstThumb + '" alt="" id ="sp-current-big-img"/></a>');
 					$(productId).css('display', 'inline-block');
 				// If only one image
