@@ -259,7 +259,7 @@ $("#step3Input").on("change paste", function() {
 });
 function changeOrder(id,token,new_order){
     $.ajax({
-       url:"http://127.0.0.1:8000/api/v1/change_order_of_pics_2/",
+       url:"/api/v1/change_order_of_pics_2/",
        method: "POST",
        dataType:'json',
        headers:{
