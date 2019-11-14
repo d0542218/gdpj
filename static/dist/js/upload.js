@@ -136,7 +136,7 @@ $('#step-2-next').click(function() {
     $.each(items,function(index,item){
         new_order = new_order+$(item).attr('id')+',';
     });
-    if(new_order.length!=1){
+    if(new_order.length>1){
         new_order = new_order.substring(0,new_order.length-1);
         changeOrder(id,token,new_order);
     }
