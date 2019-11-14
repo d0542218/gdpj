@@ -155,7 +155,7 @@ $('#step-2-next').click(function() {
         }).done(function(data){
             step3Flag++;
             var predictIMG = JSON.parse(JSON.stringify(data));
-            $('#step3-wrap1').append("<a href='data:image/png;base64,"+predictIMG.pic +"'><img src= 'data:image/png;base64,"+predictIMG.pic +"></a>");
+            $('#step3-wrap1').append("<a href='data:image/png;base64,"+predictIMG.pic +"'><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
             for(j=0;j<predictIMG.simple_url.length;j++){
                 $('#step3-wrap2').append("<a href='"+predictIMG.simple_url[j]+"'><img src= '"+predictIMG.simple_url[j]+"'></a>");
             }
