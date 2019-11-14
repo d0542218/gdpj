@@ -635,7 +635,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             for line in score:
                 for bar in line:
                     for note in bar["notes"]:
-                        if note['type'] in ['note', 'tuplet note', 'tuplet end', 'rest']:
+                        if note['type'] in ['note', 'tuplet note', 'tuplet end', 'rest','G-clef','C-clef','F-clef']:
                             bbox = note["bounding box"]
                             ystart = bbox[1] - bbox[3] / 2
                             yend = bbox[1] + bbox[3] / 2
