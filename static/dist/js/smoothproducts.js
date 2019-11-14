@@ -61,7 +61,7 @@
 				// If only one image
 			} else {
 				$(this).append('<div class="sp-large"></div>');
-				$('a', this).appendTo($('.sp-large', this)).addClass('.sp-current-big');
+				$('a', this).appendTo($('.sp-large', this)).addClass('sp-current-big');
 				$('img', this).attr('id','sp-current-big-img');
 				$(productId).css('display', 'inline-block');
 			}
