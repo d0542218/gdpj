@@ -269,9 +269,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             name = fClef[temp]
         return name
 
-
     def createLines(self, lines):
-
 
         so = None
         fa = None
@@ -286,14 +284,14 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         group = []
         singleNames = []
         singlePitchs = []
-    	if(lines[0][0]['notes'][0]['type']=='G-clef'):
-        	so = 8
-    	elif(lines[0][0]['notes'][0]['type']=='C-clef'):
-        	do = 10
-    	elif(lines[0][0]['notes'][0]['type']=='F-clef'):
-        	fa = 12
-    	else:
-        	so = 8
+        if (lines[0][0]['notes'][0]['type'] == 'G-clef'):
+            so = 8
+        elif (lines[0][0]['notes'][0]['type'] == 'C-clef'):
+            do = 10
+        elif (lines[0][0]['notes'][0]['type'] == 'F-clef'):
+            fa = 12
+        else:
+            so = 8
         for line in lines:
             for section in line:
                 notes = section['notes']
@@ -457,7 +455,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         elif length == 2:
             returnstr += '``'
         else:
-            returnstr += self.notes[int (math.log(length,2))-2][0]
+            returnstr += self.notes[int(math.log(length, 2)) - 2][0]
         if dotted == 1:
             returnstr += self.notes[int(math.log(length, 2)) - 2]['dot']
         returnstr += ' '
@@ -610,7 +608,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             raise AuthenticationFailed("Permission deny.")
         return_json = {}
         output_buffer = BytesIO()
-        base64_str=''
+        base64_str = ''
         if not (pic_model.esNote_score_data):
             try:
                 # print(ip2 + quote(str(pic_model.esNote_score_resize_pic)))
@@ -835,6 +833,7 @@ class change_score_name2(viewsets.GenericViewSet, mixins.CreateModelMixin):
         res['scoreName'] = esNote_score.scoreName
         return Response(res)
 
+
 class change_order_of_pics_2(viewsets.GenericViewSet, mixins.CreateModelMixin):
     queryset = esNote_score_model.objects.all()
 
@@ -955,6 +954,10 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             with zipfile.ZipFile(zip_file, mode="w", compression=zipfile.ZIP_DEFLATED) as zf:
                 for index, img in enumerate(imglist):
                     output_buffer = BytesIO()
+                    draw = ImageDraw.Draw(img)
+                    font = ImageFont.truetype('PingFangTC.ttf', 22)
+                    draw.text(((imglist[0].size[0] - font.getsize(str(index + 1))[0]) / 2, 842-10), str(index + 1), (0, 0, 0),
+                              font=font)
                     img.save(output_buffer, format='JPEG')
                     zf.writestr('%s_%d.jpg' % (scoreName, index), output_buffer.getvalue())
             base64_str = base64.b64encode(zip_file.getvalue())
