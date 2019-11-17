@@ -635,16 +635,17 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             for line in score:
                 for bar in line:
                     for note in bar["notes"]:
-                        bbox = note["bounding box"]
-                        ystart = bbox[1] - bbox[3] / 2
-                        yend = bbox[1] + bbox[3] / 2
-                        xstart = bbox[0] - bbox[2] / 2
-                        xend = bbox[0] + bbox[2] / 2
-                        draw = ImageDraw.Draw(im)
-                        draw.line([(xstart, ystart), (xend, ystart)], fill="blue", width=2)
-                        draw.line([(xstart, ystart), (xstart, yend)], fill="blue", width=2)
-                        draw.line([(xend, ystart), (xend, yend)], fill="blue", width=2)
-                        draw.line([(xstart, yend), (xend, yend)], fill="blue", width=2)
+                        if note['type'] in ['note', 'tuplet note', 'tuplet end', 'rest','G-clef','C-clef','F-clef']:
+                            bbox = note["bounding box"]
+                            ystart = bbox[1] - bbox[3] / 2
+                            yend = bbox[1] + bbox[3] / 2
+                            xstart = bbox[0] - bbox[2] / 2
+                            xend = bbox[0] + bbox[2] / 2
+                            draw = ImageDraw.Draw(im)
+                            draw.line([(xstart, ystart), (xend, ystart)], fill="blue", width=2)
+                            draw.line([(xstart, ystart), (xstart, yend)], fill="blue", width=2)
+                            draw.line([(xend, ystart), (xend, yend)], fill="blue", width=2)
+                            draw.line([(xstart, yend), (xend, yend)], fill="blue", width=2)
 
             im.save(output_buffer, format='JPEG')
             # im.show()
