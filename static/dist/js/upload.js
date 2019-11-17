@@ -182,8 +182,9 @@ $('#step-2-next').click(function() {
     }
 })
 function getfile(id,token){
+    var type = $('#downloadType option:selected').val();
     $.ajax({
-        url:"/api/v1/get_simple_score?id="+id+"&fileType=ZIP",
+        url:"/api/v1/get_simple_score?id="+id+"&fileType="+type,
         method:"GET",
         headers: {
             "Authorization": "bearer "+token,
@@ -192,25 +193,11 @@ function getfile(id,token){
         dataType:'json'
     }).done(function(data){
         var step3File = JSON.parse(JSON.stringify(data));
-        $('#step-3-jpg').attr('download',step3File.filename);
-        $('#step-3-jpg').attr("href","data:application/zip;base64,"+step3File.file);
+        $('#step-3-download').attr('download',step3File.filename);
+        $('#step-3-download').attr("href","data:application/zip;base64,"+step3File.file);
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
     })
-    $.ajax({
-        url:"/api/v1/get_simple_score?id="+id+"&fileType=PDF",
-        method:"GET",
-        headers: {
-            "Authorization": "bearer "+token,
-        },
-        processData:false,
-    }).done(function(data){
-        var step3File = JSON.parse(JSON.stringify(data));
-        $('#step-3-pdf').attr('download',step3File.filename);
-        $('#step-3-pdf').attr("href","data:application/zip;base64,"+step3File.file);
-    }).fail(function(jqXHR,textStatus,errorThrown){
-        console.log(jqXHR,textStatus,errorThrown);
-    }) 
 }
 
 function sleep(ms = 0){
@@ -255,14 +242,15 @@ $("#step3Input").on("change paste", function() {
     }).fail(function(jqXHR,textStatus,errorThrown){
         console.log(jqXHR,textStatus,errorThrown);
     })
+    
     getfile(id,token);
 });
 function changeOrder(id,token,new_order){
     $.ajax({
-       url:"/api/v1/change_order_of_pics_2/",
-       method: "POST",
-       dataType:'json',
-       headers:{
+     url:"/api/v1/change_order_of_pics_2/",
+     method: "POST",
+     dataType:'json',
+     headers:{
         "Authorization": "bearer "+token,
     },
     contentType:"application/json",
@@ -278,3 +266,8 @@ function changeOrder(id,token,new_order){
     console.log(error+textStatus+errorThrown);
 });
 }
+$('#downloadType').on('change', function(){
+    var id = sessionStorage.getItem('noteID').replace(/\"/g,"");
+    var token = sessionStorage.getItem('access').replace(/\"/g,"");
+    getfile(id,token);
+})
