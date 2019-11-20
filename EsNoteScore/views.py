@@ -1,5 +1,7 @@
 import base64
 import json
+import sys
+import traceback
 from io import BytesIO
 import requests
 import rest_framework_simplejwt
@@ -399,10 +401,9 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         return self.create_all_bar(returnJson)
 
     def use_pitch_get_char(self, name, pitch, length, space, dotted, multiple=False, end=False):
-
         returnstr = ''
         org = -1
-        if length == 0 or length == 2:
+        if length == 1 or length == 2:
             org = length
             length = 4
         if multiple or end:
@@ -422,7 +423,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             returnstr += self.notes[int(math.log(length, 2)) - 2][pitch]
         if dotted == 1:
             returnstr += self.notes[int(math.log(length, 2)) - 2]['dot']
-        if org == 0:
+        if org == 1:
             returnstr += "///"
         if org == 2:
             returnstr += "/"
@@ -670,7 +671,15 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                 simple_url.append(i.simple_pic.url)
                 return_json['simple_url'] = simple_url
         except Exception as e:
-            print(e)
+            error_class = e.__class__.__name__ #取得錯誤類型
+            detail = e.args[0] #取得詳細內容
+            cl, exc, tb = sys.exc_info() #取得Call Stack
+            lastCallStack = traceback.extract_tb(tb)[-1] #取得Call Stack的最後一筆資料
+            fileName = lastCallStack[0] #取得發生的檔案名稱
+            lineNum = lastCallStack[1] #取得發生的行號
+            funcName = lastCallStack[2] #取得發生的函數名稱
+            errMsg = "File \"{}\", line {}, in {}: [{}] {}".format(fileName, lineNum, funcName, error_class, detail)
+            print(errMsg)
 
         return_json["pic"] = base64_str
         output_buffer.close()
