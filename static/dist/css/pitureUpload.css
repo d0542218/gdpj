@@ -110,3 +110,10 @@ position: relative;
 .col-xs-12 {
   width: 100%;
 }
+/*.btn .dropdown-toggle .btn-light{
+  background-color: rgb(0, 123, 255);
+}*/
+#downloadContent{
+    margin-left: 3%;
+    width: 160px;
+}
