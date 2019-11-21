@@ -940,7 +940,7 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             raise ParseError("please only fill in PDF or ZIP")
         esNote_score__noteID = request.GET.get('id')
         try:
-            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID, order=1)[0]
+            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID).order_by('order')
             esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
             owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
         except IndexError:
@@ -948,7 +948,10 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         scoreName = esNote_score.scoreName
-        simple_score_pics = esNote_simple_score_pic_model.objects.filter(score_pic=pic_model)
+        simple_score_pics=[]
+        for i in pic_model:
+            simple_score_pics.append(esNote_simple_score_pic_model.objects.filter(score_pic=i)[0])
+            print(esNote_simple_score_pic_model.objects.filter(score_pic=i))
         imglist = []
 
         for simple_score in simple_score_pics:
@@ -966,7 +969,7 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
                     output_buffer = BytesIO()
                     draw = ImageDraw.Draw(img)
                     font = ImageFont.truetype('PingFangTC.ttf', 22)
-                    draw.text(((imglist[0].size[0] - font.getsize(str(index + 1))[0]) / 2, 842-10), str(index + 1), (0, 0, 0),
+                    draw.text(((imglist[0].size[0] - font.getsize(str(index + 1))[0]) / 2, 842-30), str(index + 1), (0, 0, 0),
                               font=font)
                     img.save(output_buffer, format='JPEG')
                     zf.writestr('%s_%d.jpg' % (scoreName, index), output_buffer.getvalue())
