@@ -286,6 +286,13 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         group = []
         singleNames = []
         singlePitchs = []
+        count = 0
+        for line in lines:
+            for section in line:
+                count+=len(section['notes'])
+            if(count==0):
+                lines = lines[1:-1]
+
         if (lines[0][0]['notes'][0]['type'] == 'G-clef'):
             so = 8
         elif (lines[0][0]['notes'][0]['type'] == 'C-clef'):
