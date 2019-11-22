@@ -14,6 +14,8 @@ class esNote_score_model(models.Model):
     scoreCreateTime = models.DateTimeField(auto_now_add=True)
     scoreModifyTime = models.DateTimeField(auto_now=True)
     scoreStatus = models.IntegerField()
+    media = models.FileField(null=True)
+
 
 class esNote_score_pic_model(models.Model):
     esNote_score_noteID = models.AutoField(primary_key=True)

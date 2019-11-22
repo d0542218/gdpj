@@ -289,8 +289,8 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
         count = 0
         for line in lines:
             for section in line:
-                count+=len(section['notes'])
-            if(count==0):
+                count += len(section['notes'])
+            if (count == 0):
                 lines = lines[1:-1]
 
         if (lines[0][0]['notes'][0]['type'] == 'G-clef'):
@@ -643,7 +643,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             for line in score:
                 for bar in line:
                     for note in bar["notes"]:
-                        if note['type'] in ['note', 'tuplet note', 'tuplet end', 'rest','G-clef','C-clef','F-clef']:
+                        if note['type'] in ['note', 'tuplet note', 'tuplet end', 'rest', 'G-clef', 'C-clef', 'F-clef']:
                             bbox = note["bounding box"]
                             ystart = bbox[1] - bbox[3] / 2
                             yend = bbox[1] + bbox[3] / 2
@@ -678,13 +678,13 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
                 simple_url.append(i.simple_pic.url)
                 return_json['simple_url'] = simple_url
         except Exception as e:
-            error_class = e.__class__.__name__ #取得錯誤類型
-            detail = e.args[0] #取得詳細內容
-            cl, exc, tb = sys.exc_info() #取得Call Stack
-            lastCallStack = traceback.extract_tb(tb)[-1] #取得Call Stack的最後一筆資料
-            fileName = lastCallStack[0] #取得發生的檔案名稱
-            lineNum = lastCallStack[1] #取得發生的行號
-            funcName = lastCallStack[2] #取得發生的函數名稱
+            error_class = e.__class__.__name__  # 取得錯誤類型
+            detail = e.args[0]  # 取得詳細內容
+            cl, exc, tb = sys.exc_info()  # 取得Call Stack
+            lastCallStack = traceback.extract_tb(tb)[-1]  # 取得Call Stack的最後一筆資料
+            fileName = lastCallStack[0]  # 取得發生的檔案名稱
+            lineNum = lastCallStack[1]  # 取得發生的行號
+            funcName = lastCallStack[2]  # 取得發生的函數名稱
             errMsg = "File \"{}\", line {}, in {}: [{}] {}".format(fileName, lineNum, funcName, error_class, detail)
             print(errMsg)
 
@@ -947,7 +947,8 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             raise ParseError("please only fill in PDF or ZIP")
         esNote_score__noteID = request.GET.get('id')
         try:
-            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID).order_by('order')
+            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID).order_by(
+                'order')
             esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
             owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
         except IndexError:
@@ -955,7 +956,7 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
         scoreName = esNote_score.scoreName
-        simple_score_pics=[]
+        simple_score_pics = []
         for i in pic_model:
             simple_score_pics.append(esNote_simple_score_pic_model.objects.filter(score_pic=i)[0])
             print(esNote_simple_score_pic_model.objects.filter(score_pic=i))
@@ -976,7 +977,8 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
                     output_buffer = BytesIO()
                     draw = ImageDraw.Draw(img)
                     font = ImageFont.truetype('PingFangTC.ttf', 22)
-                    draw.text(((imglist[0].size[0] - font.getsize(str(index + 1))[0]) / 2, 842-30), str(index + 1), (0, 0, 0),
+                    draw.text(((imglist[0].size[0] - font.getsize(str(index + 1))[0]) / 2, 842 - 30), str(index + 1),
+                              (0, 0, 0),
                               font=font)
                     img.save(output_buffer, format='JPEG')
                     zf.writestr('%s_%d.jpg' % (scoreName, index), output_buffer.getvalue())
@@ -996,3 +998,35 @@ class get_simple_score(viewsets.GenericViewSet, mixins.ListModelMixin):
             pdf_file.close()
             output_buffer.close()
             return Response(return_json)
+
+
+class get_score_media(viewsets.GenericViewSet, mixins.ListModelMixin):
+    queryset = esNote_score_model.objects.all()
+
+    def list(self, request, *args, **kwargs):
+        if self.request.user == AnonymousUser():
+            try:
+                token = self.request.META.get('HTTP_AUTHORIZATION').split(' ')[1]
+                access_token = AccessToken(token)
+                user = User.objects.get(id=int(access_token['user_id']))
+            except rest_framework_simplejwt.exceptions.TokenError:
+                raise AuthenticationFailed(detail='Token is invalid or expired.')
+            except:
+                raise AuthenticationFailed(detail='Authorization is Null.')
+        else:
+            user = self.request.user
+        if not request.GET.get('id'):
+            raise ParseError("id is null")
+        esNote_score__noteID = request.GET.get('id')
+        try:
+            esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
+            owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
+        except IndexError:
+            raise NotFound("please check id.")
+        if not (user == owner or request.user.is_staff):
+            raise AuthenticationFailed("Permission deny.")
+        if esNote_score.media:
+            return_json = {'media': esNote_score.media.url}
+        else:
+            return_json = {'media': 'not found'}
+        return Response(return_json)
