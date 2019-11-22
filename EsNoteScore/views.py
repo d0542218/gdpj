@@ -1028,5 +1028,5 @@ class get_score_media(viewsets.GenericViewSet, mixins.ListModelMixin):
         if esNote_score.media:
             return_json = {'media': esNote_score.media.url}
         else:
-            return_json = {'media': 'not found'}
+            raise NotFound("music not found.")
         return Response(return_json)
