@@ -10,11 +10,9 @@ from django.conf import settings
 from django.contrib.auth.models import User, AnonymousUser
 from django.core.files import File
 from django.core.files.base import ContentFile
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import QuerySet
-from django.http import QueryDict, HttpResponse
+from django.http import QueryDict
 from rest_framework.exceptions import ParseError, NotFound, AuthenticationFailed
-from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
 from EsNoteScore.models import esNote_score_model, esNote_score_pic_model, esNote_simple_score_pic_model
 from EsNoteScore.serializers import esNote_score_Serializer, esNote_score_pic_Serializer, UserSerializer \
@@ -27,6 +25,8 @@ import math
 import zipfile
 import mido
 from midi2audio import FluidSynth
+import tempfile
+from pydub import AudioSegment
 
 
 # Create your views here.
@@ -668,8 +668,9 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             im.close()
             processed_data = self.first_collection(input)
             processed_data_file = ContentFile(json.dumps(processed_data))
-            pic_model.esNote_score_data.save("processed_predict_data_%s.json" % pic_model.esNote_score_pic.name.split('.')[0],
-                                             processed_data_file)
+            pic_model.esNote_score_processed_data.save(
+                "processed_predict_data_%s.json" % pic_model.esNote_score_pic.name.split('.')[0],
+                processed_data_file)
             imglist = self.create_all_bar(processed_data)
             for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
                 i.delete()
@@ -1026,13 +1027,84 @@ class get_score_media(viewsets.GenericViewSet, mixins.ListModelMixin):
         esNote_score__noteID = request.GET.get('id')
         try:
             esNote_score = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0]
+            pic_model = esNote_score_pic_model.objects.filter(esNote_score__noteID=esNote_score__noteID).order_by(
+                'order')
             owner = esNote_score_model.objects.filter(noteID=esNote_score__noteID)[0].user
         except IndexError:
             raise NotFound("please check id.")
         if not (user == owner or request.user.is_staff):
             raise AuthenticationFailed("Permission deny.")
+        processed_jsons = []
+        for i in pic_model:
+            with i.esNote_score_processed_data.open() as file:
+                processedJson = json.load(file)
+                print(type(processedJson))
+                processed_jsons.append(processedJson)
+        self.convert_to_MP3(self.createWAV(self.createMIDI(processed_jsons)), esNote_score)
+
         if esNote_score.media:
             return_json = {'media': esNote_score.media.url}
         else:
             raise NotFound("music not found.")
         return Response(return_json)
+
+    def play_note(self, note, length, track, base_num=[0], delay=0, velocity=1.0, channel=0, bpm=37.5):
+        meta_time = 60 * 60 * 10 / bpm
+        major_notes = [0, 2, 2, 1, 2, 2, 2, 1]
+        base_note = 60
+        track.append(mido.Message('note_on', note=base_note + int(base_num[0]) * 12 + sum(major_notes[0:note[0]]),
+                                  velocity=round(64 * velocity), time=round(delay * meta_time), channel=0))
+        if len(note) > 1:
+            track.append(mido.Message('note_on', note=base_note + int(base_num[1]) * 12 + sum(major_notes[0:note[1]]),
+                                      velocity=round(64 * velocity), time=round(delay * meta_time), channel=1))
+        track.append(mido.Message('note_off', note=base_note + int(base_num[0]) * 12 + sum(major_notes[0:note[0]]),
+                                  velocity=round(64 * velocity), time=round(meta_time * length), channel=0))
+        if len(note) > 1:
+            track.append(mido.Message('note_off', note=base_note + int(base_num[1]) * 12 + sum(major_notes[0:note[1]]),
+                                      velocity=round(64 * velocity), time=0, channel=1))
+
+    def createMIDI(self, jfs):
+        mid = mido.MidiFile()
+        track = mido.MidiTrack()
+        mid.tracks.append(track)
+        temp = tempfile.NamedTemporaryFile()
+        for jf in jfs:
+            for line in jf["lines"]:
+                for bar in line:
+                    for note in bar:
+                        if note["type"] == "single note":
+                            self.play_note(note["name"],
+                                           2 / int(note["length"]) + (1 / int(note["length"])) * note["dotted"] * 0,
+                                           track,
+                                           base_num=note["pitch"])
+                        elif note["type"] == "tuple note":
+                            for single in note["group"]:
+                                self.play_note(single["name"],
+                                               2 / int(single["length"]) + (1 / int(single["length"])) * single[
+                                                   "dotted"] * 0,
+                                               track, base_num=single["pitch"])
+                        elif note["type"] == "rest":
+                            self.play_note([0],
+                                           2 / int(note["length"]) + (1 / int(note["length"])) * note["dotted"] * 0,
+                                           track,
+                                           velocity=0.0)
+        mid._save(temp)
+        temp.seek(0)
+        return temp
+
+    def createWAV(self, MIDI):
+        WAV = tempfile.NamedTemporaryFile()
+        fs = FluidSynth()
+        fs.midi_to_audio(MIDI.name, WAV.name)
+        WAV.seek(0)
+        MIDI.close()
+        return WAV
+
+    def convert_to_MP3(self, WAV, instance):
+        MP3 = tempfile.NamedTemporaryFile()
+        AudioSegment.from_wav(WAV.name).export(MP3.name, format="mp3")
+        MP3.seek(0)
+        WAV.close()
+        f = open(MP3.name, 'rb')
+        instance.media.save("%s.mp3" % instance.scoreName, File(f))
+        f.close()
