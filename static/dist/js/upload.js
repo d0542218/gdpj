@@ -165,6 +165,7 @@ $('#step-2-next').click(function() {
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
                 getfile(id,token);
+                getMedia(id,token);
             }
         })
         .fail(function (jqXHR, textStatus, errorThrown){
@@ -271,3 +272,20 @@ $('#downloadType').on('change', function(){
     var token = sessionStorage.getItem('access').replace(/\"/g,"");
     getfile(id,token);
 })
+function getMedia(id,token){
+ $.ajax({
+    url:"api/v1/get_score_media?id="+id,
+    method:"GET",
+    dataType:"JSON",
+    headers:{
+        "Authorization":"bearer  "+token,
+    },
+    contentType:"application/json"
+}).done(function(data){
+    console.log(data);
+})
+.fail(function(jqXHR, textStatus, errorThrown){
+    var error = JSON.parse(JSON.stringify(jqXHR));
+    console.log(error+textStatus+errorThrown);
+});
+}
