@@ -160,18 +160,19 @@ $('#step-2-next').click(function() {
                 $('#step3-wrap2').append("<a href='"+predictIMG.simple_url[j]+"'><img src= '"+predictIMG.simple_url[j]+"'></a>");
             }
             if(step3Flag==file_count){
+                getMedia(id,token);
                 $( "body" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
-                getfile(id,token);
-                getMedia(id,token);
+                getfile(id,token);   
             }
         })
         .fail(function (jqXHR, textStatus, errorThrown){
             step3Flag++;
             // alert(jqXHR+textStatus+errorThrown);
             if(step3Flag==file_count){
+                getMedia(id,token);
                 $( "body" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
@@ -284,8 +285,8 @@ function getMedia(id,token){
     contentType:"application/json"
 }).done(function(data){
     var step3Media = JSON.parse(JSON.stringify(data));
-    console.log(step3Media);
     $('#step3Player').append("<souerce src='"+step3Media.media+"' type='audio/mpeg>'");
+    console.log($('#step3Player'));
 })
 .fail(function(jqXHR, textStatus, errorThrown){
     var error = JSON.parse(JSON.stringify(jqXHR));
