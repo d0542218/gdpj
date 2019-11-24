@@ -25,6 +25,8 @@ import rest_framework_simplejwt.exceptions
 from urllib.parse import quote
 import math
 import zipfile
+import mido
+from midi2audio import FluidSynth
 
 
 # Create your views here.
@@ -405,7 +407,7 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             returnJson['lines'] = self.createLines(inputjson['lines'])
         with open('returnJson.json', 'w') as outfile:
             json.dump(returnJson, outfile)
-        return self.create_all_bar(returnJson)
+        return returnJson
 
     def use_pitch_get_char(self, name, pitch, length, space, dotted, multiple=False, end=False):
         returnstr = ''
@@ -664,7 +666,11 @@ class model_get_predict_pictures(viewsets.GenericViewSet, mixins.ListModelMixin)
             byte_data = output_buffer.getvalue()
             base64_str = base64.b64encode(byte_data)
             im.close()
-            imglist = self.first_collection(input)
+            processed_data = self.first_collection(input)
+            processed_data_file = ContentFile(json.dumps(processed_data))
+            pic_model.esNote_score_data.save("processed_predict_data_%s.json" % pic_model.esNote_score_pic.name.split('.')[0],
+                                             processed_data_file)
+            imglist = self.create_all_bar(processed_data)
             for i in esNote_simple_score_pic_model.objects.filter(score_pic=pic_model):
                 i.delete()
             for index, i in enumerate(imglist):
