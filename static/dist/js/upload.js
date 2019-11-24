@@ -249,10 +249,10 @@ $("#step3Input").on("change paste", function() {
 });
 function changeOrder(id,token,new_order){
     $.ajax({
-       url:"/api/v1/change_order_of_pics_2/",
-       method: "POST",
-       dataType:'json',
-       headers:{
+     url:"/api/v1/change_order_of_pics_2/",
+     method: "POST",
+     dataType:'json',
+     headers:{
         "Authorization": "bearer "+token,
     },
     contentType:"application/json",
@@ -274,12 +274,12 @@ $('#downloadType').on('change', function(){
     getfile(id,token);
 })
 function getMedia(id,token){
-   $.ajax({
+ $.ajax({
     url:"api/v1/get_score_media?id="+id,
     method:"GET",
     dataType:"JSON",
     headers:{
-        "Authorization":"bearer  "+token,
+        "Authorization": "bearer "+token,
     },
     contentType:"application/json"
 }).done(function(data){
