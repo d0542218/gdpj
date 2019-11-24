@@ -156,16 +156,19 @@ $('#step-2-next').click(function() {
             step3Flag++;
             var predictIMG = JSON.parse(JSON.stringify(data));
             $('#step3-wrap1').append("<a href='data:image/png;base64,"+predictIMG.pic +"'><img src= 'data:image/png;base64,"+predictIMG.pic +"'></a>");
-            for(j=0;j<predictIMG.simple_url.length;j++){
-                $('#step3-wrap2').append("<a href='"+predictIMG.simple_url[j]+"'><img src= '"+predictIMG.simple_url[j]+"'></a>");
+            if(predictIMG.simple_url.length!=null){
+                for(j=0;j<predictIMG.simple_url.length;j++){
+                    $('#step3-wrap2').append("<a href='"+predictIMG.simple_url[j]+"'><img src= '"+predictIMG.simple_url[j]+"'></a>");
+                }
             }
             if(step3Flag==file_count){
                 getMedia(id,token);
+                sleep(500);
                 $( "body" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
-                getfile(id,token);   
+                getfile(id,token);
             }
         })
         .fail(function (jqXHR, textStatus, errorThrown){
@@ -178,7 +181,6 @@ $('#step-2-next').click(function() {
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
                 getfile(id,token);
-                getMedia(id,token);
             }
         });
         sleep(1500);
