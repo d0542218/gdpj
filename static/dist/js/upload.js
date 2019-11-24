@@ -285,8 +285,8 @@ function getMedia(id,token){
     contentType:"application/json"
 }).done(function(data){
     var step3Media = JSON.parse(JSON.stringify(data));
-    $('#step3Player').attr("src",step3Media.media);
-    console.log($('#step3Player'));
+    $('#midiSource').attr("src",step3Media.media);
+    $("midiPlayer").load();
 })
 .fail(function(jqXHR, textStatus, errorThrown){
     var error = JSON.parse(JSON.stringify(jqXHR));
