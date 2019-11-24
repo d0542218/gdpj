@@ -26,6 +26,7 @@ class esNote_score_pic_model(models.Model):
     esNote_score_resize_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     esNote_score_predict_pic = models.ImageField(max_length=100, null=False, default="Images/noimg.png")
     esNote_score_data = models.FileField(null=True)
+    esNote_score_processed_data = models.FileField(null=True)
 
 
     def save(self, *args, **kwargs):
