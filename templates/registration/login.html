@@ -32,10 +32,7 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
 
 <body class="hold-transition login-page">
     <div class="login-box">
-        <div class="login-logo">
-            
-        </div>
-        <!-- /.login-logo -->
+        <div class="login-logo"></div>
         <div class="login-box-body">
             <p class="login-box-msg">登入您的帳號</p>
             <form name="loginForm" method="POST">
@@ -52,47 +49,43 @@ href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,30
                     <input type="password" class="form-control" placeholder="Password"name="PW" autocomplete>
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
-<!--                 <div class="row">
+                <div class="row">
                     <div class="col-xs-8">
-                        <div class="checkbox icheck">
+<!--                         <div class="checkbox icheck">
                             <label>
                               <input type="checkbox"> 記住我的帳號
-                          </label>
+                          </label> -->
                       </div>
-                  </div> -->
-                  <!-- /.col -->
-                  <div class="col-xs-4">
-                    <button type="button" class="btn btn-primary btn-block btn-flat" onclick="login()" id="login_btn">登入</button>
+                      <div class="col-xs-4">
+                        <button type="button" class="btn btn-primary btn-block btn-flat" onclick="login()" id="login_btn">登入</button>
+                    </div>
                 </div>
-                <!-- /.col -->
-            </div>
-        </form>
-<!--         <a href="#">I forgot my password</a><br> -->
-        <a href="../../register" class="text-center">註冊一個新帳號</a>
+            </form>
+            <a href="../../register" class="text-center">註冊一個新帳號</a>
+        </div>
     </div>
-</div>
 
-<!-- jQuery 3 -->
-<script src="../../static/bower/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="../../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- iCheck -->
-<script src="../../static/iCheck/icheck.min.js"></script>
-<script src="../../static/dist/js/login.js"></script>
-<script>
-    $(function () {
-        $('input').iCheck({
-            checkboxClass: 'icheckbox_square-blue',
-            radioClass: 'iradio_square-blue',
-            increaseArea: '20%' /* optional */
+    <!-- jQuery 3 -->
+    <script src="../../static/bower/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="../../static/bower/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+    <script src="../../static/iCheck/icheck.min.js"></script>
+    <script src="../../static/dist/js/login.js"></script>
+    <script>
+        $(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' /* optional */
+            });
         });
-    });
-    $(document).keyup(function(event){
-        if(event.keyCode ==13){
-          $("#login_btn").trigger("click");
-      }
-  });
-</script>
+        $(document).keyup(function(event){
+            if(event.keyCode ==13){
+              $("#login_btn").trigger("click");
+          }
+      });
+  </script>
 </body>
 
 </html>
