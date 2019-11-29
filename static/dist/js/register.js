@@ -21,6 +21,7 @@ function register(){
 			success: function(data){
 				sessionStorage.setItem('username',JSON.stringify(username));
 				sessionStorage.setItem('password',JSON.stringify(pw));
+				userActivation(JSON.stringify(data.user_id));
 				alert("註冊成功");
 				window.location.href='../account/login';
 			},
@@ -44,4 +45,19 @@ function register(){
 			}
 		})
 	}
+}
+function userActivation(id){
+	$.ajax({
+		type:"POST",
+		url:"/api/v1/activation/",
+		contentType:"application/json",
+		dataType:"json",
+		data:JSON.stringify({
+			"user_id": id,
+		})
+	}).done(function(data){
+	}).fail(function(jqXHR, textStatus, errorThrown){
+		var error = JSON.parse(JSON.stringify(jqXHR));
+		console.log(error+textStatus+errorThrown);
+	})
 }
