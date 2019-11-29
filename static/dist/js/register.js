@@ -9,7 +9,7 @@ function register(){
 	}else{
 		$.ajax({
 			type:"POST",
-			url:"/auth/users/create/",
+			url:"/auth/users/",
 			contentType:"application/json",
 			dataType:"json",
 			async: false,
