@@ -3969,6 +3969,7 @@ table.text-center th {
 
 .login-page,
 .register-page {
+    background-image: url("../../static/dist/img/LRBD.jpg");
     background: #d2d6de;
 }
 
