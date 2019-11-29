@@ -189,67 +189,68 @@
                                         <div class="row justify-content-center">
                                             <audio id='midiPlayer' controls>
                                                 <source src="" type="audio/mpeg" id ='midiSource'>
-                                            </audio>
-                                        </div>
-                                        <div class="row justify-content-center">
-                                            <select class="selectpicker " id='downloadType' data-style='btn-primary'>
-                                                <option value="ZIP">JPG</option>
-                                                <option value="PDF">PDF</option>
-                                            </select>
-                                            <div class="btn btn-primary" id='downloadContent'>
-                                                <a href="#" id='step-3-download'></a>
-                                                <i class="fa fa-download"></i>
-                                                <span>下載</span>
+                                                </audio>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <select class="selectpicker " id='downloadType' data-style='btn-primary'>
+                                                    <option value="ZIP">JPG</option>
+                                                    <option value="PDF">PDF</option>
+                                                </select>
+                                                <a href="#" id='step-3-download'>
+                                                    <div class="btn btn-primary">
+                                                        <i class="fa fa-download"></i>
+                                                        <span>下載</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="row justify-content-center">
+                                                <a href="../" style="margin-top: 5%;"><img src="../static/dist/img/home_but.svg"></a>
                                             </div>
                                         </div>
-                                        <div class="row justify-content-center">
-                                            <a href="../" style="margin-top: 5%;"><img src="../static/dist/img/home_but.svg"></a>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <script type="text/javascript">
-           function logout(){
-            sessionStorage.clear();
-            $(".navbar-custom-menu ul").empty();
-            $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
-            window.location.reload();
-        } 
-    </script>
-    <script src="../static/node_modules/popper.js/dist/umd/popper.js"></script>
-    <script src="../static/bower/jquery/dist/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-    <!-- bsstepper -->
-    <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
-    <!-- SlimScroll -->
-    <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <!-- FastClick -->
-    <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
-    <!-- AdminLTE App -->
-    <script src="../static/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../static/dist/js/demo.js"></script>
-    <!-- SmoothProduc for step2 -->
-    <script src="../static/dist/js/smoothproducts.js"></script>
-    <!-- I write js for change login -->
-    <script src="../static/dist/js/checkLogin.js"></script>
-    <!-- 'I write js for upload' -->
-    <script src="../static/dist/js/upload.js"></script>
-    <!-- 'bs-stepper ready funtion'-->
-    <script src="../static/dist/js/stepperReady.js"></script>
-    <!-- loading -->
-    <script src="../static/node_modules/jquery-easy-loading/dist/jquery.loading.min.js"></script>
-    <!-- select -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dropdown/2.0.3/jquery.dropdown.min.js"></script>
-    <script src="../static/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+            <script type="text/javascript">
+             function logout(){
+                sessionStorage.clear();
+                $(".navbar-custom-menu ul").empty();
+                $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
+                window.location.reload();
+            } 
+        </script>
+        <script src="../static/node_modules/popper.js/dist/umd/popper.js"></script>
+        <script src="../static/bower/jquery/dist/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <!-- bsstepper -->
+        <script src="../static/node_modules/bs-stepper/dist/js/bs-stepper.min.js"></script>
+        <!-- SlimScroll -->
+        <script src="../static/bower/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- FastClick -->
+        <script src="../static/node_modules/fastclick/lib/fastclick.js"></script>
+        <!-- AdminLTE App -->
+        <script src="../static/dist/js/adminlte.min.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="../static/dist/js/demo.js"></script>
+        <!-- SmoothProduc for step2 -->
+        <script src="../static/dist/js/smoothproducts.js"></script>
+        <!-- I write js for change login -->
+        <script src="../static/dist/js/checkLogin.js"></script>
+        <!-- 'I write js for upload' -->
+        <script src="../static/dist/js/upload.js"></script>
+        <!-- 'bs-stepper ready funtion'-->
+        <script src="../static/dist/js/stepperReady.js"></script>
+        <!-- loading -->
+        <script src="../static/node_modules/jquery-easy-loading/dist/jquery.loading.min.js"></script>
+        <!-- select -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dropdown/2.0.3/jquery.dropdown.min.js"></script>
+        <script src="../static/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
-    <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
+        <script type='text/javascript' src='//www.midijs.net/lib/midi.js'></script>
 
-</body>
+    </body>
 
-</html>
+    </html>
