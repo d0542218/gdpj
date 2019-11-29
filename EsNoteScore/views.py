@@ -1108,3 +1108,16 @@ class get_score_media(viewsets.GenericViewSet, mixins.ListModelMixin):
         f = open(MP3.name, 'rb')
         instance.media.save("%s.mp3" % instance.scoreName, File(f))
         f.close()
+
+
+class activation(viewsets.GenericViewSet, mixins.CreateModelMixin):
+    queryset = esNote_score_model.objects.all()
+
+    def create(self, request, *args, **kwargs):
+        user_id = request.data.get('user_id')
+        if not user_id:
+            raise ParseError("user_id is null")
+        else:
+            user = User.objects.get(id=int(user_id))
+            user.is_active = True
+        return Response({"user_name":user.username,'user_is_active':user.is_active})

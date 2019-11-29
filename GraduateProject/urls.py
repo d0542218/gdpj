@@ -38,6 +38,7 @@ router.register('change_order_of_pics_2', views.change_order_of_pics_2)
 router.register('get_simple_score', views.get_simple_score)
 router.register('change_score_name2', views.change_score_name2)
 router.register('get_score_media', views.get_score_media)
+router.register('activation', views.activation)
 
 
 
