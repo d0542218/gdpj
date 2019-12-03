@@ -74,7 +74,7 @@ $('#step-1-next').click(function() {
         var token = sessionStorage.getItem('access');
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
-            $( ".bs-stepper-content" ).loading({
+            $( "body" ).loading({
                 overlay: $("#loader")
             });
             $.ajax({
@@ -119,7 +119,7 @@ $('#step-2-previous').click(function(){
             "Authorization": "bearer "+token,
         },
         success: function(data) {
-            $( ".bs-stepper-content" ).loading({
+            $( "body" ).loading({
                 overlay: $("#loader")
             });
             window.location.reload();
@@ -146,7 +146,7 @@ $('#step-2-next').click(function() {
     }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
-    $( ".bs-stepper-content" ).loading({
+    $( "body" ).loading({
         overlay: $("#loader")
     });
     var step3Flag = 0;
