@@ -40,6 +40,7 @@
 
 
 <body class="hold-transition skin-blue sidebar-mini">
+    <div class="lds-dual-ring" id="loader" style="display: none;"></div>
     <!-- Site wrapper -->
     <script>
         var stepper1 = null;
@@ -106,7 +107,6 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
             </section>
-            <div class="lds-dual-ring" id="loader" style="display: none;"></div>
             <!-- Main content -->
             <section class="content">
 
@@ -214,7 +214,7 @@
                 </div>
             </div>
             <script type="text/javascript">
-             function logout(){
+               function logout(){
                 sessionStorage.clear();
                 $(".navbar-custom-menu ul").empty();
                 $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
