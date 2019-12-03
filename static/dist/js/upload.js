@@ -97,7 +97,7 @@ $('#step-1-next').click(function() {
                         i+=1;    
                     })
                     $('#step2-wrap').smoothproducts('#step2-wrap');
-                    $( "content-wrapper" ).loading( "stop" );
+                    $( ".content-wrapper" ).loading( "stop" );
                     stepper1.next();
                     return data;
                 },
@@ -119,11 +119,11 @@ $('#step-2-previous').click(function(){
             "Authorization": "bearer "+token,
         },
         success: function(data) {
-            $( "content-wrapper" ).loading({
+            $( ".content-wrapper" ).loading({
                 overlay: $("#loader")
             });
             window.location.reload();
-            $( "content-wrapper" ).loading( "stop" );
+            $( ".content-wrapper" ).loading( "stop" );
         },
         error: function(msg){
             console.log(msg);
@@ -146,7 +146,7 @@ $('#step-2-next').click(function() {
     }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
-    $( "content-wrapper" ).loading({
+    $( ".content-wrapper" ).loading({
         overlay: $("#loader")
     });
     var step3Flag = 0;
@@ -170,7 +170,7 @@ $('#step-2-next').click(function() {
             if(step3Flag==file_count){
                 getMedia(id,token);
                 sleep(500);
-                $( "content-wrapper" ).loading( "stop" );
+                $( ".content-wrapper" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
@@ -182,7 +182,7 @@ $('#step-2-next').click(function() {
             // alert(jqXHR+textStatus+errorThrown);
             if(step3Flag==file_count){
                 getMedia(id,token);
-                $( "content-wrapper" ).loading( "stop" );
+                $( ".content-wrapper" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
