@@ -75,7 +75,7 @@ $('#step-1-next').click(function() {
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
             $( "body" ).loading({
-                overlay: $("#custom-overlay")
+                overlay: $(".loader")
             });
             $.ajax({
                 url: "/api/v1/uploadImages/",
@@ -120,7 +120,7 @@ $('#step-2-previous').click(function(){
         },
         success: function(data) {
             $( "body" ).loading({
-                overlay: $("#custom-overlay")
+                overlay: $(".loader")
             });
             window.location.reload();
             $( "body" ).loading( "stop" );
@@ -147,7 +147,7 @@ $('#step-2-next').click(function() {
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
     $( "body" ).loading({
-        overlay: $("#custom-overlay")
+        overlay: $(".loader")
     });
     var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
