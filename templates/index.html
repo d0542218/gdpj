@@ -106,7 +106,7 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
             </section>
-
+            <div class="lds-dual-ring" id="loader" style="display: none;"></div>
             <!-- Main content -->
             <section class="content">
 
@@ -137,8 +137,6 @@
                                 </div>
                             </div>
                             <div class="bs-stepper-content">
-                                <div class="lds-dual-ring" id="loader" style="display: none;"></div>
-
                                 <form onsubmit="return false" action="" method="GET">
                                     <div id="test-l-1" role="tabpanel" class="bs-stepper-pane active" aria-labelledby="stepper1trigger1">
                                         <div class="row">
@@ -216,7 +214,7 @@
                 </div>
             </div>
             <script type="text/javascript">
-               function logout(){
+             function logout(){
                 sessionStorage.clear();
                 $(".navbar-custom-menu ul").empty();
                 $(".navbar-custom-menu ul").append('<li><a href="/account/login" class="btn btn-outline-primary">登入</a><a href="/register" class="btn btn-primary">註冊</a></li>');
