@@ -74,7 +74,9 @@ $('#step-1-next').click(function() {
         var token = sessionStorage.getItem('access');
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
-            $( "body" ).loading();
+            $( "body" ).loading({
+                overlay: $("#custom-overlay")
+            });
             $.ajax({
                 url: "/api/v1/uploadImages/",
                 method: "POST",
@@ -117,7 +119,9 @@ $('#step-2-previous').click(function(){
             "Authorization": "bearer "+token,
         },
         success: function(data) {
-            $( "body" ).loading();
+            $( "body" ).loading({
+                overlay: $("#custom-overlay")
+            });
             window.location.reload();
             $( "body" ).loading( "stop" );
         },
@@ -142,7 +146,9 @@ $('#step-2-next').click(function() {
     }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
-    $( "body" ).loading();
+    $( "body" ).loading({
+        overlay: $("#custom-overlay")
+    });
     var step3Flag = 0;
     for(i=1;i<file_count+1;i++){
         $.ajax({
