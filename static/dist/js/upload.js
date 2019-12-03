@@ -75,7 +75,7 @@ $('#step-1-next').click(function() {
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
             $( "body" ).loading({
-                overlay: $(".loader")
+                overlay: $("#loader")
             });
             $.ajax({
                 url: "/api/v1/uploadImages/",
