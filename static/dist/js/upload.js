@@ -74,6 +74,7 @@ $('#step-1-next').click(function() {
         var token = sessionStorage.getItem('access');
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
+            $("body").loading();
             $( "body" ).loading({
                 overlay: $("#loader")
             });
@@ -119,6 +120,7 @@ $('#step-2-previous').click(function(){
             "Authorization": "bearer "+token,
         },
         success: function(data) {
+            $("body").loading();
             $( "body" ).loading({
                 overlay: $("#loader")
             });
@@ -146,6 +148,7 @@ $('#step-2-next').click(function() {
     }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
+    $("body").loading();
     $( "body" ).loading({
         overlay: $("#loader")
     });
