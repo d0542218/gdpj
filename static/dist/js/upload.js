@@ -74,7 +74,7 @@ $('#step-1-next').click(function() {
         var token = sessionStorage.getItem('access');
         token=token.replace(/\"/g,"");
         if ((yesUpload == true)){
-            $( "body" ).loading({
+            $( ".bs-stepper-content" ).loading({
                 overlay: $("#loader")
             });
             $.ajax({
@@ -97,7 +97,7 @@ $('#step-1-next').click(function() {
                         i+=1;    
                     })
                     $('#step2-wrap').smoothproducts('#step2-wrap');
-                    $( "body" ).loading( "stop" );
+                    $( ".bs-stepper-content" ).loading( "stop" );
                     stepper1.next();
                     return data;
                 },
@@ -119,11 +119,11 @@ $('#step-2-previous').click(function(){
             "Authorization": "bearer "+token,
         },
         success: function(data) {
-            $( "body" ).loading({
+            $( ".bs-stepper-content" ).loading({
                 overlay: $("#loader")
             });
             window.location.reload();
-            $( "body" ).loading( "stop" );
+            $( ".bs-stepper-content" ).loading( "stop" );
         },
         error: function(msg){
             console.log(msg);
@@ -146,7 +146,7 @@ $('#step-2-next').click(function() {
     }
     $('#step3-content1').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap1'></div>");
     $('#step3-content2').append("<div class='sp-wrap' style='display: inline-block;' id='step3-wrap2'></div>");
-    $( "body" ).loading({
+    $( ".bs-stepper-content" ).loading({
         overlay: $("#loader")
     });
     var step3Flag = 0;
@@ -170,7 +170,7 @@ $('#step-2-next').click(function() {
             if(step3Flag==file_count){
                 getMedia(id,token);
                 sleep(500);
-                $( "body" ).loading( "stop" );
+                $( ".bs-stepper-content" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
@@ -182,7 +182,7 @@ $('#step-2-next').click(function() {
             // alert(jqXHR+textStatus+errorThrown);
             if(step3Flag==file_count){
                 getMedia(id,token);
-                $( "body" ).loading( "stop" );
+                $( ".bs-stepper-content" ).loading( "stop" );
                 $('#step3-content1').smoothproducts('#step3-content1');
                 $('#step3-content2').smoothproducts('#step3-content2');
                 stepper1.next();
