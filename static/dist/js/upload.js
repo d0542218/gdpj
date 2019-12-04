@@ -103,6 +103,7 @@ $('#step-1-next').click(function() {
                     removeElement('loader');
                     var loader = document.createElement("div");
                     loader.setAttribute('id','loader');
+                    loader.style.display = "none";
                     var ring = document.createElement("div");
                     ring.setAttribute('class','lds-dual-ring');
                     loader.appendChild(ring);
