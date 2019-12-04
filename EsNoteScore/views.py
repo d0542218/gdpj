@@ -1048,7 +1048,7 @@ class get_score_media(viewsets.GenericViewSet, mixins.ListModelMixin):
             raise NotFound("music not found.")
         return Response(return_json)
 
-    def play_note(self, note, length, track, base_num=[0], delay=0, velocity=1.0, channel=0, bpm=37.5):
+    def play_note(self, note, length, track, base_num=[0], delay=0, velocity=1.9, channel=0, bpm=37.5):
         meta_time = 60 * 60 * 10 / bpm
         major_notes = [0, 2, 2, 1, 2, 2, 2, 1]
         base_note = 60
