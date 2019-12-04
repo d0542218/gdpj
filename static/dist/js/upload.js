@@ -100,6 +100,13 @@ $('#step-1-next').click(function() {
                     $('#step2-wrap').smoothproducts('#step2-wrap');
                     $( "body" ).loading( "stop" );
                     stepper1.next();
+                    removeElement('loader');
+                    var loader = document.createElement("div");
+                    loader.setAttribute('id','loader');
+                    var ring = document.createElement("div");
+                    ring.setAttribute('class','lds-dual-ring');
+                    loader.appendChild(ring);
+                    document.body.appendChild(loader);
                     return data;
                 },
                 error: function(msg){
@@ -119,8 +126,7 @@ $('#step-2-previous').click(function(){
         headers: {
             "Authorization": "bearer "+token,
         },
-        success: function(data) {
-        
+        success: function(data) {   
             $( "body" ).loading({
                 overlay: $("#loader")
             });
@@ -302,4 +308,9 @@ function getMedia(id,token){
     var error = JSON.parse(JSON.stringify(jqXHR));
     console.log(error+textStatus+errorThrown);
 });
+}
+function removeElement(elementId) {
+    // Removes an element from the document
+    var element = document.getElementById(elementId);
+    element.parentNode.removeChild(element);
 }
