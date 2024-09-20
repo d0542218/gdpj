@@ -7,7 +7,7 @@ django-templated-mail==1.1.1
 djangorestframework==3.15.2
 djangorestframework-simplejwt==4.3.0
 djoser==2.0.1
-idna==2.8
+idna==3.7
 oauthlib==3.0.1
 Pillow==10.3.0
 PyJWT==1.7.1
